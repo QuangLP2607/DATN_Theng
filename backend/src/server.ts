@@ -4,7 +4,6 @@ import http from "http";
 import { Server } from "socket.io";
 
 import app from "./app";
-import { initSheetSocket } from "./socket/sheet.socket";
 
 const PORT = Number(process.env.PORT || 5000);
 
@@ -17,8 +16,6 @@ const startServer = async (): Promise<void> => {
       credentials: true,
     },
   });
-
-  initSheetSocket(io);
 
   httpServer.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 Server running on http://192.168.0.3:${PORT}`);

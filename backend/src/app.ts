@@ -7,8 +7,6 @@ import notFoundHandler from "./middlewares/notFound";
 
 import authRoutes from "./modules/auth/router";
 // import userRoutes from "./modules/user/router";
-import workbookRoutes from "./modules/workbook/router";
-import sheetRoutes from "./modules/sheet/router";
 
 const app = express();
 
@@ -38,8 +36,6 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 // app.use("/api/user", userRoutes);
-app.use("/api/workbooks", workbookRoutes);
-app.use("/api/sheets", sheetRoutes);
 
 /*
  * 404
