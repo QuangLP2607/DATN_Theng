@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: stretch;
+}
+
+.trigger {
+  display: flex;
+  align-items: stretch;
+}
+
+.dropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  box-sizing: border-box;
+  max-height: calc(100vh - 16px);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px 2px rgb(0 0 0 / 15%);
+
+  user-select: none;
+  visibility: hidden;
+}

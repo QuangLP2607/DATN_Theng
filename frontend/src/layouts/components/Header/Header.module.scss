@@ -1,0 +1,57 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 68px;
+  padding: 0 28px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-sizing: border-box;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &__title {
+    overflow: hidden;
+    color: #111827;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__extra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    min-height: 60px;
+    padding: 0 16px;
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__actions {
+      gap: 10px;
+    }
+  }
+}

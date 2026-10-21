@@ -1,0 +1,306 @@
+{
+  "Alfa Slab One": {
+    "family": "Alfa Slab One",
+    "source": "https://fonts.gstatic.com/s/alfaslabone/v21/6NUQ8FmMKwSEKjnm5-4v-4Jh2dJhew.woff2"
+  },
+  "Amatic SC": {
+    "family": "Amatic SC",
+    "source": "https://fonts.gstatic.com/s/amaticsc/v28/TUZyzwprpvBS1izr_vOECuSf.woff2"
+  },
+  "Arimo": {
+    "family": "Arimo",
+    "source": "https://fonts.gstatic.com/s/arimo/v36/P5sfzZCDf9_T_3cV7NCUECyoxNk37cxcABrB.woff2"
+  },
+  "BIZ UDGothic": {
+    "family": "BIZ UDGothic",
+    "source": "https://fonts.gstatic.com/s/bizudgothic/v12/daafSTouBF7RUjnbt8p3LuKdsgl8.woff2"
+  },
+  "BIZ UDMincho": {
+    "family": "BIZ UDMincho",
+    "source": "https://fonts.gstatic.com/s/bizudmincho/v11/EJRRQgI6eOxFjBdKs38yhtWFcA76.woff2"
+  },
+  "BIZ UDPGothic": {
+    "family": "BIZ UDPGothic",
+    "source": "https://fonts.gstatic.com/s/bizudpgothic/v16/hES36X5pHAIBjmS84VL0Bue87nIGQA.woff2"
+  },
+  "BIZ UDPMincho": {
+    "family": "BIZ UDPMincho",
+    "source": "https://fonts.gstatic.com/s/bizudpmincho/v11/ypvfbXOBrmYppy7oWWTg1_58rh9StA.woff2"
+  },
+  "Calistoga": {
+    "family": "Calistoga",
+    "source": "https://fonts.gstatic.com/s/calistoga/v18/6NUU8F2OJg6MeR7l4e0fs8wB.woff2"
+  },
+  "Caveat": {
+    "family": "Caveat",
+    "source": "https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpYQ.woff2"
+  },
+  "Comfortaa": {
+    "family": "Comfortaa",
+    "source": "https://fonts.gstatic.com/s/comfortaa/v47/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDrMfIA.woff2"
+  },
+  "Comic Sans MS": {
+    "family": "Comic Sans MS",
+    "source": "https://fonts.gstatic.com/l/font?kit=WWXUljiDYgyJJ8igRvwjKZhbdwvvzQ&skey=a4ba60ff9fc73cf8&v=v20"
+  },
+  "Courier New": {
+    "family": "Courier New",
+    "source": "https://fonts.gstatic.com/l/font?kit=ijwRs57lRMAkZYJiwPkexnNGfJ4&skey=e2fc0b95199b08bc&v=v19"
+  },
+  "Dela Gothic One": {
+    "family": "Dela Gothic One",
+    "source": "https://fonts.gstatic.com/s/delagothicone/v19/hESp6XxvMDRA-2eD0lXpDa6QkBA2QkEI.woff2"
+  },
+  "EB Garamond": {
+    "family": "EB Garamond",
+    "source": "https://fonts.gstatic.com/s/ebgaramond/v33/SlGDmQSNjdsmc35JDF1K5E55YMjF_7DPuGi-6_RkBI9_.woff2"
+  },
+  "Georgia": {
+    "family": "Georgia",
+    "source": "https://fonts.gstatic.com/l/font?kit=-zkl91Ksy8U47Wnsfmm8wQ&skey=ca45512e77838097&v=v18"
+  },
+  "Hachi Maru Pop": {
+    "family": "Hachi Maru Pop",
+    "source": "https://fonts.gstatic.com/s/hachimarupop/v23/HI_TiYoRLqpLrEiMAuO9Ysfz7oWyGs4.woff2"
+  },
+  "Hina Mincho": {
+    "family": "Hina Mincho",
+    "source": "https://fonts.gstatic.com/s/hinamincho/v16/2sDaZGBRhpXa2Jjz5w5LAFW7I7g.woff2"
+  },
+  "IBM Plex Sans JP": {
+    "family": "IBM Plex Sans JP",
+    "source": "https://fonts.gstatic.com/s/ibmplexsansjp/v7/Z9XNDn9KbTDf6_f7dISNqYf_tvPT5C3yiQ.woff2"
+  },
+  "Impact": {
+    "family": "Impact",
+    "source": "https://fonts.gstatic.com/l/font?kit=HhyVU5gq9PCuP11_LNCH&skey=5128cd07406988e&v=v20"
+  },
+  "Kaisei Decol": {
+    "family": "Kaisei Decol",
+    "source": "https://fonts.gstatic.com/s/kaiseidecol/v11/bMrwmSqP45sidWf3QmfFW6iCXFsO.woff2"
+  },
+  "Kaisei HarunoUmi": {
+    "family": "Kaisei HarunoUmi",
+    "source": "https://fonts.gstatic.com/s/kaiseiharunoumi/v11/HI_RiZQSLqBQoAHhK_C6N_nzy_jcKszzsQ.woff2"
+  },
+  "Kaisei Opti": {
+    "family": "Kaisei Opti",
+    "source": "https://fonts.gstatic.com/s/kaiseiopti/v11/QldKNThJphYb8_g6c2nlIGlZ5qg.woff2"
+  },
+  "Kaisei Tokumin": {
+    "family": "Kaisei Tokumin",
+    "source": "https://fonts.gstatic.com/s/kaiseitokumin/v11/Gg8sN5wdZg7xCwuMsylww2ZiQnJY3Fw.woff2"
+  },
+  "Klee One": {
+    "family": "Klee One",
+    "source": "https://fonts.gstatic.com/s/kleeone/v13/LDIxapCLNRc6A8oT4p4HM-Y.woff2"
+  },
+  "Kosugi": {
+    "family": "Kosugi",
+    "source": "https://fonts.gstatic.com/s/kosugi/v19/pxiFyp4_v8FCjlIIM7D7.woff2"
+  },
+  "Kosugi Maru": {
+    "family": "Kosugi Maru",
+    "source": "https://fonts.gstatic.com/s/kosugimaru/v17/0nksC9PgP_wGh21A2KeqGhTtgPs.woff2"
+  },
+  "Lexend": {
+    "family": "Lexend",
+    "source": "https://fonts.gstatic.com/s/lexend/v26/wlptgwvFAVdoq2_F94zlCfv0bz1WCzsWzLdneg.woff2"
+  },
+  "Lobster": {
+    "family": "Lobster",
+    "source": "https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2"
+  },
+  "Lora": {
+    "family": "Lora",
+    "source": "https://fonts.gstatic.com/s/lora/v37/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkq0.woff2"
+  },
+  "M PLUS 1": {
+    "family": "M PLUS 1",
+    "source": "https://fonts.gstatic.com/s/mplus1/v16/R70EjygA28ymD4HgBUGzkN5Eyoj-WpW5VSaL9Xxd.woff2"
+  },
+  "M PLUS 1 Code": {
+    "family": "M PLUS 1 Code",
+    "source": "https://fonts.gstatic.com/s/mplus1code/v17/ypvMbXOOx2xFpzmYJS3N2_J2hBN6RZ5oIp8m_7iN0EHuYJ0.woff2"
+  },
+  "M PLUS 1p": {
+    "family": "M PLUS 1p",
+    "source": "https://fonts.gstatic.com/s/mplus1p/v33/e3tjeuShHdiFyPFzBRrY_zQF.woff2"
+  },
+  "M PLUS 2": {
+    "family": "M PLUS 2",
+    "source": "https://fonts.gstatic.com/s/mplus2/v16/7Auhp_Eq3gO_OGbGGhjdwrDdpeIBxlkwOa6lwVCG.woff2"
+  },
+  "M PLUS Rounded 1c": {
+    "family": "M PLUS Rounded 1c",
+    "source": "https://fonts.gstatic.com/s/mplusrounded1c/v22/VdGEAYIAV6gnpUpoWwNkYvrugw9RuMWBxL4.woff2"
+  },
+  "Merriweather": {
+    "family": "Merriweather",
+    "source": "https://fonts.gstatic.com/s/merriweather/v33/u-4D0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiScCmDxhtNOKl8yDr3icaFF31.woff2"
+  },
+  "Mochiy Pop One": {
+    "family": "Mochiy Pop One",
+    "source": "https://fonts.gstatic.com/s/mochiypopone/v12/QdVPSTA9Jh-gg-5XZP2UmU4O9nw3BXo.woff2"
+  },
+  "Mochiy Pop P One": {
+    "family": "Mochiy Pop P One",
+    "source": "https://fonts.gstatic.com/s/mochiypoppone/v12/Ktk2AKuPeY_td1-h9LayHYWCjAqyB4S9WA.woff2"
+  },
+  "Montserrat": {
+    "family": "Montserrat",
+    "source": "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXo.woff2"
+  },
+  "Murecho": {
+    "family": "Murecho",
+    "source": "https://fonts.gstatic.com/s/murecho/v18/q5uYsoq3NOBn_I-ggCJg98TBOoNFCMpr5UWeJis.woff2"
+  },
+  "New Tegomin": {
+    "family": "New Tegomin",
+    "source": "https://fonts.gstatic.com/s/newtegomin/v13/SLXMc1fV7Gd9USdBAfPlqcNzSXs.woff2"
+  },
+  "Noto Sans JP": {
+    "family": "Noto Sans JP",
+    "source": "https://fonts.gstatic.com/s/notosansjp/v56/-F6jfjtqLzI2JPCgQBnw7HFyzSD-AsregP8VFBEj35zS0w.woff2"
+  },
+  "Nunito": {
+    "family": "Nunito",
+    "source": "https://fonts.gstatic.com/s/nunito/v32/XRXI3I6Li01BKofiOc5wtlZ2di8HDLshdTQ3jw.woff2"
+  },
+  "Oswald": {
+    "family": "Oswald",
+    "source": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2"
+  },
+  "Pacifico": {
+    "family": "Pacifico",
+    "source": "https://fonts.gstatic.com/s/pacifico/v23/FwZY7-Qmy14u9lezJ-6H6Mk.woff2"
+  },
+  "Playfair Display": {
+    "family": "Playfair Display",
+    "source": "https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2"
+  },
+  "Potta One": {
+    "family": "Potta One",
+    "source": "https://fonts.gstatic.com/s/pottaone/v19/FeVSS05Bp6cy7xI-Yfxg2pRm.woff2"
+  },
+  "Proxima Nova": {
+    "family": "Proxima Nova",
+    "source": "https://fonts.gstatic.com/l/font?kit=FwZc7-Am2FI_-VOxaLDvvq27omO7&skey=96867d716c89840e&v=v20"
+  },
+  "Rampart One": {
+    "family": "Rampart One",
+    "source": "https://fonts.gstatic.com/s/rampartone/v13/K2F1fZFGl_JSR1tAWNG9R5qnJy8.woff2"
+  },
+  "Reggae One": {
+    "family": "Reggae One",
+    "source": "https://fonts.gstatic.com/s/reggaeone/v19/7r3DqX5msMIkeuwJwOJtzalB5w.woff2"
+  },
+  "Roboto": {
+    "family": "Roboto",
+    "source": "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiAo.woff2"
+  },
+  "Roboto Mono": {
+    "family": "Roboto Mono",
+    "source": "https://fonts.gstatic.com/s/robotomono/v31/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vq_ROW4.woff2"
+  },
+  "Roboto Serif": {
+    "family": "Roboto Serif",
+    "source": "https://fonts.gstatic.com/s/robotoserif/v17/R71RjywflP6FLr3gZx7K8UyuXDs9zVwDmXCb8lxYgmuii32UGoVldX6UgfjL4-3sMM_kB_qXSEXTJQCFLH5-_bcEliotl6B8AA.woff2"
+  },
+  "RocknRoll One": {
+    "family": "RocknRoll One",
+    "source": "https://fonts.gstatic.com/s/rocknrollone/v16/kmK7ZqspGAfCeUiW6FFlmEC9suJrsg.woff2"
+  },
+  "Sawarabi Gothic": {
+    "family": "Sawarabi Gothic",
+    "source": "https://fonts.gstatic.com/s/sawarabigothic/v17/x3d4ckfVaqqa-BEj-I9mE65u3k39AiM2.woff2"
+  },
+  "Sawarabi Mincho": {
+    "family": "Sawarabi Mincho",
+    "source": "https://fonts.gstatic.com/s/sawarabimincho/v20/8QIRdiDaitzr7brc8ahpxt6GcIJjKqJO.woff2"
+  },
+  "Shippori Antique": {
+    "family": "Shippori Antique",
+    "source": "https://fonts.gstatic.com/s/shipporiantique/v11/-F6qfid3KC8pdMyzR0qRyFUht11vwlBFgg.woff2"
+  },
+  "Shippori Antique B1": {
+    "family": "Shippori Antique B1",
+    "source": "https://fonts.gstatic.com/s/shipporiantiqueb1/v11/2Eb7L_JwClR7Zl_UAKZ0mUHw3oMKd40gnRZIjg.woff2"
+  },
+  "Spectral": {
+    "family": "Spectral",
+    "source": "https://fonts.gstatic.com/s/spectral/v15/rnCr-xNNww_2s0amA9M5kng.woff2"
+  },
+  "Stick": {
+    "family": "Stick",
+    "source": "https://fonts.gstatic.com/s/stick/v20/Qw3TZQpMCyTtJRvYtvQ.woff2"
+  },
+  "Times": {
+    "family": "Times",
+    "source": "https://fonts.gstatic.com/l/font?kit=Jqzt5TCISOWcBhgP_Y0&skey=e66b135641f02eb9&v=v9"
+  },
+  "Times New Roman": {
+    "family": "Times New Roman",
+    "source": "https://fonts.gstatic.com/l/font?kit=3JnlSDvn1nCgiRnceUeBGxJoN45T18t2&skey=f889a07745b51249&v=v18"
+  },
+  "Train One": {
+    "family": "Train One",
+    "source": "https://fonts.gstatic.com/s/trainone/v16/gyB-hwkiNtc6KnxUVjW3PazY.woff2"
+  },
+  "Trebuchet MS": {
+    "family": "Trebuchet MS",
+    "source": "https://fonts.gstatic.com/l/font?kit=5h1diZ4yJ3MPiLu-OzLLCj-qCm5M&skey=7e071cef4f2cf8ce&v=v21"
+  },
+  "Verdana": {
+    "family": "Verdana",
+    "source": "https://fonts.gstatic.com/l/font?kit=dFa_ZfqA86A4lLhf7qRHfw&skey=28f652d19e80fbde&v=v15"
+  },
+  "Yomogi": {
+    "family": "Yomogi",
+    "source": "https://fonts.gstatic.com/s/yomogi/v13/VuJwdNrS2ZL7rpo_X4b4.woff2"
+  },
+  "Yuji Boku": {
+    "family": "Yuji Boku",
+    "source": "https://fonts.gstatic.com/s/yujiboku/v8/P5sAzZybeNzXsA9xj1FUireq.woff2"
+  },
+  "Yuji Mai": {
+    "family": "Yuji Mai",
+    "source": "https://fonts.gstatic.com/s/yujimai/v8/ZgNQjPxdJ7DEHrS0gB37jGA.woff2"
+  },
+  "Yuji Syuku": {
+    "family": "Yuji Syuku",
+    "source": "https://fonts.gstatic.com/s/yujisyuku/v8/BngNUXdTV3vO6Lw5ApOPmPDqww.woff2"
+  },
+  "Yusei Magic": {
+    "family": "Yusei Magic",
+    "source": "https://fonts.gstatic.com/s/yuseimagic/v17/yYLt0hbAyuCmoo5wlhPkpgHW8NY.woff2"
+  },
+  "Zen Antique": {
+    "family": "Zen Antique",
+    "source": "https://fonts.gstatic.com/s/zenantique/v14/AYCPpXPnd91Ma_Zf-Ri2JUJt5vM.woff2"
+  },
+  "Zen Antique Soft": {
+    "family": "Zen Antique Soft",
+    "source": "https://fonts.gstatic.com/s/zenantiquesoft/v14/DtV4JwqzSL1q_KwnEWMc_3xfgW6itwdskw.woff2"
+  },
+  "Zen Kaku Gothic Antique": {
+    "family": "Zen Kaku Gothic Antique",
+    "source": "https://fonts.gstatic.com/s/zenkakugothicantique/v18/6qLQKYkHvh-nlUpKPAdoVFBtfxDzIn1eCzpB22-n1xM.woff2"
+  },
+  "Zen Kaku Gothic New": {
+    "family": "Zen Kaku Gothic New",
+    "source": "https://fonts.gstatic.com/s/zenkakugothicnew/v18/gNMYW2drQpDw0GjzrVNFf_valaDBcznOojxoTA.woff2"
+  },
+  "Zen Kurenaido": {
+    "family": "Zen Kurenaido",
+    "source": "https://fonts.gstatic.com/s/zenkurenaido/v19/3XFsEr0515BK2u6UUptu_gWJVfv82Q.woff2"
+  },
+  "Zen Maru Gothic": {
+    "family": "Zen Maru Gothic",
+    "source": "https://fonts.gstatic.com/s/zenmarugothic/v19/o-0SIpIxzW5b-RxT-6A8jWAtCp-U6khn.woff2"
+  },
+  "Zen Old Mincho": {
+    "family": "Zen Old Mincho",
+    "source": "https://fonts.gstatic.com/s/zenoldmincho/v13/tss0ApVaYytLwxTqcxfMyBveybbwiXw.woff2"
+  }
+}

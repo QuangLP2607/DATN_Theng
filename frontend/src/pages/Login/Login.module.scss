@@ -1,0 +1,20 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(115deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
+  border: 1px solid white;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(13, 17, 65, 0.18);
+}

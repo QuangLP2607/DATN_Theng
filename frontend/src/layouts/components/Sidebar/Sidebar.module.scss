@@ -1,0 +1,450 @@
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  width: 260px;
+  max-width: 100vw;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  color: #cbd5e1;
+  background: #1e1b4b;
+
+  box-sizing: border-box;
+
+  transition:
+    width 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Logo */
+.brand {
+  display: flex;
+  align-items: center;
+
+  padding: 20px 16px 12px;
+
+  white-space: nowrap;
+  user-select: none;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  min-width: 0;
+
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  flex: 0 0 40px;
+
+  width: 40px;
+  height: 40px;
+
+  object-fit: contain;
+}
+
+.brand-name {
+  display: block;
+  flex: 0 0 auto;
+
+  width: 150px;
+  max-width: 150px;
+  height: auto;
+  max-height: 40px;
+
+  object-fit: contain;
+  object-position: left center;
+
+  filter: brightness(0) invert(1);
+
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+
+  transition:
+    max-width 0.25s ease,
+    opacity 0.2s ease,
+    transform 0.25s ease;
+}
+
+/* Thông tin người dùng */
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  margin: 0 12px 16px;
+  padding: 8px 12px;
+
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.user-avatar {
+  display: grid;
+  flex: 0 0 32px;
+
+  width: 32px;
+  height: 32px;
+
+  place-items: center;
+
+  border-radius: 8px;
+  color: #fff;
+  background: #4f46e5;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.user-name {
+  overflow: hidden;
+
+  color: #f8fafc;
+  font-size: 12px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-role {
+  color: #a5b4fc;
+  font-size: 10px;
+}
+
+/* Nhãn vai trò */
+.role-label {
+  padding: 0 12px;
+  margin-bottom: 12px;
+
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+
+  white-space: nowrap;
+}
+
+/* Danh sách menu */
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: 12px 8px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 14px;
+
+  overflow: hidden;
+  border-radius: 8px;
+
+  color: #a5b4fc;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: #fff;
+    background: #312e81;
+  }
+
+  &.active {
+    color: #fff;
+    background: #4f46e5;
+    box-shadow: 0 5px 15px rgb(79 70 229 / 20%);
+  }
+}
+
+/* Khung icon 24px, hình icon thực tế 17px */
+.nav-icon {
+  display: grid;
+  flex: 0 0 24px;
+
+  width: 24px;
+  height: 24px;
+
+  place-items: center;
+
+  font-size: 17px;
+  line-height: 1;
+}
+
+.nav-icon svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+}
+
+/* Nhãn menu */
+.nav-label {
+  min-width: 0;
+  overflow: hidden;
+
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+/* Khu vực dưới cùng */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  padding: 16px 8px 8px;
+  margin-top: auto;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.logout-button,
+.collapse-button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  padding: 12px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: transparent;
+
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.logout-button {
+  color: #fca5a5;
+
+  &:hover {
+    background: #312e81;
+  }
+}
+
+.collapse-button {
+  color: #a5b4fc;
+
+  &:hover {
+    color: #ffffff;
+    background: #312e81;
+  }
+}
+
+/* Sidebar thu gọn */
+.collapsed {
+  width: 64px;
+  max-width: 100vw;
+
+  padding-right: 8px;
+  padding-left: 8px;
+
+  .brand {
+    justify-content: center;
+    padding: 20px 0 12px;
+  }
+
+  .brand-link {
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+  }
+
+  .brand-name {
+    flex: 0 0 auto;
+
+    width: 0;
+    max-width: 0;
+
+    opacity: 0;
+    transform: translateX(-6px);
+
+    pointer-events: none;
+  }
+
+  .user-card,
+  .role-label {
+    display: none;
+  }
+
+  .navigation {
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px;
+    gap: 0;
+
+    box-sizing: border-box;
+  }
+
+  .nav-icon {
+    flex: 0 0 24px;
+
+    width: 24px;
+    height: 24px;
+
+    margin: 0;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .sidebar-bottom {
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0 8px;
+  }
+
+  .logout-button,
+  .collapse-button {
+    justify-content: center;
+
+    padding: 12px;
+    gap: 0;
+
+    box-sizing: border-box;
+  }
+
+  .logout-button > span:not(.nav-icon),
+  .collapse-button > span:not(.nav-icon) {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 260px;
+    max-width: 85vw;
+
+    transform: translateX(-100%);
+    box-shadow: 8px 0 30px rgb(0 0 0 / 15%);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Trên mobile, Sidebar luôn hiển thị đầy đủ nội dung */
+  .sidebar.collapsed {
+    width: 260px;
+    max-width: 85vw;
+
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .sidebar.collapsed .brand {
+    justify-content: flex-start;
+    padding: 20px 2px 12px;
+  }
+
+  .sidebar.collapsed .brand-link {
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .sidebar.collapsed .brand-name {
+    width: 150px;
+    max-width: 150px;
+
+    opacity: 1;
+    transform: translateX(0);
+
+    pointer-events: auto;
+  }
+
+  .sidebar.collapsed .user-card {
+    display: flex;
+  }
+
+  .sidebar.collapsed .role-label {
+    display: block;
+  }
+
+  .sidebar.collapsed .navigation {
+    align-items: stretch;
+    gap: 2px;
+    padding: 12px 8px;
+  }
+
+  .sidebar.collapsed .nav-item {
+    width: auto;
+
+    justify-content: flex-start;
+    padding: 9px 14px;
+    gap: 10px;
+  }
+
+  .sidebar.collapsed .nav-label {
+    display: inline;
+  }
+
+  .sidebar.collapsed .sidebar-bottom {
+    align-items: stretch;
+    padding: 12px 8px 8px;
+  }
+
+  .sidebar.collapsed .logout-button,
+  .sidebar.collapsed .collapse-button {
+    width: 100%;
+
+    justify-content: flex-start;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .sidebar.collapsed .logout-button > span:not(.nav-icon),
+  .sidebar.collapsed .collapse-button > span:not(.nav-icon) {
+    display: inline;
+  }
+}
