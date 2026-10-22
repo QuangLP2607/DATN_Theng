@@ -44,10 +44,7 @@ export default function MainLayout() {
       />
 
       <div className={cx("main")}>
-        <Header
-          user={user}
-          onToggleMenu={() => setMobileOpen((prev) => !prev)}
-        />
+        <Header />
 
         <main className={cx("content")}>
           <Outlet />

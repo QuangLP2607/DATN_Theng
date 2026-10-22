@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import classNames from "classnames/bind";
+
+import Dropdown from "@/components/Dropdown";
 
 import NotificationMenu from "./components/NotificationMenu";
 import UserMenu from "./components/UserMenu";
@@ -30,7 +31,7 @@ export interface HeaderProps {
   avatarUrl?: string | null;
   logout?: () => void;
   notifications?: NotificationItem[];
-  extraRight?: ReactNode;
+  extraRight?: React.ReactNode;
   title?: string;
 }
 
@@ -46,39 +47,8 @@ export default function Header({
 
   const pageTitle = title ?? getPageTitle(pathname);
 
-  const [openMenu, setOpenMenu] = useState<"user" | "notify" | null>(null);
-
-  const headerRef = useRef<HTMLElement>(null);
-
-  // Đóng menu khi chuyển trang
-  useEffect(() => {
-    setOpenMenu(null);
-  }, [pathname]);
-
-  // Đóng menu khi click bên ngoài Header
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node)
-      ) {
-        setOpenMenu(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const toggleMenu = (menu: "user" | "notify") => {
-    setOpenMenu((current) => (current === menu ? null : menu));
-  };
-
   return (
-    <header ref={headerRef} className={cx("header")}>
+    <header className={cx("header")}>
       <div className={cx("header__left")}>
         <span className={cx("header__title")} title={pageTitle}>
           {pageTitle}
@@ -88,22 +58,43 @@ export default function Header({
       <div className={cx("header__actions")}>
         {extraRight && <div className={cx("header__extra")}>{extraRight}</div>}
 
-        <NotificationMenu
-          notifications={notifications}
-          open={openMenu === "notify"}
-          onToggle={() => toggleMenu("notify")}
-        />
+        <Dropdown
+          align="end"
+          offset={8}
+          trigger={({ open, toggle }) => (
+            <NotificationMenu
+              notifications={notifications}
+              open={open}
+              onToggle={toggle}
+            />
+          )}
+        >
+          {({ close }) => (
+            <NotificationMenu.Content
+              notifications={notifications}
+              close={close}
+            />
+          )}
+        </Dropdown>
 
-        <UserMenu
-          avatarUrl={avatarUrl}
-          menuItems={menuItems}
-          open={openMenu === "user"}
-          onToggle={() => toggleMenu("user")}
-          onLogout={() => {
-            setOpenMenu(null);
-            logout?.();
-          }}
-        />
+        <Dropdown
+          align="end"
+          offset={8}
+          trigger={({ open, toggle }) => (
+            <UserMenu avatarUrl={avatarUrl} open={open} onToggle={toggle} />
+          )}
+        >
+          {({ close }) => (
+            <UserMenu.Content
+              menuItems={menuItems}
+              close={close}
+              onLogout={() => {
+                close();
+                logout?.();
+              }}
+            />
+          )}
+        </Dropdown>
       </div>
     </header>
   );
