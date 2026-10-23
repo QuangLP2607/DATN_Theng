@@ -1,8 +1,20 @@
+import CardGrid from "./components/CardGrid";
+import Toolbar from "./components/Toolbar";
+import Pagination from "./components/Pagination";
+
 import classNames from "classnames/bind";
-import styles from "./home.module.scss";
+import styles from "./Classes.module.scss";
 
 const cx = classNames.bind(styles);
 
-export default function Home() {
-  return <div className={cx("wrapper")}>hello student</div>;
+export default function Classes() {
+  return (
+    <main className={cx("wrapper")}>
+      <Toolbar />
+
+      <CardGrid />
+
+      <Pagination />
+    </main>
+  );
 }
