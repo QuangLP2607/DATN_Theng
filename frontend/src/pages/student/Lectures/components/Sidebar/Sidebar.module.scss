@@ -1,5 +1,198 @@
 .wrapper {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: white;
+}
+
+.class-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.class-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.class-info {
+  min-width: 0;
+}
+
+.class-name {
+  overflow: hidden;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher {
+  margin-top: 2px;
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.progress-bar {
   width: 100%;
-  height: 148px;
-  background: red;
+  height: 6px;
+  margin-top: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+}
+
+.chapters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.chapter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chapter-title {
+  padding-bottom: 4px;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lessons {
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  &.active {
+    border-color: #6366f1;
+    background: #eef2ff;
+  }
+}
+
+.lesson-button {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.lesson-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.lesson-content {
+  min-width: 0;
+  display: block;
+}
+
+.lesson-title {
+  display: block;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.duration {
+  display: block;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.complete-button {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: white;
+  color: var(--color-muted);
+  cursor: pointer;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.completed {
+    border-color: #86efac;
+    background: #dcfce7;
+    color: #16a34a;
+  }
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: white;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.15s;
+
+  &:hover {
+    background: #f8fafc;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    position: static;
+    max-height: none;
+  }
 }

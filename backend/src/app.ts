@@ -6,7 +6,7 @@ import errorHandler from "./middlewares/errorHandler";
 import notFoundHandler from "./middlewares/notFound";
 
 import authRoutes from "./modules/auth/router";
-// import userRoutes from "./modules/user/router";
+import usersRoutes from "./modules/users/router";
 
 const app = express();
 
@@ -35,7 +35,7 @@ app.use(cookieParser());
  */
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/user", userRoutes);
+app.use("/api/users", usersRoutes);
 
 /*
  * 404

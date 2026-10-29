@@ -1,0 +1,65 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 24px 28px;
+
+  color: #fff;
+
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.content {
+  min-width: 0;
+}
+
+.subtitle {
+  margin-bottom: 4px;
+
+  color: #c7d2fe;
+  font-size: 13px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+}
+
+.hand-icon {
+  flex-shrink: 0;
+}
+
+.description {
+  margin: 6px 0 0;
+
+  color: #c7d2fe;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.assignment-count {
+  color: #fbbf24;
+}
+
+.exam-count {
+  color: #34d399;
+}
+
+.background-icon {
+  width: 72px;
+  height: 72px;
+
+  flex-shrink: 0;
+
+  color: #fff;
+  opacity: 0.3;
+}

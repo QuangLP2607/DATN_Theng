@@ -1,0 +1,140 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.class-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 24px;
+}
+
+.class-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.class-name {
+  overflow: hidden;
+
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text, #0f172a);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 4px;
+
+  margin-top: 4px;
+
+  color: var(--color-muted);
+  font-size: 12px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+.student-count {
+  gap: 4px;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.code {
+  font-family: var(--font-mono);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: rgb(220, 252, 231);
+  color: rgb(22, 101, 52);
+}
+
+.badge-gray {
+  background: rgb(241, 245, 249);
+  color: rgb(71, 85, 105);
+}
+
+.manage-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 6px;
+
+  background: white;
+  color: var(--color-text, #0f172a);
+
+  font-family: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+
+  &:hover {
+    background: rgb(248, 250, 252);
+    border-color: rgb(203, 213, 225);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

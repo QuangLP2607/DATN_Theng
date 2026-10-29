@@ -1,0 +1,31 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.value.primary {
+  color: var(--color-primary);
+}
+
+.value.success {
+  color: var(--color-success);
+}
+
+.label {
+  color: var(--color-muted);
+  font-size: 12.8px;
+}

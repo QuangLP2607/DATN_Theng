@@ -1,11 +1,28 @@
 .container {
-  display: flex;
-  align-items: stretch;
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
 }
 
 .trigger {
   display: flex;
-  align-items: stretch;
+  min-width: 0;
+}
+
+.matchTriggerWidth {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+
+  > .trigger {
+    width: 100%;
+    min-width: 0;
+
+    > * {
+      width: 100%;
+      min-width: 0;
+    }
+  }
 }
 
 .dropdown {

@@ -12,39 +12,72 @@ if (!connectionString) {
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
+const defaultUsers = [
+  {
+    email: "admin@gmail.com",
+    password: "123456",
+    name: "System Administrator",
+    role: "ADMIN" as const,
+  },
+  {
+    email: "teacher@gmail.com",
+    password: "123456",
+    name: "Default Teacher",
+    role: "TEACHER" as const,
+  },
+  {
+    email: "student@gmail.com",
+    password: "123456",
+    name: "Default Student",
+    role: "STUDENT" as const,
+  },
+];
+
 async function main() {
-  const email = "admin@gmail.com";
-  const password = "123456";
+  for (const user of defaultUsers) {
+    const passwordHash = await bcrypt.hash(user.password, 12);
 
-  const existingAdmin = await prisma.user.findUnique({
-    where: { email },
-  });
+    await prisma.user.upsert({
+      where: { email: user.email },
+      update: {
+        passwordHash,
+        name: user.name,
+        role: user.role,
+        status: "ACTIVE",
+        emailVerifiedAt: new Date(),
+        activationTokenHash: null,
+        activationTokenExpiresAt: null,
+      },
+      create: {
+        email: user.email,
+        passwordHash,
+        name: user.name,
+        role: user.role,
+        status: "ACTIVE",
+        emailVerifiedAt: new Date(),
+        activationTokenHash: null,
+        activationTokenExpiresAt: null,
+      },
+    });
 
-  if (existingAdmin) {
-    console.log(`Admin account already exists: ${email}`);
-    return;
+    console.log(`Seeded ${user.role}: ${user.email}`);
   }
 
-  const passwordHash = await bcrypt.hash(password, 12);
-
-  await prisma.user.create({
-    data: {
+  console.log("\nDefault accounts:");
+  console.table(
+    defaultUsers.map(({ email, password, role }) => ({
       email,
-      passwordHash,
-      name: "System Administrator",
-      role: "ADMIN",
+      password,
+      role,
       status: "ACTIVE",
-    },
-  });
-
-  console.log("Default admin account created successfully!");
-  console.log(`Email: ${email}`);
-  console.log(`Password: ${password}`);
+      emailVerified: true,
+    })),
+  );
 }
 
 main()
   .catch((error) => {
-    console.error("Failed to seed admin account:", error);
+    console.error("Failed to seed default accounts:", error);
     process.exitCode = 1;
   })
   .finally(async () => {

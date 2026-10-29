@@ -498,48 +498,6 @@ export type ExamAttemptScalarRelationFilter = {
   isNot?: Prisma.ExamAttemptWhereInput
 }
 
-export type ExamAttemptCreateNestedManyWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
-  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
-  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-}
-
-export type ExamAttemptUncheckedCreateNestedManyWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
-  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
-  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-}
-
-export type ExamAttemptUpdateManyWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
-  upsert?: Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput[]
-  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
-  set?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  disconnect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  delete?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  update?: Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput[]
-  updateMany?: Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput | Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput[]
-  deleteMany?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
-}
-
-export type ExamAttemptUncheckedUpdateManyWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
-  upsert?: Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput[]
-  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
-  set?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  disconnect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  delete?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
-  update?: Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput[]
-  updateMany?: Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput | Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput[]
-  deleteMany?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
-}
-
 export type ExamAttemptCreateNestedManyWithoutExamInput = {
   create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutExamInput, Prisma.ExamAttemptUncheckedCreateWithoutExamInput> | Prisma.ExamAttemptCreateWithoutExamInput[] | Prisma.ExamAttemptUncheckedCreateWithoutExamInput[]
   connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutExamInput | Prisma.ExamAttemptCreateOrConnectWithoutExamInput[]
@@ -600,72 +558,46 @@ export type ExamAttemptUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ExamAttemptUpdateToOneWithWhereWithoutAnswersInput, Prisma.ExamAttemptUpdateWithoutAnswersInput>, Prisma.ExamAttemptUncheckedUpdateWithoutAnswersInput>
 }
 
-export type ExamAttemptCreateWithoutStudentInput = {
-  id?: string
-  attemptNumber: number
-  startedAt?: Date | string
-  submittedAt?: Date | string | null
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: $Enums.ExamAttemptStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  exam: Prisma.ExamCreateNestedOneWithoutAttemptsInput
-  answers?: Prisma.ExamAnswerCreateNestedManyWithoutAttemptInput
+export type ExamAttemptCreateNestedManyWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
+  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
+  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
 }
 
-export type ExamAttemptUncheckedCreateWithoutStudentInput = {
-  id?: string
-  examId: string
-  attemptNumber: number
-  startedAt?: Date | string
-  submittedAt?: Date | string | null
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: $Enums.ExamAttemptStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutAttemptInput
+export type ExamAttemptUncheckedCreateNestedManyWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
+  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
+  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
 }
 
-export type ExamAttemptCreateOrConnectWithoutStudentInput = {
-  where: Prisma.ExamAttemptWhereUniqueInput
-  create: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput>
+export type ExamAttemptUpdateManyWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
+  upsert?: Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput[]
+  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
+  set?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  disconnect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  delete?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  update?: Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput[]
+  updateMany?: Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput | Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput[]
+  deleteMany?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
 }
 
-export type ExamAttemptCreateManyStudentInputEnvelope = {
-  data: Prisma.ExamAttemptCreateManyStudentInput | Prisma.ExamAttemptCreateManyStudentInput[]
-  skipDuplicates?: boolean
-}
-
-export type ExamAttemptUpsertWithWhereUniqueWithoutStudentInput = {
-  where: Prisma.ExamAttemptWhereUniqueInput
-  update: Prisma.XOR<Prisma.ExamAttemptUpdateWithoutStudentInput, Prisma.ExamAttemptUncheckedUpdateWithoutStudentInput>
-  create: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput>
-}
-
-export type ExamAttemptUpdateWithWhereUniqueWithoutStudentInput = {
-  where: Prisma.ExamAttemptWhereUniqueInput
-  data: Prisma.XOR<Prisma.ExamAttemptUpdateWithoutStudentInput, Prisma.ExamAttemptUncheckedUpdateWithoutStudentInput>
-}
-
-export type ExamAttemptUpdateManyWithWhereWithoutStudentInput = {
-  where: Prisma.ExamAttemptScalarWhereInput
-  data: Prisma.XOR<Prisma.ExamAttemptUpdateManyMutationInput, Prisma.ExamAttemptUncheckedUpdateManyWithoutStudentInput>
-}
-
-export type ExamAttemptScalarWhereInput = {
-  AND?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
-  OR?: Prisma.ExamAttemptScalarWhereInput[]
-  NOT?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ExamAttempt"> | string
-  examId?: Prisma.UuidFilter<"ExamAttempt"> | string
-  studentId?: Prisma.UuidFilter<"ExamAttempt"> | string
-  attemptNumber?: Prisma.IntFilter<"ExamAttempt"> | number
-  startedAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
-  submittedAt?: Prisma.DateTimeNullableFilter<"ExamAttempt"> | Date | string | null
-  score?: Prisma.DecimalNullableFilter<"ExamAttempt"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: Prisma.EnumExamAttemptStatusFilter<"ExamAttempt"> | $Enums.ExamAttemptStatus
-  createdAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
+export type ExamAttemptUncheckedUpdateManyWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput> | Prisma.ExamAttemptCreateWithoutStudentInput[] | Prisma.ExamAttemptUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.ExamAttemptCreateOrConnectWithoutStudentInput | Prisma.ExamAttemptCreateOrConnectWithoutStudentInput[]
+  upsert?: Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpsertWithWhereUniqueWithoutStudentInput[]
+  createMany?: Prisma.ExamAttemptCreateManyStudentInputEnvelope
+  set?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  disconnect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  delete?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  connect?: Prisma.ExamAttemptWhereUniqueInput | Prisma.ExamAttemptWhereUniqueInput[]
+  update?: Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput | Prisma.ExamAttemptUpdateWithWhereUniqueWithoutStudentInput[]
+  updateMany?: Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput | Prisma.ExamAttemptUpdateManyWithWhereWithoutStudentInput[]
+  deleteMany?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
 }
 
 export type ExamAttemptCreateWithoutExamInput = {
@@ -718,6 +650,22 @@ export type ExamAttemptUpdateWithWhereUniqueWithoutExamInput = {
 export type ExamAttemptUpdateManyWithWhereWithoutExamInput = {
   where: Prisma.ExamAttemptScalarWhereInput
   data: Prisma.XOR<Prisma.ExamAttemptUpdateManyMutationInput, Prisma.ExamAttemptUncheckedUpdateManyWithoutExamInput>
+}
+
+export type ExamAttemptScalarWhereInput = {
+  AND?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
+  OR?: Prisma.ExamAttemptScalarWhereInput[]
+  NOT?: Prisma.ExamAttemptScalarWhereInput | Prisma.ExamAttemptScalarWhereInput[]
+  id?: Prisma.UuidFilter<"ExamAttempt"> | string
+  examId?: Prisma.UuidFilter<"ExamAttempt"> | string
+  studentId?: Prisma.UuidFilter<"ExamAttempt"> | string
+  attemptNumber?: Prisma.IntFilter<"ExamAttempt"> | number
+  startedAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
+  submittedAt?: Prisma.DateTimeNullableFilter<"ExamAttempt"> | Date | string | null
+  score?: Prisma.DecimalNullableFilter<"ExamAttempt"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumExamAttemptStatusFilter<"ExamAttempt"> | $Enums.ExamAttemptStatus
+  createdAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
 }
 
 export type ExamAttemptCreateWithoutAnswersInput = {
@@ -788,7 +736,20 @@ export type ExamAttemptUncheckedUpdateWithoutAnswersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ExamAttemptCreateManyStudentInput = {
+export type ExamAttemptCreateWithoutStudentInput = {
+  id?: string
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.ExamAttemptStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  exam: Prisma.ExamCreateNestedOneWithoutAttemptsInput
+  answers?: Prisma.ExamAnswerCreateNestedManyWithoutAttemptInput
+}
+
+export type ExamAttemptUncheckedCreateWithoutStudentInput = {
   id?: string
   examId: string
   attemptNumber: number
@@ -798,44 +759,33 @@ export type ExamAttemptCreateManyStudentInput = {
   status?: $Enums.ExamAttemptStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutAttemptInput
 }
 
-export type ExamAttemptUpdateWithoutStudentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  exam?: Prisma.ExamUpdateOneRequiredWithoutAttemptsNestedInput
-  answers?: Prisma.ExamAnswerUpdateManyWithoutAttemptNestedInput
+export type ExamAttemptCreateOrConnectWithoutStudentInput = {
+  where: Prisma.ExamAttemptWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput>
 }
 
-export type ExamAttemptUncheckedUpdateWithoutStudentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  examId?: Prisma.StringFieldUpdateOperationsInput | string
-  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  answers?: Prisma.ExamAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+export type ExamAttemptCreateManyStudentInputEnvelope = {
+  data: Prisma.ExamAttemptCreateManyStudentInput | Prisma.ExamAttemptCreateManyStudentInput[]
+  skipDuplicates?: boolean
 }
 
-export type ExamAttemptUncheckedUpdateManyWithoutStudentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  examId?: Prisma.StringFieldUpdateOperationsInput | string
-  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ExamAttemptUpsertWithWhereUniqueWithoutStudentInput = {
+  where: Prisma.ExamAttemptWhereUniqueInput
+  update: Prisma.XOR<Prisma.ExamAttemptUpdateWithoutStudentInput, Prisma.ExamAttemptUncheckedUpdateWithoutStudentInput>
+  create: Prisma.XOR<Prisma.ExamAttemptCreateWithoutStudentInput, Prisma.ExamAttemptUncheckedCreateWithoutStudentInput>
+}
+
+export type ExamAttemptUpdateWithWhereUniqueWithoutStudentInput = {
+  where: Prisma.ExamAttemptWhereUniqueInput
+  data: Prisma.XOR<Prisma.ExamAttemptUpdateWithoutStudentInput, Prisma.ExamAttemptUncheckedUpdateWithoutStudentInput>
+}
+
+export type ExamAttemptUpdateManyWithWhereWithoutStudentInput = {
+  where: Prisma.ExamAttemptScalarWhereInput
+  data: Prisma.XOR<Prisma.ExamAttemptUpdateManyMutationInput, Prisma.ExamAttemptUncheckedUpdateManyWithoutStudentInput>
 }
 
 export type ExamAttemptCreateManyExamInput = {
@@ -879,6 +829,56 @@ export type ExamAttemptUncheckedUpdateWithoutExamInput = {
 export type ExamAttemptUncheckedUpdateManyWithoutExamInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ExamAttemptCreateManyStudentInput = {
+  id?: string
+  examId: string
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.ExamAttemptStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ExamAttemptUpdateWithoutStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  exam?: Prisma.ExamUpdateOneRequiredWithoutAttemptsNestedInput
+  answers?: Prisma.ExamAnswerUpdateManyWithoutAttemptNestedInput
+}
+
+export type ExamAttemptUncheckedUpdateWithoutStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  examId?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumExamAttemptStatusFieldUpdateOperationsInput | $Enums.ExamAttemptStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  answers?: Prisma.ExamAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+}
+
+export type ExamAttemptUncheckedUpdateManyWithoutStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  examId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null

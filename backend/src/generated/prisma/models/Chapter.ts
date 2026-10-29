@@ -465,14 +465,6 @@ export type ChapterUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.ChapterScalarWhereInput | Prisma.ChapterScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ChapterCreateNestedOneWithoutLessonsInput = {
   create?: Prisma.XOR<Prisma.ChapterCreateWithoutLessonsInput, Prisma.ChapterUncheckedCreateWithoutLessonsInput>
   connectOrCreate?: Prisma.ChapterCreateOrConnectWithoutLessonsInput

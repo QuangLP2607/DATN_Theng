@@ -1,0 +1,54 @@
+model Chapter {
+  id          String  @id @default(uuid()) @db.Uuid
+  courseId    String  @map("course_id") @db.Uuid
+  title       String  @db.VarChar(255)
+  description String?
+  position    Int
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([courseId, position])
+  @@map("chapters")
+}
+
+model Lesson {
+  id        String     @id @default(uuid()) @db.Uuid
+  chapterId String     @map("chapter_id") @db.Uuid
+  title     String     @db.VarChar(255)
+  type      LessonType
+  content   String?
+  duration  Int?
+  position  Int
+
+  chapter  Chapter          @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  progress LessonProgress[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([chapterId, position])
+  @@map("lessons")
+}
+
+model LessonProgress {
+  id          String    @id @default(uuid()) @db.Uuid
+  lessonId    String    @map("lesson_id") @db.Uuid
+  studentId   String    @map("student_id") @db.Uuid
+  progress    Int       @default(0)
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at") @db.Timestamp(6)
+
+  lesson  Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([lessonId, studentId])
+  @@index([studentId, completed])
+  @@map("lesson_progress")
+}

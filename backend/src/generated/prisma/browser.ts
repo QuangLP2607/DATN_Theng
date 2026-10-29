@@ -18,20 +18,15 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model User
+ * Model Assignment
  * 
  */
-export type User = Prisma.UserModel
+export type Assignment = Prisma.AssignmentModel
 /**
- * Model Course
+ * Model AssignmentSubmission
  * 
  */
-export type Course = Prisma.CourseModel
-/**
- * Model CourseTeacher
- * 
- */
-export type CourseTeacher = Prisma.CourseTeacherModel
+export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
 /**
  * Model Class
  * 
@@ -43,30 +38,15 @@ export type Class = Prisma.ClassModel
  */
 export type Enrollment = Prisma.EnrollmentModel
 /**
- * Model Chapter
+ * Model Course
  * 
  */
-export type Chapter = Prisma.ChapterModel
+export type Course = Prisma.CourseModel
 /**
- * Model Lesson
+ * Model CourseTeacher
  * 
  */
-export type Lesson = Prisma.LessonModel
-/**
- * Model LessonProgress
- * 
- */
-export type LessonProgress = Prisma.LessonProgressModel
-/**
- * Model Assignment
- * 
- */
-export type Assignment = Prisma.AssignmentModel
-/**
- * Model AssignmentSubmission
- * 
- */
-export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
+export type CourseTeacher = Prisma.CourseTeacherModel
 /**
  * Model Exam
  * 
@@ -98,7 +78,27 @@ export type ExamAttempt = Prisma.ExamAttemptModel
  */
 export type ExamAnswer = Prisma.ExamAnswerModel
 /**
+ * Model Chapter
+ * 
+ */
+export type Chapter = Prisma.ChapterModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model LessonProgress
+ * 
+ */
+export type LessonProgress = Prisma.LessonProgressModel
+/**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

@@ -17,14 +17,19 @@ export interface SignInResponse {
   user: User;
 }
 
-export interface SignUpPayload {
+export interface CreateAccountPayload {
   email: string;
-  password: string;
   name: string;
   role: Role;
 }
 
-export type SignUpResponse = User;
+export type CreateAccountResponse = User;
+
+export interface ActivateAccountPayload {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
 
 /*
  * ==================== API ====================
@@ -32,21 +37,27 @@ export type SignUpResponse = User;
 
 const authApi = {
   async signIn(payload: SignInPayload): Promise<SignInResponse> {
-    const res = await apiClient.post<ApiResponse<SignInResponse>>(
+    const response = await apiClient.post<ApiResponse<SignInResponse>>(
       "/auth/sign-in",
       payload,
     );
 
-    return res.data.data!;
+    return response.data.data!;
   },
 
-  async signUp(payload: SignUpPayload): Promise<SignUpResponse> {
-    const res = await apiClient.post<ApiResponse<SignUpResponse>>(
+  async createAccount(
+    payload: CreateAccountPayload,
+  ): Promise<CreateAccountResponse> {
+    const response = await apiClient.post<ApiResponse<CreateAccountResponse>>(
       "/auth/sign-up",
       payload,
     );
 
-    return res.data.data!;
+    return response.data.data!;
+  },
+
+  async activateAccount(payload: ActivateAccountPayload): Promise<void> {
+    await apiClient.post<ApiResponse<null>>("/auth/activate-account", payload);
   },
 
   async logout(): Promise<void> {

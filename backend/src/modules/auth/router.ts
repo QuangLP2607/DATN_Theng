@@ -1,12 +1,22 @@
 import { Router } from "express";
 
-import { logout, refreshToken, signIn, signUp } from "./controller";
+import {
+  activateAccount,
+  logout,
+  refreshToken,
+  resendActivation,
+  signIn,
+  signUp,
+} from "./controller";
+
 import { authMiddleware } from "../../middlewares/auth";
 import { validateZod } from "../../middlewares/validateZod";
 import { AppError } from "../../core/error";
 
 import { signInSchema } from "./dto/signIn";
 import { signUpSchema } from "./dto/signUp";
+import { activateAccountSchema } from "./dto/activateAccount";
+import { resendActivationSchema } from "./dto/resendActivation";
 
 const router = Router();
 
@@ -41,6 +51,32 @@ router.post(
     body: signInSchema,
   }),
   signIn,
+);
+
+/*
+ * -------------------- ACTIVATE ACCOUNT --------------------
+ * Public endpoint.
+ */
+
+router.post(
+  "/activate-account",
+  validateZod({
+    body: activateAccountSchema,
+  }),
+  activateAccount,
+);
+
+/*
+ * -------------------- RESEND ACTIVATION EMAIL --------------------
+ * Public endpoint.
+ */
+
+router.post(
+  "/resend-activation",
+  validateZod({
+    body: resendActivationSchema,
+  }),
+  resendActivation,
 );
 
 /*

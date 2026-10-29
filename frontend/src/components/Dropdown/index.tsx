@@ -21,6 +21,7 @@ interface DropdownProps {
   children: (props: DropdownContentProps) => ReactNode;
   offset?: number;
   align?: DropdownAlign;
+  matchTriggerWidth?: boolean;
 }
 
 const VIEWPORT_PADDING = 8;
@@ -30,6 +31,7 @@ export default function Dropdown({
   children,
   offset = 0,
   align = "start",
+  matchTriggerWidth = false,
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
 
@@ -46,15 +48,22 @@ export default function Dropdown({
     }
 
     const updatePosition = () => {
-      const trigger = triggerRef.current;
-      const dropdown = dropdownRef.current;
+      const triggerElement = triggerRef.current;
+      const dropdownElement = dropdownRef.current;
 
-      if (!trigger || !dropdown) {
+      if (!triggerElement || !dropdownElement) {
         return;
       }
 
-      const triggerRect = trigger.getBoundingClientRect();
-      const dropdownRect = dropdown.getBoundingClientRect();
+      const triggerRect = triggerElement.getBoundingClientRect();
+
+      if (matchTriggerWidth) {
+        dropdownElement.style.width = `${triggerRect.width}px`;
+      } else {
+        dropdownElement.style.removeProperty("width");
+      }
+
+      const dropdownRect = dropdownElement.getBoundingClientRect();
 
       let left = triggerRect.left;
 
@@ -68,37 +77,36 @@ export default function Dropdown({
 
       let top = triggerRect.bottom + offset;
 
-      // Prevent overflow right.
       if (left + dropdownRect.width > window.innerWidth - VIEWPORT_PADDING) {
         left = window.innerWidth - VIEWPORT_PADDING - dropdownRect.width;
       }
 
-      // Prevent overflow left.
       left = Math.max(left, VIEWPORT_PADDING);
 
-      // Prevent overflow bottom.
       if (top + dropdownRect.height > window.innerHeight - VIEWPORT_PADDING) {
         top = triggerRect.top - dropdownRect.height - offset;
       }
 
-      // Prevent overflow top.
       top = Math.max(top, VIEWPORT_PADDING);
 
-      dropdown.style.top = `${top}px`;
-      dropdown.style.left = `${left}px`;
-      dropdown.style.visibility = "visible";
+      dropdownElement.style.top = `${top}px`;
+      dropdownElement.style.left = `${left}px`;
+      dropdownElement.style.visibility = "visible";
     };
 
     updatePosition();
 
-    const dropdown = dropdownRef.current;
+    const dropdownElement = dropdownRef.current;
+    const triggerElement = triggerRef.current;
 
-    const resizeObserver = new ResizeObserver(() => {
-      updatePosition();
-    });
+    const resizeObserver = new ResizeObserver(updatePosition);
 
-    if (dropdown) {
-      resizeObserver.observe(dropdown);
+    if (dropdownElement) {
+      resizeObserver.observe(dropdownElement);
+    }
+
+    if (triggerElement) {
+      resizeObserver.observe(triggerElement);
     }
 
     window.addEventListener("resize", updatePosition);
@@ -106,11 +114,10 @@ export default function Dropdown({
 
     return () => {
       resizeObserver.disconnect();
-
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);
     };
-  }, [open, offset, align]);
+  }, [open, offset, align, matchTriggerWidth]);
 
   const toggle = () => {
     setOpen((current) => !current);
@@ -121,20 +128,22 @@ export default function Dropdown({
   };
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div
+      ref={containerRef}
+      className={[
+        styles.container,
+        matchTriggerWidth ? styles.matchTriggerWidth : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <div ref={triggerRef} className={styles.trigger}>
-        {trigger({
-          open,
-          toggle,
-          close,
-        })}
+        {trigger({ open, toggle, close })}
       </div>
 
       {open && (
         <div ref={dropdownRef} className={styles.dropdown}>
-          {children({
-            close,
-          })}
+          {children({ close })}
         </div>
       )}
     </div>

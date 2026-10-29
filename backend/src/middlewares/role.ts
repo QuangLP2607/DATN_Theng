@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 
 import { AppError } from "../core/error";
-import type { Role } from "../interfaces/users";
+import type { UserRole } from "../generated/prisma/enums";
 
-export const roleMiddleware = (allowedRoles: Role[]) => {
+export const roleMiddleware = (allowedRoles: UserRole[]) => {
   return (req: Request, _res: Response, next: NextFunction): void => {
     const user = req.user;
 

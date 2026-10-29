@@ -29,8 +29,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Assignments
+ * const assignments = await prisma.assignment.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,20 +40,15 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model User
+ * Model Assignment
  * 
  */
-export type User = Prisma.UserModel
+export type Assignment = Prisma.AssignmentModel
 /**
- * Model Course
+ * Model AssignmentSubmission
  * 
  */
-export type Course = Prisma.CourseModel
-/**
- * Model CourseTeacher
- * 
- */
-export type CourseTeacher = Prisma.CourseTeacherModel
+export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
 /**
  * Model Class
  * 
@@ -65,30 +60,15 @@ export type Class = Prisma.ClassModel
  */
 export type Enrollment = Prisma.EnrollmentModel
 /**
- * Model Chapter
+ * Model Course
  * 
  */
-export type Chapter = Prisma.ChapterModel
+export type Course = Prisma.CourseModel
 /**
- * Model Lesson
+ * Model CourseTeacher
  * 
  */
-export type Lesson = Prisma.LessonModel
-/**
- * Model LessonProgress
- * 
- */
-export type LessonProgress = Prisma.LessonProgressModel
-/**
- * Model Assignment
- * 
- */
-export type Assignment = Prisma.AssignmentModel
-/**
- * Model AssignmentSubmission
- * 
- */
-export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
+export type CourseTeacher = Prisma.CourseTeacherModel
 /**
  * Model Exam
  * 
@@ -120,7 +100,27 @@ export type ExamAttempt = Prisma.ExamAttemptModel
  */
 export type ExamAnswer = Prisma.ExamAnswerModel
 /**
+ * Model Chapter
+ * 
+ */
+export type Chapter = Prisma.ChapterModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model LessonProgress
+ * 
+ */
+export type LessonProgress = Prisma.LessonProgressModel
+/**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

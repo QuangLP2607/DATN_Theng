@@ -444,16 +444,6 @@ export type AssignmentUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AssignmentListRelationFilter = {
-  every?: Prisma.AssignmentWhereInput
-  some?: Prisma.AssignmentWhereInput
-  none?: Prisma.AssignmentWhereInput
-}
-
-export type AssignmentOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type AssignmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
@@ -509,45 +499,97 @@ export type AssignmentScalarRelationFilter = {
   isNot?: Prisma.AssignmentWhereInput
 }
 
-export type AssignmentCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
+export type AssignmentListRelationFilter = {
+  every?: Prisma.AssignmentWhereInput
+  some?: Prisma.AssignmentWhereInput
+  none?: Prisma.AssignmentWhereInput
+}
+
+export type AssignmentOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type EnumAssignmentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.AssignmentStatus
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type AssignmentCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutSubmissionsInput, Prisma.AssignmentUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.AssignmentWhereUniqueInput
+}
+
+export type AssignmentUpdateOneRequiredWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutSubmissionsInput, Prisma.AssignmentUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.AssignmentUpsertWithoutSubmissionsInput
+  connect?: Prisma.AssignmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssignmentUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.AssignmentUpdateWithoutSubmissionsInput>, Prisma.AssignmentUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type AssignmentCreateNestedManyWithoutClassInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
+  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
 }
 
-export type AssignmentUncheckedCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
+export type AssignmentUncheckedCreateNestedManyWithoutClassInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
+  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
 }
 
-export type AssignmentUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
+export type AssignmentUpdateManyWithoutClassNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
+  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput[]
+  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
   set?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   disconnect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   delete?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
-  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput | Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput[]
+  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutClassInput | Prisma.AssignmentUpdateManyWithWhereWithoutClassInput[]
   deleteMany?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
 }
 
-export type AssignmentUncheckedUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
+export type AssignmentUncheckedUpdateManyWithoutClassNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
+  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput[]
+  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
   set?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   disconnect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   delete?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
-  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput | Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput[]
+  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutClassInput | Prisma.AssignmentUpdateManyWithWhereWithoutClassInput[]
   deleteMany?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
 }
 
@@ -593,251 +635,46 @@ export type AssignmentUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
 }
 
-export type AssignmentCreateNestedManyWithoutClassInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
-  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
+export type AssignmentCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
 }
 
-export type AssignmentUncheckedCreateNestedManyWithoutClassInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
-  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
+export type AssignmentUncheckedCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
 }
 
-export type AssignmentUpdateManyWithoutClassNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
-  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput[]
-  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
+export type AssignmentUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
   set?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   disconnect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   delete?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
-  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput[]
-  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutClassInput | Prisma.AssignmentUpdateManyWithWhereWithoutClassInput[]
+  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput | Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput[]
   deleteMany?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
 }
 
-export type AssignmentUncheckedUpdateManyWithoutClassNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput> | Prisma.AssignmentCreateWithoutClassInput[] | Prisma.AssignmentUncheckedCreateWithoutClassInput[]
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutClassInput | Prisma.AssignmentCreateOrConnectWithoutClassInput[]
-  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutClassInput[]
-  createMany?: Prisma.AssignmentCreateManyClassInputEnvelope
+export type AssignmentUncheckedUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput> | Prisma.AssignmentCreateWithoutCreatorInput[] | Prisma.AssignmentUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutCreatorInput | Prisma.AssignmentCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.AssignmentCreateManyCreatorInputEnvelope
   set?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   disconnect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   delete?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
   connect?: Prisma.AssignmentWhereUniqueInput | Prisma.AssignmentWhereUniqueInput[]
-  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutClassInput[]
-  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutClassInput | Prisma.AssignmentUpdateManyWithWhereWithoutClassInput[]
+  update?: Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AssignmentUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput | Prisma.AssignmentUpdateManyWithWhereWithoutCreatorInput[]
   deleteMany?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
-}
-
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type EnumAssignmentStatusFieldUpdateOperationsInput = {
-  set?: $Enums.AssignmentStatus
-}
-
-export type AssignmentCreateNestedOneWithoutSubmissionsInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutSubmissionsInput, Prisma.AssignmentUncheckedCreateWithoutSubmissionsInput>
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutSubmissionsInput
-  connect?: Prisma.AssignmentWhereUniqueInput
-}
-
-export type AssignmentUpdateOneRequiredWithoutSubmissionsNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentCreateWithoutSubmissionsInput, Prisma.AssignmentUncheckedCreateWithoutSubmissionsInput>
-  connectOrCreate?: Prisma.AssignmentCreateOrConnectWithoutSubmissionsInput
-  upsert?: Prisma.AssignmentUpsertWithoutSubmissionsInput
-  connect?: Prisma.AssignmentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AssignmentUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.AssignmentUpdateWithoutSubmissionsInput>, Prisma.AssignmentUncheckedUpdateWithoutSubmissionsInput>
-}
-
-export type AssignmentCreateWithoutCreatorInput = {
-  id?: string
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  course: Prisma.CourseCreateNestedOneWithoutAssignmentsInput
-  class?: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
-  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentUncheckedCreateWithoutCreatorInput = {
-  id?: string
-  courseId: string
-  classId?: string | null
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentCreateOrConnectWithoutCreatorInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput>
-}
-
-export type AssignmentCreateManyCreatorInputEnvelope = {
-  data: Prisma.AssignmentCreateManyCreatorInput | Prisma.AssignmentCreateManyCreatorInput[]
-  skipDuplicates?: boolean
-}
-
-export type AssignmentUpsertWithWhereUniqueWithoutCreatorInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutCreatorInput, Prisma.AssignmentUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput>
-}
-
-export type AssignmentUpdateWithWhereUniqueWithoutCreatorInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutCreatorInput, Prisma.AssignmentUncheckedUpdateWithoutCreatorInput>
-}
-
-export type AssignmentUpdateManyWithWhereWithoutCreatorInput = {
-  where: Prisma.AssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutCreatorInput>
-}
-
-export type AssignmentScalarWhereInput = {
-  AND?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
-  OR?: Prisma.AssignmentScalarWhereInput[]
-  NOT?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Assignment"> | string
-  courseId?: Prisma.UuidFilter<"Assignment"> | string
-  classId?: Prisma.UuidNullableFilter<"Assignment"> | string | null
-  title?: Prisma.StringFilter<"Assignment"> | string
-  description?: Prisma.StringNullableFilter<"Assignment"> | string | null
-  dueAt?: Prisma.DateTimeNullableFilter<"Assignment"> | Date | string | null
-  maxScore?: Prisma.DecimalFilter<"Assignment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.EnumAssignmentStatusFilter<"Assignment"> | $Enums.AssignmentStatus
-  createdBy?: Prisma.UuidFilter<"Assignment"> | string
-  createdAt?: Prisma.DateTimeFilter<"Assignment"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Assignment"> | Date | string
-}
-
-export type AssignmentCreateWithoutCourseInput = {
-  id?: string
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  class?: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
-  creator: Prisma.UserCreateNestedOneWithoutCreatedAssignmentsInput
-  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentUncheckedCreateWithoutCourseInput = {
-  id?: string
-  classId?: string | null
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdBy: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentCreateOrConnectWithoutCourseInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCourseInput, Prisma.AssignmentUncheckedCreateWithoutCourseInput>
-}
-
-export type AssignmentCreateManyCourseInputEnvelope = {
-  data: Prisma.AssignmentCreateManyCourseInput | Prisma.AssignmentCreateManyCourseInput[]
-  skipDuplicates?: boolean
-}
-
-export type AssignmentUpsertWithWhereUniqueWithoutCourseInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutCourseInput, Prisma.AssignmentUncheckedUpdateWithoutCourseInput>
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCourseInput, Prisma.AssignmentUncheckedCreateWithoutCourseInput>
-}
-
-export type AssignmentUpdateWithWhereUniqueWithoutCourseInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutCourseInput, Prisma.AssignmentUncheckedUpdateWithoutCourseInput>
-}
-
-export type AssignmentUpdateManyWithWhereWithoutCourseInput = {
-  where: Prisma.AssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutCourseInput>
-}
-
-export type AssignmentCreateWithoutClassInput = {
-  id?: string
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  course: Prisma.CourseCreateNestedOneWithoutAssignmentsInput
-  creator: Prisma.UserCreateNestedOneWithoutCreatedAssignmentsInput
-  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentUncheckedCreateWithoutClassInput = {
-  id?: string
-  courseId: string
-  title: string
-  description?: string | null
-  dueAt?: Date | string | null
-  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.AssignmentStatus
-  createdBy: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
-}
-
-export type AssignmentCreateOrConnectWithoutClassInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput>
-}
-
-export type AssignmentCreateManyClassInputEnvelope = {
-  data: Prisma.AssignmentCreateManyClassInput | Prisma.AssignmentCreateManyClassInput[]
-  skipDuplicates?: boolean
-}
-
-export type AssignmentUpsertWithWhereUniqueWithoutClassInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutClassInput, Prisma.AssignmentUncheckedUpdateWithoutClassInput>
-  create: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput>
-}
-
-export type AssignmentUpdateWithWhereUniqueWithoutClassInput = {
-  where: Prisma.AssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutClassInput, Prisma.AssignmentUncheckedUpdateWithoutClassInput>
-}
-
-export type AssignmentUpdateManyWithWhereWithoutClassInput = {
-  where: Prisma.AssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutClassInput>
 }
 
 export type AssignmentCreateWithoutSubmissionsInput = {
@@ -912,7 +749,146 @@ export type AssignmentUncheckedUpdateWithoutSubmissionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AssignmentCreateManyCreatorInput = {
+export type AssignmentCreateWithoutClassInput = {
+  id?: string
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutAssignmentsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreatedAssignmentsInput
+  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
+}
+
+export type AssignmentUncheckedCreateWithoutClassInput = {
+  id?: string
+  courseId: string
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
+}
+
+export type AssignmentCreateOrConnectWithoutClassInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput>
+}
+
+export type AssignmentCreateManyClassInputEnvelope = {
+  data: Prisma.AssignmentCreateManyClassInput | Prisma.AssignmentCreateManyClassInput[]
+  skipDuplicates?: boolean
+}
+
+export type AssignmentUpsertWithWhereUniqueWithoutClassInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutClassInput, Prisma.AssignmentUncheckedUpdateWithoutClassInput>
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutClassInput, Prisma.AssignmentUncheckedCreateWithoutClassInput>
+}
+
+export type AssignmentUpdateWithWhereUniqueWithoutClassInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutClassInput, Prisma.AssignmentUncheckedUpdateWithoutClassInput>
+}
+
+export type AssignmentUpdateManyWithWhereWithoutClassInput = {
+  where: Prisma.AssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutClassInput>
+}
+
+export type AssignmentScalarWhereInput = {
+  AND?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
+  OR?: Prisma.AssignmentScalarWhereInput[]
+  NOT?: Prisma.AssignmentScalarWhereInput | Prisma.AssignmentScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Assignment"> | string
+  courseId?: Prisma.UuidFilter<"Assignment"> | string
+  classId?: Prisma.UuidNullableFilter<"Assignment"> | string | null
+  title?: Prisma.StringFilter<"Assignment"> | string
+  description?: Prisma.StringNullableFilter<"Assignment"> | string | null
+  dueAt?: Prisma.DateTimeNullableFilter<"Assignment"> | Date | string | null
+  maxScore?: Prisma.DecimalFilter<"Assignment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumAssignmentStatusFilter<"Assignment"> | $Enums.AssignmentStatus
+  createdBy?: Prisma.UuidFilter<"Assignment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Assignment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Assignment"> | Date | string
+}
+
+export type AssignmentCreateWithoutCourseInput = {
+  id?: string
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  class?: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreatedAssignmentsInput
+  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
+}
+
+export type AssignmentUncheckedCreateWithoutCourseInput = {
+  id?: string
+  classId?: string | null
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
+}
+
+export type AssignmentCreateOrConnectWithoutCourseInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCourseInput, Prisma.AssignmentUncheckedCreateWithoutCourseInput>
+}
+
+export type AssignmentCreateManyCourseInputEnvelope = {
+  data: Prisma.AssignmentCreateManyCourseInput | Prisma.AssignmentCreateManyCourseInput[]
+  skipDuplicates?: boolean
+}
+
+export type AssignmentUpsertWithWhereUniqueWithoutCourseInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutCourseInput, Prisma.AssignmentUncheckedUpdateWithoutCourseInput>
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCourseInput, Prisma.AssignmentUncheckedCreateWithoutCourseInput>
+}
+
+export type AssignmentUpdateWithWhereUniqueWithoutCourseInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutCourseInput, Prisma.AssignmentUncheckedUpdateWithoutCourseInput>
+}
+
+export type AssignmentUpdateManyWithWhereWithoutCourseInput = {
+  where: Prisma.AssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutCourseInput>
+}
+
+export type AssignmentCreateWithoutCreatorInput = {
+  id?: string
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutAssignmentsInput
+  class?: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
+  submissions?: Prisma.AssignmentSubmissionCreateNestedManyWithoutAssignmentInput
+}
+
+export type AssignmentUncheckedCreateWithoutCreatorInput = {
   id?: string
   courseId: string
   classId?: string | null
@@ -923,9 +899,49 @@ export type AssignmentCreateManyCreatorInput = {
   status?: $Enums.AssignmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissions?: Prisma.AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput
 }
 
-export type AssignmentUpdateWithoutCreatorInput = {
+export type AssignmentCreateOrConnectWithoutCreatorInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput>
+}
+
+export type AssignmentCreateManyCreatorInputEnvelope = {
+  data: Prisma.AssignmentCreateManyCreatorInput | Prisma.AssignmentCreateManyCreatorInput[]
+  skipDuplicates?: boolean
+}
+
+export type AssignmentUpsertWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssignmentUpdateWithoutCreatorInput, Prisma.AssignmentUncheckedUpdateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.AssignmentCreateWithoutCreatorInput, Prisma.AssignmentUncheckedCreateWithoutCreatorInput>
+}
+
+export type AssignmentUpdateWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.AssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateWithoutCreatorInput, Prisma.AssignmentUncheckedUpdateWithoutCreatorInput>
+}
+
+export type AssignmentUpdateManyWithWhereWithoutCreatorInput = {
+  where: Prisma.AssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.AssignmentUpdateManyMutationInput, Prisma.AssignmentUncheckedUpdateManyWithoutCreatorInput>
+}
+
+export type AssignmentCreateManyClassInput = {
+  id?: string
+  courseId: string
+  title: string
+  description?: string | null
+  dueAt?: Date | string | null
+  maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssignmentStatus
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AssignmentUpdateWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -935,33 +951,33 @@ export type AssignmentUpdateWithoutCreatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutAssignmentsNestedInput
-  class?: Prisma.ClassUpdateOneWithoutAssignmentsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedAssignmentsNestedInput
   submissions?: Prisma.AssignmentSubmissionUpdateManyWithoutAssignmentNestedInput
 }
 
-export type AssignmentUncheckedUpdateWithoutCreatorInput = {
+export type AssignmentUncheckedUpdateWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
 }
 
-export type AssignmentUncheckedUpdateManyWithoutCreatorInput = {
+export type AssignmentUncheckedUpdateManyWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1020,20 +1036,20 @@ export type AssignmentUncheckedUpdateManyWithoutCourseInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AssignmentCreateManyClassInput = {
+export type AssignmentCreateManyCreatorInput = {
   id?: string
   courseId: string
+  classId?: string | null
   title: string
   description?: string | null
   dueAt?: Date | string | null
   maxScore?: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssignmentStatus
-  createdBy: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type AssignmentUpdateWithoutClassInput = {
+export type AssignmentUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1043,33 +1059,33 @@ export type AssignmentUpdateWithoutClassInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutAssignmentsNestedInput
-  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedAssignmentsNestedInput
+  class?: Prisma.ClassUpdateOneWithoutAssignmentsNestedInput
   submissions?: Prisma.AssignmentSubmissionUpdateManyWithoutAssignmentNestedInput
 }
 
-export type AssignmentUncheckedUpdateWithoutClassInput = {
+export type AssignmentUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
-  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
 }
 
-export type AssignmentUncheckedUpdateManyWithoutClassInput = {
+export type AssignmentUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
-  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }

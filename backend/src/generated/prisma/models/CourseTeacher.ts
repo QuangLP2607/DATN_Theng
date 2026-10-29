@@ -303,48 +303,6 @@ export type CourseTeacherMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type CourseTeacherCreateNestedManyWithoutTeacherInput = {
-  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
-  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
-  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
-  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-}
-
-export type CourseTeacherUncheckedCreateNestedManyWithoutTeacherInput = {
-  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
-  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
-  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
-  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-}
-
-export type CourseTeacherUpdateManyWithoutTeacherNestedInput = {
-  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
-  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
-  upsert?: Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput[]
-  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
-  set?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  disconnect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  delete?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  update?: Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput[]
-  updateMany?: Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput | Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput[]
-  deleteMany?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
-}
-
-export type CourseTeacherUncheckedUpdateManyWithoutTeacherNestedInput = {
-  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
-  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
-  upsert?: Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput[]
-  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
-  set?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  disconnect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  delete?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
-  update?: Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput[]
-  updateMany?: Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput | Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput[]
-  deleteMany?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
-}
-
 export type CourseTeacherCreateNestedManyWithoutCourseInput = {
   create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutCourseInput, Prisma.CourseTeacherUncheckedCreateWithoutCourseInput> | Prisma.CourseTeacherCreateWithoutCourseInput[] | Prisma.CourseTeacherUncheckedCreateWithoutCourseInput[]
   connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutCourseInput | Prisma.CourseTeacherCreateOrConnectWithoutCourseInput[]
@@ -387,52 +345,46 @@ export type CourseTeacherUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
 }
 
-export type CourseTeacherCreateWithoutTeacherInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  course: Prisma.CourseCreateNestedOneWithoutTeachersInput
+export type CourseTeacherCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
+  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
 }
 
-export type CourseTeacherUncheckedCreateWithoutTeacherInput = {
-  courseId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+export type CourseTeacherUncheckedCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
+  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
 }
 
-export type CourseTeacherCreateOrConnectWithoutTeacherInput = {
-  where: Prisma.CourseTeacherWhereUniqueInput
-  create: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput>
+export type CourseTeacherUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
+  set?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  disconnect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  delete?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  update?: Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput | Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
 }
 
-export type CourseTeacherCreateManyTeacherInputEnvelope = {
-  data: Prisma.CourseTeacherCreateManyTeacherInput | Prisma.CourseTeacherCreateManyTeacherInput[]
-  skipDuplicates?: boolean
-}
-
-export type CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput = {
-  where: Prisma.CourseTeacherWhereUniqueInput
-  update: Prisma.XOR<Prisma.CourseTeacherUpdateWithoutTeacherInput, Prisma.CourseTeacherUncheckedUpdateWithoutTeacherInput>
-  create: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput>
-}
-
-export type CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput = {
-  where: Prisma.CourseTeacherWhereUniqueInput
-  data: Prisma.XOR<Prisma.CourseTeacherUpdateWithoutTeacherInput, Prisma.CourseTeacherUncheckedUpdateWithoutTeacherInput>
-}
-
-export type CourseTeacherUpdateManyWithWhereWithoutTeacherInput = {
-  where: Prisma.CourseTeacherScalarWhereInput
-  data: Prisma.XOR<Prisma.CourseTeacherUpdateManyMutationInput, Prisma.CourseTeacherUncheckedUpdateManyWithoutTeacherInput>
-}
-
-export type CourseTeacherScalarWhereInput = {
-  AND?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
-  OR?: Prisma.CourseTeacherScalarWhereInput[]
-  NOT?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
-  courseId?: Prisma.UuidFilter<"CourseTeacher"> | string
-  teacherId?: Prisma.UuidFilter<"CourseTeacher"> | string
-  createdAt?: Prisma.DateTimeFilter<"CourseTeacher"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"CourseTeacher"> | Date | string
+export type CourseTeacherUncheckedUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput> | Prisma.CourseTeacherCreateWithoutTeacherInput[] | Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput | Prisma.CourseTeacherCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.CourseTeacherCreateManyTeacherInputEnvelope
+  set?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  disconnect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  delete?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  connect?: Prisma.CourseTeacherWhereUniqueInput | Prisma.CourseTeacherWhereUniqueInput[]
+  update?: Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput | Prisma.CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput | Prisma.CourseTeacherUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
 }
 
 export type CourseTeacherCreateWithoutCourseInput = {
@@ -473,28 +425,52 @@ export type CourseTeacherUpdateManyWithWhereWithoutCourseInput = {
   data: Prisma.XOR<Prisma.CourseTeacherUpdateManyMutationInput, Prisma.CourseTeacherUncheckedUpdateManyWithoutCourseInput>
 }
 
-export type CourseTeacherCreateManyTeacherInput = {
+export type CourseTeacherScalarWhereInput = {
+  AND?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
+  OR?: Prisma.CourseTeacherScalarWhereInput[]
+  NOT?: Prisma.CourseTeacherScalarWhereInput | Prisma.CourseTeacherScalarWhereInput[]
+  courseId?: Prisma.UuidFilter<"CourseTeacher"> | string
+  teacherId?: Prisma.UuidFilter<"CourseTeacher"> | string
+  createdAt?: Prisma.DateTimeFilter<"CourseTeacher"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"CourseTeacher"> | Date | string
+}
+
+export type CourseTeacherCreateWithoutTeacherInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutTeachersInput
+}
+
+export type CourseTeacherUncheckedCreateWithoutTeacherInput = {
   courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type CourseTeacherUpdateWithoutTeacherInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  course?: Prisma.CourseUpdateOneRequiredWithoutTeachersNestedInput
+export type CourseTeacherCreateOrConnectWithoutTeacherInput = {
+  where: Prisma.CourseTeacherWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput>
 }
 
-export type CourseTeacherUncheckedUpdateWithoutTeacherInput = {
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type CourseTeacherCreateManyTeacherInputEnvelope = {
+  data: Prisma.CourseTeacherCreateManyTeacherInput | Prisma.CourseTeacherCreateManyTeacherInput[]
+  skipDuplicates?: boolean
 }
 
-export type CourseTeacherUncheckedUpdateManyWithoutTeacherInput = {
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type CourseTeacherUpsertWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.CourseTeacherWhereUniqueInput
+  update: Prisma.XOR<Prisma.CourseTeacherUpdateWithoutTeacherInput, Prisma.CourseTeacherUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.CourseTeacherCreateWithoutTeacherInput, Prisma.CourseTeacherUncheckedCreateWithoutTeacherInput>
+}
+
+export type CourseTeacherUpdateWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.CourseTeacherWhereUniqueInput
+  data: Prisma.XOR<Prisma.CourseTeacherUpdateWithoutTeacherInput, Prisma.CourseTeacherUncheckedUpdateWithoutTeacherInput>
+}
+
+export type CourseTeacherUpdateManyWithWhereWithoutTeacherInput = {
+  where: Prisma.CourseTeacherScalarWhereInput
+  data: Prisma.XOR<Prisma.CourseTeacherUpdateManyMutationInput, Prisma.CourseTeacherUncheckedUpdateManyWithoutTeacherInput>
 }
 
 export type CourseTeacherCreateManyCourseInput = {
@@ -517,6 +493,30 @@ export type CourseTeacherUncheckedUpdateWithoutCourseInput = {
 
 export type CourseTeacherUncheckedUpdateManyWithoutCourseInput = {
   teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CourseTeacherCreateManyTeacherInput = {
+  courseId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CourseTeacherUpdateWithoutTeacherInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutTeachersNestedInput
+}
+
+export type CourseTeacherUncheckedUpdateWithoutTeacherInput = {
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CourseTeacherUncheckedUpdateManyWithoutTeacherInput = {
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }

@@ -14,7 +14,7 @@ export default function Assignments() {
 
       <CardGrid />
 
-      <Pagination />
+      <Pagination currentPage={1} totalPages={2} totalItems={16} pageSize={8} />
     </main>
   );
 }

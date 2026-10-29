@@ -13,7 +13,11 @@ const cx = classNames.bind(styles);
 export default function Home() {
   return (
     <main className={cx("wrapper")}>
-      <DashboardGreeting />
+      <DashboardGreeting
+        name="Lê Minh Cường"
+        assignmentCount={16}
+        examCount={11}
+      />
 
       <StatsGrid />
 

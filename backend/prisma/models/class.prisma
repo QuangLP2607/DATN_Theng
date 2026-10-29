@@ -1,0 +1,36 @@
+model Class {
+  id       String      @id @default(uuid()) @db.Uuid
+  courseId String      @map("course_id") @db.Uuid
+  name     String      @db.VarChar(255)
+  code     String      @unique @db.VarChar(50)
+  status   ClassStatus @default(ACTIVE)
+
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  enrollments Enrollment[]
+  assignments Assignment[]
+  exams       Exam[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([courseId, status])
+  @@map("classes")
+}
+
+model Enrollment {
+  id        String           @id @default(uuid()) @db.Uuid
+  classId   String           @map("class_id") @db.Uuid
+  studentId String           @map("student_id") @db.Uuid
+  status    EnrollmentStatus @default(ACTIVE)
+  joinedAt  DateTime         @default(now()) @map("joined_at") @db.Timestamp(6)
+
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student User  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([classId, studentId])
+  @@index([studentId, status])
+  @@map("enrollments")
+}

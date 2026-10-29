@@ -54,15 +54,11 @@ export const signIn = async (
 
     const { accessToken, refreshToken, user } = result;
 
-    /*
-     * Refresh token cookie
-     */
-
     const refreshTokenExpires = process.env.JWT_REFRESH_TOKEN_EXPIRES ?? "7d";
 
     const maxAgeMs = ms(refreshTokenExpires as StringValue);
 
-    if (maxAgeMs <= 0) {
+    if (maxAgeMs === undefined || maxAgeMs <= 0) {
       throw new Error(
         `Invalid time format for JWT_REFRESH_TOKEN_EXPIRES: ${refreshTokenExpires}`,
       );
@@ -75,16 +71,52 @@ export const signIn = async (
       maxAge: maxAgeMs,
     });
 
-    /*
-     * Response
-     */
-
     return sendResponse(res, 200, {
       message: "Sign in successfully",
       data: {
         accessToken,
         user,
       },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/*
+ * -------------------- ACTIVATE ACCOUNT --------------------
+ */
+
+export const activateAccount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<Response | void> => {
+  try {
+    const result = await authService.activateAccount(req.body);
+
+    return sendResponse(res, 200, {
+      message: result.message,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/*
+ * -------------------- RESEND ACTIVATION EMAIL --------------------
+ */
+
+export const resendActivation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<Response | void> => {
+  try {
+    const result = await authService.resendActivation(req.body);
+
+    return sendResponse(res, 200, {
+      message: result.message,
     });
   } catch (error) {
     next(error);
@@ -125,23 +157,15 @@ export const refreshToken = async (
   next: NextFunction,
 ): Promise<Response | void> => {
   try {
-    const refreshToken = req.cookies?.refreshToken;
+    const token = req.cookies?.refreshToken;
 
-    /*
-     * Missing refresh token
-     */
-
-    if (!refreshToken) {
+    if (!token) {
       return sendResponse(res, 401, {
         message: "Missing refresh token",
       });
     }
 
-    /*
-     * Verify refresh token
-     */
-
-    const newAccessToken = refreshAccessToken(refreshToken);
+    const newAccessToken = refreshAccessToken(token);
 
     if (!newAccessToken) {
       return sendResponse(res, 403, {

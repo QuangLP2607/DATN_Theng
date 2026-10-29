@@ -342,16 +342,6 @@ export type QuestionUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type QuestionListRelationFilter = {
-  every?: Prisma.QuestionWhereInput
-  some?: Prisma.QuestionWhereInput
-  none?: Prisma.QuestionWhereInput
-}
-
-export type QuestionOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type QuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -387,46 +377,14 @@ export type QuestionScalarRelationFilter = {
   isNot?: Prisma.QuestionWhereInput
 }
 
-export type QuestionCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+export type QuestionListRelationFilter = {
+  every?: Prisma.QuestionWhereInput
+  some?: Prisma.QuestionWhereInput
+  none?: Prisma.QuestionWhereInput
 }
 
-export type QuestionUncheckedCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-}
-
-export type QuestionUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
-  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput | Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput[]
-  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-}
-
-export type QuestionUncheckedUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
-  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput | Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput[]
-  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+export type QuestionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type EnumQuestionTypeFieldUpdateOperationsInput = {
@@ -475,67 +433,46 @@ export type QuestionUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutAnswersInput, Prisma.QuestionUpdateWithoutAnswersInput>, Prisma.QuestionUncheckedUpdateWithoutAnswersInput>
 }
 
-export type QuestionCreateWithoutCreatorInput = {
-  id?: string
-  content: string
-  type: $Enums.QuestionType
-  explanation?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
-  exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
+export type QuestionCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
 }
 
-export type QuestionUncheckedCreateWithoutCreatorInput = {
-  id?: string
-  content: string
-  type: $Enums.QuestionType
-  explanation?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
-  exams?: Prisma.ExamQuestionUncheckedCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutQuestionInput
+export type QuestionUncheckedCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
 }
 
-export type QuestionCreateOrConnectWithoutCreatorInput = {
-  where: Prisma.QuestionWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput>
+export type QuestionUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput | Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
-export type QuestionCreateManyCreatorInputEnvelope = {
-  data: Prisma.QuestionCreateManyCreatorInput | Prisma.QuestionCreateManyCreatorInput[]
-  skipDuplicates?: boolean
-}
-
-export type QuestionUpsertWithWhereUniqueWithoutCreatorInput = {
-  where: Prisma.QuestionWhereUniqueInput
-  update: Prisma.XOR<Prisma.QuestionUpdateWithoutCreatorInput, Prisma.QuestionUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput>
-}
-
-export type QuestionUpdateWithWhereUniqueWithoutCreatorInput = {
-  where: Prisma.QuestionWhereUniqueInput
-  data: Prisma.XOR<Prisma.QuestionUpdateWithoutCreatorInput, Prisma.QuestionUncheckedUpdateWithoutCreatorInput>
-}
-
-export type QuestionUpdateManyWithWhereWithoutCreatorInput = {
-  where: Prisma.QuestionScalarWhereInput
-  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutCreatorInput>
-}
-
-export type QuestionScalarWhereInput = {
-  AND?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-  OR?: Prisma.QuestionScalarWhereInput[]
-  NOT?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Question"> | string
-  content?: Prisma.StringFilter<"Question"> | string
-  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
-  explanation?: Prisma.StringNullableFilter<"Question"> | string | null
-  createdBy?: Prisma.UuidFilter<"Question"> | string
-  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+export type QuestionUncheckedUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.QuestionCreateManyCreatorInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput | Prisma.QuestionUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput | Prisma.QuestionUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
 export type QuestionCreateWithoutOptionsInput = {
@@ -728,6 +665,69 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
   exams?: Prisma.ExamQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionCreateWithoutCreatorInput = {
+  id?: string
+  content: string
+  type: $Enums.QuestionType
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutCreatorInput = {
+  id?: string
+  content: string
+  type: $Enums.QuestionType
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionUncheckedCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutCreatorInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput>
+}
+
+export type QuestionCreateManyCreatorInputEnvelope = {
+  data: Prisma.QuestionCreateManyCreatorInput | Prisma.QuestionCreateManyCreatorInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuestionUpsertWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutCreatorInput, Prisma.QuestionUncheckedUpdateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput>
+}
+
+export type QuestionUpdateWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutCreatorInput, Prisma.QuestionUncheckedUpdateWithoutCreatorInput>
+}
+
+export type QuestionUpdateManyWithWhereWithoutCreatorInput = {
+  where: Prisma.QuestionScalarWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutCreatorInput>
+}
+
+export type QuestionScalarWhereInput = {
+  AND?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+  OR?: Prisma.QuestionScalarWhereInput[]
+  NOT?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Question"> | string
+  content?: Prisma.StringFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  explanation?: Prisma.StringNullableFilter<"Question"> | string | null
+  createdBy?: Prisma.UuidFilter<"Question"> | string
+  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
 }
 
 export type QuestionCreateManyCreatorInput = {

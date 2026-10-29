@@ -110,6 +110,11 @@ const MENUS: Record<Role, MenuItem[]> = {
       icon: "lucide:layout-dashboard",
     },
     {
+      path: "/admin/users",
+      label: "Người dùng",
+      icon: "lucide:user-round",
+    },
+    {
       path: "/admin/subjects",
       label: "Môn học",
       icon: "lucide:book-open",

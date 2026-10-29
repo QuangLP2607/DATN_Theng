@@ -1,0 +1,150 @@
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.create-button {
+  border: none;
+  border-radius: 6px;
+
+  padding: 5px 12px;
+
+  background: var(--color-primary);
+  color: white;
+
+  font-size: 12px;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.class-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.class-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+
+  border: 1.5px solid rgb(241, 245, 249);
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: border-color 0.15s;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.class-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  font-size: 20.8px;
+}
+
+.class-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.class-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.metadata {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-top: 2px;
+
+  color: var(--color-muted);
+  font-size: 11.52px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.progress {
+  flex-shrink: 0;
+
+  text-align: right;
+}
+
+.progress-value {
+  font-family: var(--font-mono);
+  font-size: 12.8px;
+  font-weight: 700;
+}
+
+.progress-label {
+  margin-top: 2px;
+
+  color: var(--color-subtle);
+  font-size: 10.88px;
+}
+
+.progress-value.primary {
+  color: var(--color-primary);
+}
+
+.progress-value.success {
+  color: var(--color-success);
+}
+
+.progress-value.accent {
+  color: var(--color-accent);
+}
+
+.progress-value.danger {
+  color: var(--color-danger);
+}

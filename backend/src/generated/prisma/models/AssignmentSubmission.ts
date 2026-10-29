@@ -547,6 +547,60 @@ export type AssignmentSubmissionSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
 }
 
+export type AssignmentSubmissionCreateNestedManyWithoutAssignmentInput = {
+  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
+  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
+  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+}
+
+export type AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput = {
+  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
+  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
+  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+}
+
+export type AssignmentSubmissionUpdateManyWithoutAssignmentNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
+  upsert?: Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
+  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
+  set?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  disconnect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  delete?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  update?: Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
+  updateMany?: Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput[]
+  deleteMany?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+}
+
+export type AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentNestedInput = {
+  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
+  upsert?: Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
+  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
+  set?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  disconnect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  delete?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+  update?: Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
+  updateMany?: Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput[]
+  deleteMany?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+}
+
+export type EnumSubmissionStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SubmissionStatus
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type AssignmentSubmissionCreateNestedManyWithoutStudentInput = {
   create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutStudentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutStudentInput> | Prisma.AssignmentSubmissionCreateWithoutStudentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutStudentInput[]
   connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutStudentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutStudentInput[]
@@ -631,58 +685,79 @@ export type AssignmentSubmissionUncheckedUpdateManyWithoutGraderNestedInput = {
   deleteMany?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
 }
 
-export type AssignmentSubmissionCreateNestedManyWithoutAssignmentInput = {
-  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
-  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
-  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
-  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+export type AssignmentSubmissionCreateWithoutAssignmentInput = {
+  id?: string
+  content?: string | null
+  fileUrl?: string | null
+  submittedAt?: Date | string | null
+  status?: $Enums.SubmissionStatus
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: string | null
+  gradedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  student: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  grader?: Prisma.UserCreateNestedOneWithoutGradedSubmissionsInput
 }
 
-export type AssignmentSubmissionUncheckedCreateNestedManyWithoutAssignmentInput = {
-  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
-  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
-  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
-  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
+export type AssignmentSubmissionUncheckedCreateWithoutAssignmentInput = {
+  id?: string
+  studentId: string
+  content?: string | null
+  fileUrl?: string | null
+  submittedAt?: Date | string | null
+  status?: $Enums.SubmissionStatus
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: string | null
+  gradedBy?: string | null
+  gradedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type AssignmentSubmissionUpdateManyWithoutAssignmentNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
-  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
-  upsert?: Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
-  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
-  set?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  disconnect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  delete?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  update?: Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
-  updateMany?: Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput[]
-  deleteMany?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+export type AssignmentSubmissionCreateOrConnectWithoutAssignmentInput = {
+  where: Prisma.AssignmentSubmissionWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput>
 }
 
-export type AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentNestedInput = {
-  create?: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.AssignmentSubmissionCreateWithoutAssignmentInput[] | Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput[]
-  connectOrCreate?: Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput | Prisma.AssignmentSubmissionCreateOrConnectWithoutAssignmentInput[]
-  upsert?: Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
-  createMany?: Prisma.AssignmentSubmissionCreateManyAssignmentInputEnvelope
-  set?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  disconnect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  delete?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  connect?: Prisma.AssignmentSubmissionWhereUniqueInput | Prisma.AssignmentSubmissionWhereUniqueInput[]
-  update?: Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
-  updateMany?: Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput[]
-  deleteMany?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+export type AssignmentSubmissionCreateManyAssignmentInputEnvelope = {
+  data: Prisma.AssignmentSubmissionCreateManyAssignmentInput | Prisma.AssignmentSubmissionCreateManyAssignmentInput[]
+  skipDuplicates?: boolean
 }
 
-export type EnumSubmissionStatusFieldUpdateOperationsInput = {
-  set?: $Enums.SubmissionStatus
+export type AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput = {
+  where: Prisma.AssignmentSubmissionWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssignmentSubmissionUpdateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput>
+  create: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput>
 }
 
-export type NullableDecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+export type AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput = {
+  where: Prisma.AssignmentSubmissionWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput>
+}
+
+export type AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput = {
+  where: Prisma.AssignmentSubmissionScalarWhereInput
+  data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateManyMutationInput, Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentInput>
+}
+
+export type AssignmentSubmissionScalarWhereInput = {
+  AND?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+  OR?: Prisma.AssignmentSubmissionScalarWhereInput[]
+  NOT?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AssignmentSubmission"> | string
+  assignmentId?: Prisma.UuidFilter<"AssignmentSubmission"> | string
+  studentId?: Prisma.UuidFilter<"AssignmentSubmission"> | string
+  content?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
+  fileUrl?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
+  submittedAt?: Prisma.DateTimeNullableFilter<"AssignmentSubmission"> | Date | string | null
+  status?: Prisma.EnumSubmissionStatusFilter<"AssignmentSubmission"> | $Enums.SubmissionStatus
+  score?: Prisma.DecimalNullableFilter<"AssignmentSubmission"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
+  gradedBy?: Prisma.UuidNullableFilter<"AssignmentSubmission"> | string | null
+  gradedAt?: Prisma.DateTimeNullableFilter<"AssignmentSubmission"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"AssignmentSubmission"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AssignmentSubmission"> | Date | string
 }
 
 export type AssignmentSubmissionCreateWithoutStudentInput = {
@@ -781,25 +856,6 @@ export type AssignmentSubmissionUpdateManyWithWhereWithoutStudentInput = {
   data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateManyMutationInput, Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutStudentInput>
 }
 
-export type AssignmentSubmissionScalarWhereInput = {
-  AND?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
-  OR?: Prisma.AssignmentSubmissionScalarWhereInput[]
-  NOT?: Prisma.AssignmentSubmissionScalarWhereInput | Prisma.AssignmentSubmissionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AssignmentSubmission"> | string
-  assignmentId?: Prisma.UuidFilter<"AssignmentSubmission"> | string
-  studentId?: Prisma.UuidFilter<"AssignmentSubmission"> | string
-  content?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
-  fileUrl?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
-  submittedAt?: Prisma.DateTimeNullableFilter<"AssignmentSubmission"> | Date | string | null
-  status?: Prisma.EnumSubmissionStatusFilter<"AssignmentSubmission"> | $Enums.SubmissionStatus
-  score?: Prisma.DecimalNullableFilter<"AssignmentSubmission"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: Prisma.StringNullableFilter<"AssignmentSubmission"> | string | null
-  gradedBy?: Prisma.UuidNullableFilter<"AssignmentSubmission"> | string | null
-  gradedAt?: Prisma.DateTimeNullableFilter<"AssignmentSubmission"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"AssignmentSubmission"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"AssignmentSubmission"> | Date | string
-}
-
 export type AssignmentSubmissionUpsertWithWhereUniqueWithoutGraderInput = {
   where: Prisma.AssignmentSubmissionWhereUniqueInput
   update: Prisma.XOR<Prisma.AssignmentSubmissionUpdateWithoutGraderInput, Prisma.AssignmentSubmissionUncheckedUpdateWithoutGraderInput>
@@ -816,22 +872,7 @@ export type AssignmentSubmissionUpdateManyWithWhereWithoutGraderInput = {
   data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateManyMutationInput, Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutGraderInput>
 }
 
-export type AssignmentSubmissionCreateWithoutAssignmentInput = {
-  id?: string
-  content?: string | null
-  fileUrl?: string | null
-  submittedAt?: Date | string | null
-  status?: $Enums.SubmissionStatus
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: string | null
-  gradedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutSubmissionsInput
-  grader?: Prisma.UserCreateNestedOneWithoutGradedSubmissionsInput
-}
-
-export type AssignmentSubmissionUncheckedCreateWithoutAssignmentInput = {
+export type AssignmentSubmissionCreateManyAssignmentInput = {
   id?: string
   studentId: string
   content?: string | null
@@ -846,30 +887,49 @@ export type AssignmentSubmissionUncheckedCreateWithoutAssignmentInput = {
   updatedAt?: Date | string
 }
 
-export type AssignmentSubmissionCreateOrConnectWithoutAssignmentInput = {
-  where: Prisma.AssignmentSubmissionWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput>
+export type AssignmentSubmissionUpdateWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  student?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  grader?: Prisma.UserUpdateOneWithoutGradedSubmissionsNestedInput
 }
 
-export type AssignmentSubmissionCreateManyAssignmentInputEnvelope = {
-  data: Prisma.AssignmentSubmissionCreateManyAssignmentInput | Prisma.AssignmentSubmissionCreateManyAssignmentInput[]
-  skipDuplicates?: boolean
+export type AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gradedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AssignmentSubmissionUpsertWithWhereUniqueWithoutAssignmentInput = {
-  where: Prisma.AssignmentSubmissionWhereUniqueInput
-  update: Prisma.XOR<Prisma.AssignmentSubmissionUpdateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput>
-  create: Prisma.XOR<Prisma.AssignmentSubmissionCreateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedCreateWithoutAssignmentInput>
-}
-
-export type AssignmentSubmissionUpdateWithWhereUniqueWithoutAssignmentInput = {
-  where: Prisma.AssignmentSubmissionWhereUniqueInput
-  data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateWithoutAssignmentInput, Prisma.AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput>
-}
-
-export type AssignmentSubmissionUpdateManyWithWhereWithoutAssignmentInput = {
-  where: Prisma.AssignmentSubmissionScalarWhereInput
-  data: Prisma.XOR<Prisma.AssignmentSubmissionUpdateManyMutationInput, Prisma.AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentInput>
+export type AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gradedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AssignmentSubmissionCreateManyStudentInput = {
@@ -987,66 +1047,6 @@ export type AssignmentSubmissionUncheckedUpdateManyWithoutGraderInput = {
   status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type AssignmentSubmissionCreateManyAssignmentInput = {
-  id?: string
-  studentId: string
-  content?: string | null
-  fileUrl?: string | null
-  submittedAt?: Date | string | null
-  status?: $Enums.SubmissionStatus
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: string | null
-  gradedBy?: string | null
-  gradedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type AssignmentSubmissionUpdateWithoutAssignmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
-  grader?: Prisma.UserUpdateOneWithoutGradedSubmissionsNestedInput
-}
-
-export type AssignmentSubmissionUncheckedUpdateWithoutAssignmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gradedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type AssignmentSubmissionUncheckedUpdateManyWithoutAssignmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gradedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gradedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string

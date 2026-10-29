@@ -1,0 +1,50 @@
+model Assignment {
+  id          String           @id @default(uuid()) @db.Uuid
+  courseId    String           @map("course_id") @db.Uuid
+  classId     String?          @map("class_id") @db.Uuid
+  title       String           @db.VarChar(255)
+  description String?
+  dueAt       DateTime?        @map("due_at") @db.Timestamp(6)
+  maxScore    Decimal          @default(10) @map("max_score") @db.Decimal(5, 2)
+  status      AssignmentStatus @default(DRAFT)
+  createdBy   String           @map("created_by") @db.Uuid
+
+  course      Course                 @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  class       Class?                 @relation(fields: [classId], references: [id], onDelete: SetNull)
+  creator     User                   @relation("AssignmentCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  submissions AssignmentSubmission[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([courseId, status])
+  @@index([classId, status])
+  @@index([createdBy])
+  @@map("assignments")
+}
+
+model AssignmentSubmission {
+  id           String           @id @default(uuid()) @db.Uuid
+  assignmentId String           @map("assignment_id") @db.Uuid
+  studentId    String           @map("student_id") @db.Uuid
+  content      String?
+  fileUrl      String?          @map("file_url") @db.VarChar(500)
+  submittedAt  DateTime?        @map("submitted_at") @db.Timestamp(6)
+  status       SubmissionStatus @default(DRAFT)
+  score        Decimal?         @db.Decimal(5, 2)
+  feedback     String?
+  gradedBy     String?          @map("graded_by") @db.Uuid
+  gradedAt     DateTime?        @map("graded_at") @db.Timestamp(6)
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student    User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  grader     User?      @relation("SubmissionGrader", fields: [gradedBy], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([assignmentId, studentId])
+  @@index([studentId, status])
+  @@index([gradedBy])
+  @@map("assignment_submissions")
+}

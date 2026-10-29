@@ -335,6 +335,11 @@ export type CourseUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CourseScalarRelationFilter = {
+  is?: Prisma.CourseWhereInput
+  isNot?: Prisma.CourseWhereInput
+}
+
 export type CourseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -362,23 +367,18 @@ export type CourseMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type CourseScalarRelationFilter = {
-  is?: Prisma.CourseWhereInput
-  isNot?: Prisma.CourseWhereInput
-}
-
-export type CourseCreateNestedOneWithoutTeachersInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTeachersInput
+export type CourseCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAssignmentsInput
   connect?: Prisma.CourseWhereUniqueInput
 }
 
-export type CourseUpdateOneRequiredWithoutTeachersNestedInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTeachersInput
-  upsert?: Prisma.CourseUpsertWithoutTeachersInput
+export type CourseUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.CourseUpsertWithoutAssignmentsInput
   connect?: Prisma.CourseWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutTeachersInput, Prisma.CourseUpdateWithoutTeachersInput>, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.CourseUpdateWithoutAssignmentsInput>, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
 }
 
 export type CourseCreateNestedOneWithoutClassesInput = {
@@ -395,32 +395,18 @@ export type CourseUpdateOneRequiredWithoutClassesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutClassesInput, Prisma.CourseUpdateWithoutClassesInput>, Prisma.CourseUncheckedUpdateWithoutClassesInput>
 }
 
-export type CourseCreateNestedOneWithoutChaptersInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutChaptersInput
+export type CourseCreateNestedOneWithoutTeachersInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTeachersInput
   connect?: Prisma.CourseWhereUniqueInput
 }
 
-export type CourseUpdateOneRequiredWithoutChaptersNestedInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutChaptersInput
-  upsert?: Prisma.CourseUpsertWithoutChaptersInput
+export type CourseUpdateOneRequiredWithoutTeachersNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTeachersInput
+  upsert?: Prisma.CourseUpsertWithoutTeachersInput
   connect?: Prisma.CourseWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutChaptersInput, Prisma.CourseUpdateWithoutChaptersInput>, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
-}
-
-export type CourseCreateNestedOneWithoutAssignmentsInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAssignmentsInput
-  connect?: Prisma.CourseWhereUniqueInput
-}
-
-export type CourseUpdateOneRequiredWithoutAssignmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
-  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAssignmentsInput
-  upsert?: Prisma.CourseUpsertWithoutAssignmentsInput
-  connect?: Prisma.CourseWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.CourseUpdateWithoutAssignmentsInput>, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutTeachersInput, Prisma.CourseUpdateWithoutTeachersInput>, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
 }
 
 export type CourseCreateNestedOneWithoutExamsInput = {
@@ -437,71 +423,85 @@ export type CourseUpdateOneRequiredWithoutExamsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutExamsInput, Prisma.CourseUpdateWithoutExamsInput>, Prisma.CourseUncheckedUpdateWithoutExamsInput>
 }
 
-export type CourseCreateWithoutTeachersInput = {
+export type CourseCreateNestedOneWithoutChaptersInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutChaptersInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneRequiredWithoutChaptersNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutChaptersInput
+  upsert?: Prisma.CourseUpsertWithoutChaptersInput
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutChaptersInput, Prisma.CourseUpdateWithoutChaptersInput>, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
+}
+
+export type CourseCreateWithoutAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
   thumbnail?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  teachers?: Prisma.CourseTeacherCreateNestedManyWithoutCourseInput
   classes?: Prisma.ClassCreateNestedManyWithoutCourseInput
   chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput
-  assignments?: Prisma.AssignmentCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
 }
 
-export type CourseUncheckedCreateWithoutTeachersInput = {
+export type CourseUncheckedCreateWithoutAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
   thumbnail?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  teachers?: Prisma.CourseTeacherUncheckedCreateNestedManyWithoutCourseInput
   classes?: Prisma.ClassUncheckedCreateNestedManyWithoutCourseInput
   chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput
-  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
 }
 
-export type CourseCreateOrConnectWithoutTeachersInput = {
+export type CourseCreateOrConnectWithoutAssignmentsInput = {
   where: Prisma.CourseWhereUniqueInput
-  create: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
 }
 
-export type CourseUpsertWithoutTeachersInput = {
-  update: Prisma.XOR<Prisma.CourseUpdateWithoutTeachersInput, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
-  create: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
+export type CourseUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutAssignmentsInput, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
   where?: Prisma.CourseWhereInput
 }
 
-export type CourseUpdateToOneWithWhereWithoutTeachersInput = {
+export type CourseUpdateToOneWithWhereWithoutAssignmentsInput = {
   where?: Prisma.CourseWhereInput
-  data: Prisma.XOR<Prisma.CourseUpdateWithoutTeachersInput, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutAssignmentsInput, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
 }
 
-export type CourseUpdateWithoutTeachersInput = {
+export type CourseUpdateWithoutAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teachers?: Prisma.CourseTeacherUpdateManyWithoutCourseNestedInput
   classes?: Prisma.ClassUpdateManyWithoutCourseNestedInput
   chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput
-  assignments?: Prisma.AssignmentUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
 }
 
-export type CourseUncheckedUpdateWithoutTeachersInput = {
+export type CourseUncheckedUpdateWithoutAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teachers?: Prisma.CourseTeacherUncheckedUpdateManyWithoutCourseNestedInput
   classes?: Prisma.ClassUncheckedUpdateManyWithoutCourseNestedInput
   chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput
-  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
 }
 
@@ -573,139 +573,71 @@ export type CourseUncheckedUpdateWithoutClassesInput = {
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
 }
 
-export type CourseCreateWithoutChaptersInput = {
+export type CourseCreateWithoutTeachersInput = {
   id?: string
   title: string
   description?: string | null
   thumbnail?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  teachers?: Prisma.CourseTeacherCreateNestedManyWithoutCourseInput
   classes?: Prisma.ClassCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput
   assignments?: Prisma.AssignmentCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
 }
 
-export type CourseUncheckedCreateWithoutChaptersInput = {
+export type CourseUncheckedCreateWithoutTeachersInput = {
   id?: string
   title: string
   description?: string | null
   thumbnail?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  teachers?: Prisma.CourseTeacherUncheckedCreateNestedManyWithoutCourseInput
   classes?: Prisma.ClassUncheckedCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput
   assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
 }
 
-export type CourseCreateOrConnectWithoutChaptersInput = {
+export type CourseCreateOrConnectWithoutTeachersInput = {
   where: Prisma.CourseWhereUniqueInput
-  create: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
 }
 
-export type CourseUpsertWithoutChaptersInput = {
-  update: Prisma.XOR<Prisma.CourseUpdateWithoutChaptersInput, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
-  create: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+export type CourseUpsertWithoutTeachersInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutTeachersInput, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutTeachersInput, Prisma.CourseUncheckedCreateWithoutTeachersInput>
   where?: Prisma.CourseWhereInput
 }
 
-export type CourseUpdateToOneWithWhereWithoutChaptersInput = {
+export type CourseUpdateToOneWithWhereWithoutTeachersInput = {
   where?: Prisma.CourseWhereInput
-  data: Prisma.XOR<Prisma.CourseUpdateWithoutChaptersInput, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutTeachersInput, Prisma.CourseUncheckedUpdateWithoutTeachersInput>
 }
 
-export type CourseUpdateWithoutChaptersInput = {
+export type CourseUpdateWithoutTeachersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  teachers?: Prisma.CourseTeacherUpdateManyWithoutCourseNestedInput
   classes?: Prisma.ClassUpdateManyWithoutCourseNestedInput
+  chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput
   assignments?: Prisma.AssignmentUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
 }
 
-export type CourseUncheckedUpdateWithoutChaptersInput = {
+export type CourseUncheckedUpdateWithoutTeachersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  teachers?: Prisma.CourseTeacherUncheckedUpdateManyWithoutCourseNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutCourseNestedInput
-  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCourseNestedInput
-  exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
-}
-
-export type CourseCreateWithoutAssignmentsInput = {
-  id?: string
-  title: string
-  description?: string | null
-  thumbnail?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  teachers?: Prisma.CourseTeacherCreateNestedManyWithoutCourseInput
-  classes?: Prisma.ClassCreateNestedManyWithoutCourseInput
-  chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput
-  exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
-}
-
-export type CourseUncheckedCreateWithoutAssignmentsInput = {
-  id?: string
-  title: string
-  description?: string | null
-  thumbnail?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  teachers?: Prisma.CourseTeacherUncheckedCreateNestedManyWithoutCourseInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutCourseInput
-  chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput
-  exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
-}
-
-export type CourseCreateOrConnectWithoutAssignmentsInput = {
-  where: Prisma.CourseWhereUniqueInput
-  create: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
-}
-
-export type CourseUpsertWithoutAssignmentsInput = {
-  update: Prisma.XOR<Prisma.CourseUpdateWithoutAssignmentsInput, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
-  create: Prisma.XOR<Prisma.CourseCreateWithoutAssignmentsInput, Prisma.CourseUncheckedCreateWithoutAssignmentsInput>
-  where?: Prisma.CourseWhereInput
-}
-
-export type CourseUpdateToOneWithWhereWithoutAssignmentsInput = {
-  where?: Prisma.CourseWhereInput
-  data: Prisma.XOR<Prisma.CourseUpdateWithoutAssignmentsInput, Prisma.CourseUncheckedUpdateWithoutAssignmentsInput>
-}
-
-export type CourseUpdateWithoutAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  teachers?: Prisma.CourseTeacherUpdateManyWithoutCourseNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutCourseNestedInput
-  chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput
-  exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
-}
-
-export type CourseUncheckedUpdateWithoutAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  teachers?: Prisma.CourseTeacherUncheckedUpdateManyWithoutCourseNestedInput
   classes?: Prisma.ClassUncheckedUpdateManyWithoutCourseNestedInput
   chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
 }
 
@@ -775,6 +707,74 @@ export type CourseUncheckedUpdateWithoutExamsInput = {
   classes?: Prisma.ClassUncheckedUpdateManyWithoutCourseNestedInput
   chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput
   assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutChaptersInput = {
+  id?: string
+  title: string
+  description?: string | null
+  thumbnail?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teachers?: Prisma.CourseTeacherCreateNestedManyWithoutCourseInput
+  classes?: Prisma.ClassCreateNestedManyWithoutCourseInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutChaptersInput = {
+  id?: string
+  title: string
+  description?: string | null
+  thumbnail?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teachers?: Prisma.CourseTeacherUncheckedCreateNestedManyWithoutCourseInput
+  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutCourseInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutChaptersInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+}
+
+export type CourseUpsertWithoutChaptersInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutChaptersInput, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutChaptersInput, Prisma.CourseUncheckedCreateWithoutChaptersInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutChaptersInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutChaptersInput, Prisma.CourseUncheckedUpdateWithoutChaptersInput>
+}
+
+export type CourseUpdateWithoutChaptersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teachers?: Prisma.CourseTeacherUpdateManyWithoutCourseNestedInput
+  classes?: Prisma.ClassUpdateManyWithoutCourseNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutChaptersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teachers?: Prisma.CourseTeacherUncheckedUpdateManyWithoutCourseNestedInput
+  classes?: Prisma.ClassUncheckedUpdateManyWithoutCourseNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 
