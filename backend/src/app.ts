@@ -8,6 +8,8 @@ import notFoundHandler from "./middlewares/notFound";
 import authRoutes from "./modules/auth/router";
 import usersRoutes from "./modules/users/router";
 
+import statsRoutes from "./modules/stats/router";
+
 const app = express();
 
 /*
@@ -36,6 +38,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/stats", statsRoutes);
 
 /*
  * 404

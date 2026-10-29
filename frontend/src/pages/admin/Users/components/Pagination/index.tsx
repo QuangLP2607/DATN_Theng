@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Icon } from "@iconify/react";
 import classNames from "classnames/bind";
 
@@ -13,7 +14,7 @@ interface PaginationProps {
   onPageChange?: (page: number) => void;
 }
 
-export default function Pagination({
+function Pagination({
   currentPage,
   totalPages,
   totalItems,
@@ -21,6 +22,7 @@ export default function Pagination({
   onPageChange,
 }: PaginationProps) {
   const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   const canGoPrevious = currentPage > 1;
@@ -60,3 +62,5 @@ export default function Pagination({
     </div>
   );
 }
+
+export default memo(Pagination);

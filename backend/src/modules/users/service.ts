@@ -44,7 +44,15 @@ export const getMe = async (userId: string): Promise<UserResponse> => {
  */
 
 export const getUsers = async (query: ListUsersQueryDto) => {
-  const { page = 1, limit = 10, search, role, status } = query;
+  const {
+    page = 1,
+    limit = 10,
+    search,
+    role,
+    status,
+    sortBy = "createdAt",
+    sortOrder = "desc",
+  } = query;
 
   const where: Prisma.UserWhereInput = {
     ...(role && { role }),
@@ -69,13 +77,15 @@ export const getUsers = async (query: ListUsersQueryDto) => {
 
   const skip = (page - 1) * limit;
 
+  const orderBy: Prisma.UserOrderByWithRelationInput = {
+    [sortBy]: sortOrder,
+  };
+
   const [users, total] = await prisma.$transaction([
     prisma.user.findMany({
       where,
       select: userSelect,
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: [orderBy, { id: "asc" }],
       skip,
       take: limit,
     }),

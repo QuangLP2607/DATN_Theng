@@ -12,6 +12,12 @@ export const listUsersQuerySchema = z.object({
   role: z.enum(UserRole).optional(),
 
   status: z.enum(UserStatus).optional(),
+
+  sortBy: z
+    .enum(["name", "email", "role", "status", "createdAt", "updatedAt"])
+    .default("createdAt"),
+
+  sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
 
 export type ListUsersQueryDto = z.infer<typeof listUsersQuerySchema>;

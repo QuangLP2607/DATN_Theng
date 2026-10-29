@@ -7,6 +7,16 @@ import type { User, Role, UserStatus } from "@/interfaces/user";
 
 import apiClient from "./apiClient";
 
+export type UserSortBy =
+  | "name"
+  | "email"
+  | "role"
+  | "status"
+  | "createdAt"
+  | "updatedAt";
+
+export type SortOrder = "asc" | "desc";
+
 export interface UserListItem extends User {
   classCount: number;
 }
@@ -15,6 +25,8 @@ export interface GetUsersParams extends PaginationParams {
   search?: string;
   role?: Role;
   status?: UserStatus;
+  sortBy?: UserSortBy;
+  sortOrder?: SortOrder;
 }
 
 export interface GetUsersResponse {
