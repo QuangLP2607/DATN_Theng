@@ -65,3 +65,14 @@ enum NotificationType {
   LESSON
   SYSTEM
 }
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum LessonAttachmentType {
+  FILE
+  LINK
+}

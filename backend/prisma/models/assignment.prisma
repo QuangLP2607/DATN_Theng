@@ -1,7 +1,6 @@
 model Assignment {
   id          String           @id @default(uuid()) @db.Uuid
-  courseId    String           @map("course_id") @db.Uuid
-  classId     String?          @map("class_id") @db.Uuid
+  classId     String           @map("class_id") @db.Uuid
   title       String           @db.VarChar(255)
   description String?
   dueAt       DateTime?        @map("due_at") @db.Timestamp(6)
@@ -9,16 +8,14 @@ model Assignment {
   status      AssignmentStatus @default(DRAFT)
   createdBy   String           @map("created_by") @db.Uuid
 
-  course      Course                 @relation(fields: [courseId], references: [id], onDelete: Restrict)
-  class       Class?                 @relation(fields: [classId], references: [id], onDelete: SetNull)
-  creator     User                   @relation("AssignmentCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  class       Class                    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  creator     User                     @relation("AssignmentCreator", fields: [createdBy], references: [id])
   submissions AssignmentSubmission[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  @@index([courseId, status])
-  @@index([classId, status])
+  @@index([classId])
   @@index([createdBy])
   @@map("assignments")
 }
@@ -37,14 +34,16 @@ model AssignmentSubmission {
   gradedAt     DateTime?        @map("graded_at") @db.Timestamp(6)
 
   assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  student    User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  grader     User?      @relation("SubmissionGrader", fields: [gradedBy], references: [id], onDelete: SetNull)
+
+  student User @relation("SubmissionStudent", fields: [studentId], references: [id])
+
+  grader User? @relation("SubmissionGrader", fields: [gradedBy], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@unique([assignmentId, studentId])
-  @@index([studentId, status])
+  @@index([studentId])
   @@index([gradedBy])
   @@map("assignment_submissions")
 }

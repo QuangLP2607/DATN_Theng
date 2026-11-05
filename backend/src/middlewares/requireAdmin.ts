@@ -1,19 +1,18 @@
-import type { NextFunction, Request, Response } from "express";
+import type { RequestHandler } from "express";
 
 import { AppError } from "../core/error";
+import { assertAdminAccess } from "../modules/access/service";
 
-export const requireAdmin = (
-  req: Request,
-  _res: Response,
-  next: NextFunction,
-): void => {
-  if (!req.user) {
-    throw AppError.unauthorized("Authentication required");
+export const requireAdmin: RequestHandler = async (req, _res, next) => {
+  try {
+    if (!req.user) {
+      throw AppError.unauthorized("Authentication required");
+    }
+
+    await assertAdminAccess(req.user.id);
+
+    next();
+  } catch (error) {
+    next(error);
   }
-
-  if (req.user.role !== "ADMIN") {
-    throw AppError.forbidden("Only admins can register accounts");
-  }
-
-  next();
 };

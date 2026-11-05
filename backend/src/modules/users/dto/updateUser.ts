@@ -1,13 +1,11 @@
 import { z } from "zod";
 
-export const updateUserSchema = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(1, "Name is required")
-      .max(100, "Name is too long")
-      .optional(),
+import { UserRole, UserStatus } from "../../../generated/prisma/enums";
+import { nonEmptyObject, stringSchema } from "../../../utils/zod";
+
+export const updateUserSchema = nonEmptyObject(
+  z.object({
+    name: stringSchema("Name", 1, 100).optional(),
 
     avatar: z
       .string()
@@ -16,12 +14,10 @@ export const updateUserSchema = z
       .nullable()
       .optional(),
 
-    role: z.enum(["ADMIN", "TEACHER", "STUDENT"]).optional(),
+    role: z.enum(UserRole).optional(),
 
-    status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
-  })
-  .refine((data) => Object.keys(data).length > 0, {
-    message: "At least one field must be provided",
-  });
+    status: z.enum(UserStatus).optional(),
+  }),
+);
 
 export type UpdateUserDto = z.infer<typeof updateUserSchema>;

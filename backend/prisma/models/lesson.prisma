@@ -1,37 +1,69 @@
 model Chapter {
-  id          String  @id @default(uuid()) @db.Uuid
-  courseId    String  @map("course_id") @db.Uuid
-  title       String  @db.VarChar(255)
+  id          String        @id @default(uuid()) @db.Uuid
+  subjectId   String        @map("subject_id") @db.Uuid
+  title       String        @db.VarChar(255)
   description String?
   position    Int
+  status      ContentStatus @default(DRAFT)
 
-  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  subject Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   lessons Lesson[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  @@unique([courseId, position])
+  @@unique([subjectId, position])
+  @@index([subjectId, status])
   @@map("chapters")
 }
 
 model Lesson {
-  id        String     @id @default(uuid()) @db.Uuid
-  chapterId String     @map("chapter_id") @db.Uuid
-  title     String     @db.VarChar(255)
+  id        String        @id @default(uuid()) @db.Uuid
+  chapterId String        @map("chapter_id") @db.Uuid
+  title     String        @db.VarChar(255)
   type      LessonType
   content   String?
   duration  Int?
   position  Int
+  status    ContentStatus @default(DRAFT)
 
-  chapter  Chapter          @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-  progress LessonProgress[]
+  chapter     Chapter             @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  attachments LessonAttachment[]
+  progress    LessonProgress[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@unique([chapterId, position])
+  @@index([chapterId, status])
   @@map("lessons")
+}
+
+model LessonAttachment {
+  id       String               @id @default(uuid()) @db.Uuid
+  lessonId String               @map("lesson_id") @db.Uuid
+  title    String               @db.VarChar(255)
+  type     LessonAttachmentType
+
+  // Thông tin file
+  storageKey String? @map("storage_key") @db.VarChar(1000)
+  fileName   String? @map("file_name") @db.VarChar(255)
+  mimeType   String? @map("mime_type") @db.VarChar(100)
+  size       Int?
+
+  // Đường dẫn tài liệu bên ngoài
+  externalUrl String? @map("external_url") @db.VarChar(1000)
+
+  position Int
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([lessonId, position])
+  @@index([lessonId])
+  @@map("lesson_attachments")
 }
 
 model LessonProgress {
@@ -49,6 +81,6 @@ model LessonProgress {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@unique([lessonId, studentId])
-  @@index([studentId, completed])
+  @@index([studentId])
   @@map("lesson_progress")
 }

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 import { prisma } from "../../config/prisma";
 import { AppError } from "../../core/error";
+
 import { generateTokens } from "../../services/jwt";
 import { sendActivationEmail } from "../../services/email";
 
@@ -14,11 +15,18 @@ import type { ResendActivationDto } from "./dto/resendActivation";
 const SALT_ROUNDS = 10;
 const ACTIVATION_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 
+/*
+ * -------------------- ACTIVATION TOKEN --------------------
+ */
+
 const generateActivationToken = () => {
   const token = randomBytes(32).toString("hex");
   const tokenHash = createHash("sha256").update(token).digest("hex");
 
-  return { token, tokenHash };
+  return {
+    token,
+    tokenHash,
+  };
 };
 
 /*
@@ -26,16 +34,6 @@ const generateActivationToken = () => {
  */
 
 export const signUp = async (data: SignUpDto) => {
-  const email = data.email.trim().toLowerCase();
-
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (existingUser) {
-    throw AppError.conflict("Email is already registered");
-  }
-
   const { token, tokenHash } = generateActivationToken();
 
   const temporaryPasswordHash = await bcrypt.hash(
@@ -45,8 +43,8 @@ export const signUp = async (data: SignUpDto) => {
 
   const user = await prisma.user.create({
     data: {
-      email,
-      name: data.name.trim(),
+      email: data.email,
+      name: data.name,
       role: data.role,
       status: "INACTIVE",
       passwordHash: temporaryPasswordHash,
@@ -89,7 +87,9 @@ export const activateAccount = async (data: ActivateAccountDto) => {
   const tokenHash = createHash("sha256").update(data.token).digest("hex");
 
   const user = await prisma.user.findUnique({
-    where: { activationTokenHash: tokenHash },
+    where: {
+      activationTokenHash: tokenHash,
+    },
   });
 
   if (
@@ -137,15 +137,15 @@ export const activateAccount = async (data: ActivateAccountDto) => {
  */
 
 export const resendActivation = async (data: ResendActivationDto) => {
-  const email = data.email.trim().toLowerCase();
-
   const genericResponse = {
     message:
       "If the account requires activation, an activation email will be sent.",
   };
 
   const user = await prisma.user.findUnique({
-    where: { email },
+    where: {
+      email: data.email,
+    },
   });
 
   if (!user || user.emailVerifiedAt || user.status !== "INACTIVE") {
@@ -182,10 +182,10 @@ export const resendActivation = async (data: ResendActivationDto) => {
  */
 
 export const signIn = async (data: SignInDto) => {
-  const email = data.email.trim().toLowerCase();
-
   const user = await prisma.user.findUnique({
-    where: { email },
+    where: {
+      email: data.email,
+    },
   });
 
   if (!user) {

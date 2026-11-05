@@ -1,0 +1,279 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+
+  label {
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+
+    span {
+      color: #ef4444;
+    }
+  }
+
+  > input,
+  > select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 11px 12px;
+
+    color: var(--color-text);
+    background: var(--color-card);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+
+    font-family: var(--font-body);
+    font-size: 13px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: var(--color-muted);
+      opacity: 0.7;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-subtle);
+    }
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgb(99 102 241 / 12%);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: var(--color-bg);
+      opacity: 0.6;
+    }
+  }
+
+  // Input có bộ đếm ký tự
+  > input:has(+ .hint) {
+    padding-right: 76px;
+  }
+
+  // Bộ đếm ký tự không chiếm layout
+  > .hint {
+    position: absolute;
+    right: 12px;
+    bottom: 13px;
+
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 11px;
+    line-height: 1;
+
+    pointer-events: none;
+  }
+}
+
+// Error
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+
+  svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+}
+
+// Actions
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  padding-top: 6px;
+}
+
+.cancel-button,
+.submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 38px;
+  padding: 0 16px;
+
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.cancel-button {
+  color: var(--color-muted);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg);
+  }
+}
+
+.submit-button {
+  color: #fff;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+
+  &:hover:not(:disabled) {
+    filter: brightness(0.95);
+  }
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+// Success
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  text-align: center;
+
+  p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+
+    strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+  }
+}
+
+.success-icon {
+  display: grid;
+  place-items: center;
+
+  width: 54px;
+  height: 54px;
+
+  color: #16a34a;
+  background: #dcfce7;
+  border-radius: 50%;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.success-button {
+  min-height: 38px;
+  padding: 0 24px;
+
+  color: #fff;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// Animations
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    gap: 16px;
+  }
+
+  .actions {
+    > button {
+      flex: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-icon {
+    animation: none;
+  }
+}

@@ -1,21 +1,29 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
 import classNames from "classnames/bind";
 import * as XLSX from "xlsx";
 
-import Pagination from "./components/Pagination";
+import Pagination from "@/components/Pagination";
+import Loading from "@/components/Loading";
+import ErrorState from "@/components/ErrorState";
+import Modal from "@/components/Modal";
+
 import Stats from "./components/Stats";
 import Toolbar from "./components/Toolbar";
 import UserList from "./components/UserList";
-import AddUserModal from "./components/AddUserModal";
+import AddModal from "./components/AddModal";
+import EditModal from "./components/EditModal";
 
 import userApi, {
   type UserListItem,
   type GetUsersResponse,
 } from "@/services/users";
+
 import statsApi, { type UserStats } from "@/services/stats";
+
 import type { DataTableSort } from "@/components/DataTable";
 import type { Role } from "@/interfaces/user";
+
+import useDebouncedSearch from "@/hooks/useDebouncedSearch";
 
 import styles from "./Users.module.scss";
 
@@ -39,10 +47,16 @@ export default function Users() {
 
   const [loading, setLoading] = useState(true);
   const [statsLoading, setStatsLoading] = useState(true);
+
   const [error, setError] = useState("");
   const [statsError, setStatsError] = useState("");
+
   const [exporting, setExporting] = useState(false);
-  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserListItem | null>(null);
+  const [confirmUser, setConfirmUser] = useState<UserListItem | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -51,6 +65,10 @@ export default function Users() {
 
   const requestIdRef = useRef(0);
   const statsRequestIdRef = useRef(0);
+
+  /*
+   * ==================== FETCH USERS ====================
+   */
 
   const fetchUsers = useCallback(
     async (
@@ -62,7 +80,6 @@ export default function Users() {
       const requestId = ++requestIdRef.current;
 
       setLoading(true);
-      setError("");
 
       try {
         const response = await userApi.getUsers({
@@ -82,6 +99,7 @@ export default function Users() {
         setUsers(response.users);
         setResult(response);
         setCurrentPage(response.pagination.page);
+        setError("");
       } catch {
         if (requestId === requestIdRef.current) {
           setError("Không thể tải danh sách người dùng.");
@@ -95,11 +113,14 @@ export default function Users() {
     [],
   );
 
+  /*
+   * ==================== FETCH STATS ====================
+   */
+
   const fetchStats = useCallback(async () => {
     const requestId = ++statsRequestIdRef.current;
 
     setStatsLoading(true);
-    setStatsError("");
 
     try {
       const response = await statsApi.getUserStats();
@@ -107,6 +128,7 @@ export default function Users() {
       if (requestId !== statsRequestIdRef.current) return;
 
       setStats(response);
+      setStatsError("");
     } catch {
       if (requestId === statsRequestIdRef.current) {
         setStatsError("Không thể tải thống kê người dùng.");
@@ -118,89 +140,123 @@ export default function Users() {
     }
   }, []);
 
-  const debouncedSearch = useDebouncedCallback(
+  /*
+   * ==================== DEBOUNCED SEARCH ====================
+   */
+
+  const debouncedSearch = useDebouncedSearch(
     (keyword: string, role: RoleFilter, currentSort: DataTableSort | null) => {
       void fetchUsers(1, keyword, role, currentSort);
     },
     400,
   );
 
+  /*
+   * ==================== INITIAL DATA ====================
+   */
+
   useEffect(() => {
     let cancelled = false;
-    const requestId = ++requestIdRef.current;
 
-    userApi
-      .getUsers({
-        page: 1,
-        limit: PAGE_SIZE,
-      })
-      .then((response) => {
-        if (cancelled || requestId !== requestIdRef.current) return;
+    const usersRequestId = ++requestIdRef.current;
+    const statsRequestId = ++statsRequestIdRef.current;
+
+    const loadUsers = async () => {
+      try {
+        const response = await userApi.getUsers({
+          page: 1,
+          limit: PAGE_SIZE,
+        });
+
+        if (cancelled || usersRequestId !== requestIdRef.current) return;
 
         setUsers(response.users);
         setResult(response);
         setCurrentPage(response.pagination.page);
-      })
-      .catch(() => {
-        if (!cancelled && requestId === requestIdRef.current) {
+        setError("");
+      } catch {
+        if (!cancelled && usersRequestId === requestIdRef.current) {
           setError("Không thể tải danh sách người dùng.");
         }
-      })
-      .finally(() => {
-        if (!cancelled && requestId === requestIdRef.current) {
+      } finally {
+        if (!cancelled && usersRequestId === requestIdRef.current) {
           setLoading(false);
         }
-      });
+      }
+    };
+
+    const loadStats = async () => {
+      try {
+        const response = await statsApi.getUserStats();
+
+        if (cancelled || statsRequestId !== statsRequestIdRef.current) return;
+
+        setStats(response);
+        setStatsError("");
+      } catch {
+        if (!cancelled && statsRequestId === statsRequestIdRef.current) {
+          setStatsError("Không thể tải thống kê người dùng.");
+        }
+      } finally {
+        if (!cancelled && statsRequestId === statsRequestIdRef.current) {
+          setStatsLoading(false);
+        }
+      }
+    };
+
+    void loadUsers();
+    void loadStats();
 
     return () => {
       cancelled = true;
+
       requestIdRef.current += 1;
+      statsRequestIdRef.current += 1;
+
       debouncedSearch.cancel();
     };
   }, [debouncedSearch]);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    statsApi
-      .getUserStats()
-      .then((response) => {
-        if (!cancelled) {
-          setStats(response);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setStatsError("Không thể tải thống kê người dùng.");
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  /*
+   * ==================== SEARCH ====================
+   */
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setCurrentPage(1);
+
     debouncedSearch(value, selectedRole, sort);
   };
 
+  /*
+   * ==================== FILTER ====================
+   */
+
   const handleRoleChange = (role: RoleFilter) => {
     debouncedSearch.cancel();
+
     setSelectedRole(role);
     setCurrentPage(1);
 
     void fetchUsers(1, search, role, sort);
   };
 
+  /*
+   * ==================== SORT ====================
+   */
+
   const handleSortChange = (nextSort: DataTableSort | null) => {
     debouncedSearch.cancel();
+
     setSort(nextSort);
     setCurrentPage(1);
 
     void fetchUsers(1, search, selectedRole, nextSort);
   };
+
+  /*
+   * ==================== PAGINATION ====================
+   */
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -211,6 +267,7 @@ export default function Users() {
       }
 
       debouncedSearch.cancel();
+
       setCurrentPage(page);
 
       void fetchUsers(page, search, selectedRole, sort);
@@ -226,9 +283,21 @@ export default function Users() {
     ],
   );
 
-  const handleRetry = () => {
+  /*
+   * ==================== RETRY ====================
+   */
+
+  const handleRetryUsers = () => {
     void fetchUsers(currentPage, search, selectedRole, sort);
   };
+
+  const handleRetryStats = () => {
+    void fetchStats();
+  };
+
+  /*
+   * ==================== ADD USER ====================
+   */
 
   const handleAddUserSuccess = () => {
     void Promise.all([
@@ -236,6 +305,59 @@ export default function Users() {
       fetchStats(),
     ]);
   };
+
+  /*
+   * ==================== EDIT USER ====================
+   */
+
+  const handleEditUser = (user: UserListItem) => {
+    setSelectedUser(user);
+  };
+
+  const handleEditSuccess = () => {
+    void Promise.all([
+      fetchUsers(currentPage, search, selectedRole, sort),
+      fetchStats(),
+    ]);
+  };
+
+  /*
+   * ==================== TOGGLE USER STATUS ====================
+   */
+
+  const handleToggleStatus = (user: UserListItem) => {
+    setConfirmUser(user);
+  };
+
+  const handleConfirmToggleStatus = async () => {
+    if (!confirmUser || actionLoading) return;
+
+    setActionLoading(true);
+
+    try {
+      const nextStatus =
+        confirmUser.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
+
+      await userApi.updateUser(confirmUser.id, {
+        status: nextStatus,
+      });
+
+      setConfirmUser(null);
+
+      await Promise.all([
+        fetchUsers(currentPage, search, selectedRole, sort),
+        fetchStats(),
+      ]);
+    } catch {
+      window.alert("Không thể cập nhật trạng thái người dùng.");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  /*
+   * ==================== EXPORT EXCEL ====================
+   */
 
   const handleExport = async () => {
     if (exporting) return;
@@ -315,36 +437,36 @@ export default function Users() {
     }
   };
 
-  const hasUsers = users.length > 0;
-  const showTable = !error || hasUsers || loading;
+  /*
+   * ==================== RENDER ====================
+   */
 
   return (
     <main className={cx("wrapper")}>
-      <Stats
-        totalUsers={stats.totalUsers}
-        teachers={stats.totalTeachers}
-        students={stats.totalStudents}
-      />
+      {/* STATS */}
+      <section className={cx("stats-container")}>
+        <Stats
+          totalUsers={stats.totalUsers}
+          teachers={stats.totalTeachers}
+          students={stats.totalStudents}
+        />
 
-      {statsError && (
-        <div role="alert">
-          <p>{statsError}</p>
-          <button
-            type="button"
-            onClick={() => void fetchStats()}
-            disabled={statsLoading}
-          >
-            Thử tải lại thống kê
-          </button>
-        </div>
-      )}
+        {statsError && (
+          <ErrorState
+            message={statsError}
+            onRetry={handleRetryStats}
+            loading={statsLoading}
+          />
+        )}
+      </section>
 
+      {/* TOOLBAR */}
       <Toolbar
         search={search}
         selectedRole={selectedRole}
         onSearchChange={handleSearchChange}
         onRoleChange={handleRoleChange}
-        onAddUser={() => setShowAddUserModal(true)}
+        onAddUser={() => setShowAddModal(true)}
         onExport={handleExport}
       />
 
@@ -354,41 +476,103 @@ export default function Users() {
         </p>
       )}
 
-      {error && (
-        <div role="alert">
-          <p>{error}</p>
-          <button type="button" onClick={handleRetry}>
-            Thử lại
-          </button>
-        </div>
-      )}
-
-      {showTable && (
-        <>
+      {/* USER LIST */}
+      <section className={cx("list-container")}>
+        {loading && !result ? (
+          <Loading />
+        ) : (
           <UserList
             users={users}
-            loading={loading && users.length === 0}
+            loading={false}
             sort={sort}
             onSortChange={handleSortChange}
+            onEdit={handleEditUser}
+            onToggleStatus={handleToggleStatus}
           />
+        )}
 
-          {result && result.pagination.total > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={result.pagination.totalPages}
-              totalItems={result.pagination.total}
-              pageSize={result.pagination.limit}
-              onPageChange={handlePageChange}
-            />
-          )}
-        </>
+        {error && (
+          <ErrorState
+            message={error}
+            onRetry={handleRetryUsers}
+            loading={loading}
+          />
+        )}
+      </section>
+
+      {/* PAGINATION */}
+      {result && result.pagination.total > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={result.pagination.totalPages}
+          totalItems={result.pagination.total}
+          pageSize={result.pagination.limit}
+          itemLabel="người dùng"
+          ariaLabel="Phân trang người dùng"
+          onPageChange={handlePageChange}
+        />
       )}
 
-      {showAddUserModal && (
-        <AddUserModal
-          onClose={() => setShowAddUserModal(false)}
+      {/* ADD USER MODAL */}
+      {showAddModal && (
+        <AddModal
+          onClose={() => setShowAddModal(false)}
           onSuccess={handleAddUserSuccess}
         />
+      )}
+
+      {/* EDIT USER MODAL */}
+      {selectedUser && (
+        <EditModal
+          user={selectedUser}
+          onClose={() => setSelectedUser(null)}
+          onSuccess={handleEditSuccess}
+        />
+      )}
+
+      {/* CONFIRM TOGGLE STATUS MODAL */}
+      {confirmUser && (
+        <Modal
+          title={
+            confirmUser.status === "ACTIVE"
+              ? "Khóa tài khoản"
+              : "Mở khóa tài khoản"
+          }
+          description={
+            confirmUser.status === "ACTIVE"
+              ? `Bạn có chắc muốn khóa tài khoản "${confirmUser.name}"? Người dùng sẽ không thể đăng nhập cho đến khi được mở khóa.`
+              : `Bạn có chắc muốn mở khóa tài khoản "${confirmUser.name}"? Người dùng sẽ có thể đăng nhập và sử dụng hệ thống trở lại.`
+          }
+          onClose={() => setConfirmUser(null)}
+          loading={actionLoading}
+        >
+          <div className={cx("modal-actions")}>
+            <button
+              type="button"
+              className={cx("cancel-button")}
+              onClick={() => setConfirmUser(null)}
+              disabled={actionLoading}
+            >
+              Hủy
+            </button>
+
+            <button
+              type="button"
+              className={cx(
+                "confirm-button",
+                confirmUser.status === "ACTIVE" ? "danger" : "primary",
+              )}
+              onClick={handleConfirmToggleStatus}
+              disabled={actionLoading}
+            >
+              {actionLoading
+                ? "Đang xử lý..."
+                : confirmUser.status === "ACTIVE"
+                  ? "Khóa tài khoản"
+                  : "Mở khóa"}
+            </button>
+          </div>
+        </Modal>
       )}
     </main>
   );

@@ -1,7 +1,6 @@
 model Exam {
   id              String     @id @default(uuid()) @db.Uuid
-  courseId        String     @map("course_id") @db.Uuid
-  classId         String?    @map("class_id") @db.Uuid
+  classId         String     @map("class_id") @db.Uuid
   title           String     @db.VarChar(255)
   description     String?
   durationMinutes Int        @map("duration_minutes")
@@ -10,17 +9,15 @@ model Exam {
   status          ExamStatus @default(DRAFT)
   createdBy       String     @map("created_by") @db.Uuid
 
-  course    Course         @relation(fields: [courseId], references: [id], onDelete: Restrict)
-  class     Class?         @relation(fields: [classId], references: [id], onDelete: SetNull)
-  creator   User           @relation("ExamCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  class     Class          @relation(fields: [classId], references: [id], onDelete: Cascade)
+  creator   User           @relation("ExamCreator", fields: [createdBy], references: [id])
   questions ExamQuestion[]
   attempts  ExamAttempt[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  @@index([courseId, status])
-  @@index([classId, status])
+  @@index([classId])
   @@index([createdBy])
   @@map("exams")
 }
@@ -32,10 +29,10 @@ model Question {
   explanation String?
   createdBy   String       @map("created_by") @db.Uuid
 
-  creator User             @relation("QuestionCreator", fields: [createdBy], references: [id], onDelete: Restrict)
-  options QuestionOption[]
-  exams   ExamQuestion[]
-  answers ExamAnswer[]
+  creator  User             @relation("QuestionCreator", fields: [createdBy], references: [id])
+  options  QuestionOption[]
+  exams    ExamQuestion[]
+  answers  ExamAnswer[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
@@ -51,13 +48,15 @@ model QuestionOption {
   isCorrect  Boolean @default(false) @map("is_correct")
   position   Int
 
-  question Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  answers  ExamAnswer[] @relation("SelectedOption")
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  answerOptions ExamAnswerOption[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@unique([questionId, position])
+  @@index([questionId])
   @@map("question_options")
 }
 
@@ -68,13 +67,14 @@ model ExamQuestion {
   position   Int
 
   exam     Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
-  question Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  question Question @relation(fields: [questionId], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@id([examId, questionId])
   @@unique([examId, position])
+  @@index([questionId])
   @@map("exam_questions")
 }
 
@@ -83,35 +83,35 @@ model ExamAttempt {
   examId        String            @map("exam_id") @db.Uuid
   studentId     String            @map("student_id") @db.Uuid
   attemptNumber Int               @map("attempt_number")
-  startedAt     DateTime          @default(now()) @map("started_at") @db.Timestamp(6)
+  startedAt     DateTime          @map("started_at") @db.Timestamp(6)
   submittedAt   DateTime?         @map("submitted_at") @db.Timestamp(6)
   score         Decimal?          @db.Decimal(5, 2)
   status        ExamAttemptStatus @default(IN_PROGRESS)
 
   exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
-  student User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  student User         @relation(fields: [studentId], references: [id])
   answers ExamAnswer[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
   @@unique([examId, studentId, attemptNumber])
-  @@index([studentId, status])
+  @@index([studentId])
   @@map("exam_attempts")
 }
 
 model ExamAnswer {
-  id               String   @id @default(uuid()) @db.Uuid
-  attemptId        String   @map("attempt_id") @db.Uuid
-  questionId       String   @map("question_id") @db.Uuid
-  selectedOptionId String?  @map("selected_option_id") @db.Uuid
-  answerText       String?  @map("answer_text")
-  isCorrect        Boolean? @map("is_correct")
-  score            Decimal? @db.Decimal(5, 2)
+  id         String   @id @default(uuid()) @db.Uuid
+  attemptId  String   @map("attempt_id") @db.Uuid
+  questionId String   @map("question_id") @db.Uuid
+  answerText String?  @map("answer_text")
+  isCorrect  Boolean? @map("is_correct")
+  score      Decimal? @db.Decimal(5, 2)
 
-  attempt        ExamAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  question       Question        @relation(fields: [questionId], references: [id], onDelete: Restrict)
-  selectedOption QuestionOption? @relation("SelectedOption", fields: [selectedOptionId], references: [id], onDelete: SetNull)
+  attempt  ExamAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [questionId], references: [id])
+
+  selectedOptions ExamAnswerOption[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
@@ -119,4 +119,16 @@ model ExamAnswer {
   @@unique([attemptId, questionId])
   @@index([questionId])
   @@map("exam_answers")
+}
+
+model ExamAnswerOption {
+  answerId String @map("answer_id") @db.Uuid
+  optionId String @map("option_id") @db.Uuid
+
+  answer ExamAnswer     @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  option QuestionOption @relation(fields: [optionId], references: [id])
+
+  @@id([answerId, optionId])
+  @@index([optionId])
+  @@map("exam_answer_options")
 }

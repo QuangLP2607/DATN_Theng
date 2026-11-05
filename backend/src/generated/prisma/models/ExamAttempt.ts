@@ -338,7 +338,7 @@ export type ExamAttemptScalarWhereWithAggregatesInput = {
 export type ExamAttemptCreateInput = {
   id?: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -354,7 +354,7 @@ export type ExamAttemptUncheckedCreateInput = {
   examId: string
   studentId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -396,7 +396,7 @@ export type ExamAttemptCreateManyInput = {
   examId: string
   studentId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -603,7 +603,7 @@ export type ExamAttemptUncheckedUpdateManyWithoutStudentNestedInput = {
 export type ExamAttemptCreateWithoutExamInput = {
   id?: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -617,7 +617,7 @@ export type ExamAttemptUncheckedCreateWithoutExamInput = {
   id?: string
   studentId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -671,7 +671,7 @@ export type ExamAttemptScalarWhereInput = {
 export type ExamAttemptCreateWithoutAnswersInput = {
   id?: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -686,7 +686,7 @@ export type ExamAttemptUncheckedCreateWithoutAnswersInput = {
   examId: string
   studentId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -739,7 +739,7 @@ export type ExamAttemptUncheckedUpdateWithoutAnswersInput = {
 export type ExamAttemptCreateWithoutStudentInput = {
   id?: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -753,7 +753,7 @@ export type ExamAttemptUncheckedCreateWithoutStudentInput = {
   id?: string
   examId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -792,7 +792,7 @@ export type ExamAttemptCreateManyExamInput = {
   id?: string
   studentId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus
@@ -842,7 +842,7 @@ export type ExamAttemptCreateManyStudentInput = {
   id?: string
   examId: string
   attemptNumber: number
-  startedAt?: Date | string
+  startedAt: Date | string
   submittedAt?: Date | string | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.ExamAttemptStatus

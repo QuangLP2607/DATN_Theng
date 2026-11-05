@@ -1,18 +1,15 @@
 import { z } from "zod";
 
+import { UserRole } from "../../../generated/prisma/enums";
+import { normalizedEmailSchema, stringSchema } from "../../../utils/zod";
+
 export const signUpSchema = z
   .object({
-    email: z
-      .email("Invalid email")
-      .transform((value) => value.trim().toLowerCase()),
+    email: normalizedEmailSchema,
 
-    name: z
-      .string()
-      .trim()
-      .min(1, "Name is required")
-      .max(100, "Name is too long"),
+    name: stringSchema("Name", 1, 100),
 
-    role: z.enum(["STUDENT", "TEACHER", "ADMIN"]),
+    role: z.enum(UserRole),
   })
   .strict();
 

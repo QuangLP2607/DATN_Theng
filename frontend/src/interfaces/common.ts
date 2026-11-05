@@ -17,3 +17,5 @@ export interface Pagination {
   limit: number;
   totalPages: number;
 }
+
+export type SortOrder = "asc" | "desc";

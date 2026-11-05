@@ -259,10 +259,10 @@ export type EnrollmentScalarWhereWithAggregatesInput = {
 export type EnrollmentCreateInput = {
   id?: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
-  class: Prisma.ClassCreateNestedOneWithoutEnrollmentsInput
+  class: Prisma.ClassCreateNestedOneWithoutStudentsInput
   student: Prisma.UserCreateNestedOneWithoutEnrollmentsInput
 }
 
@@ -271,7 +271,7 @@ export type EnrollmentUncheckedCreateInput = {
   classId: string
   studentId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -282,7 +282,7 @@ export type EnrollmentUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  class?: Prisma.ClassUpdateOneRequiredWithoutEnrollmentsNestedInput
+  class?: Prisma.ClassUpdateOneRequiredWithoutStudentsNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutEnrollmentsNestedInput
 }
 
@@ -301,7 +301,7 @@ export type EnrollmentCreateManyInput = {
   classId: string
   studentId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -460,7 +460,7 @@ export type EnrollmentUncheckedUpdateManyWithoutStudentNestedInput = {
 export type EnrollmentCreateWithoutClassInput = {
   id?: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.UserCreateNestedOneWithoutEnrollmentsInput
@@ -470,7 +470,7 @@ export type EnrollmentUncheckedCreateWithoutClassInput = {
   id?: string
   studentId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -517,17 +517,17 @@ export type EnrollmentScalarWhereInput = {
 export type EnrollmentCreateWithoutStudentInput = {
   id?: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
-  class: Prisma.ClassCreateNestedOneWithoutEnrollmentsInput
+  class: Prisma.ClassCreateNestedOneWithoutStudentsInput
 }
 
 export type EnrollmentUncheckedCreateWithoutStudentInput = {
   id?: string
   classId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -562,7 +562,7 @@ export type EnrollmentCreateManyClassInput = {
   id?: string
   studentId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -598,7 +598,7 @@ export type EnrollmentCreateManyStudentInput = {
   id?: string
   classId: string
   status?: $Enums.EnrollmentStatus
-  joinedAt?: Date | string
+  joinedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -609,7 +609,7 @@ export type EnrollmentUpdateWithoutStudentInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  class?: Prisma.ClassUpdateOneRequiredWithoutEnrollmentsNestedInput
+  class?: Prisma.ClassUpdateOneRequiredWithoutStudentsNestedInput
 }
 
 export type EnrollmentUncheckedUpdateWithoutStudentInput = {

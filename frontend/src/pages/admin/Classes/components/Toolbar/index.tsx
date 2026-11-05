@@ -1,76 +1,101 @@
+import { Icon } from "@iconify/react";
 import classNames from "classnames/bind";
+
+import Select, { type SelectOption } from "@/components/Select";
+import type { SubjectListItem } from "@/services/subject";
+import type { ClassStatus } from "@/interfaces/class";
 
 import styles from "./Toolbar.module.scss";
 
 const cx = classNames.bind(styles);
 
+export type ClassStatusFilter = ClassStatus | "ALL";
+
 interface ToolbarProps {
-  searchValue?: string;
-  subjectValue?: string;
-  resultValue?: string;
-  onSearchChange?: (value: string) => void;
-  onSubjectChange?: (value: string) => void;
-  onResultChange?: (value: string) => void;
+  search: string;
+  subjectId: string;
+  status: ClassStatusFilter;
+  subjects: SubjectListItem[];
+
+  onSearchChange: (value: string) => void;
+  onSubjectChange: (value: string) => void;
+  onStatusChange: (value: ClassStatusFilter) => void;
+  onAddClass: () => void;
 }
 
-const subjects = [
-  { value: "all", label: "Tất cả môn học" },
-  { value: "c1", label: "Toán học 11" },
-  { value: "c2", label: "Vật lý 11" },
-  { value: "c3", label: "Hóa học 11" },
-  { value: "c4", label: "Ngữ văn 11" },
-  { value: "c5", label: "Lịch sử 11" },
-  { value: "c6", label: "Địa lý 11" },
-  { value: "c7", label: "Sinh học 11" },
-  { value: "c8", label: "Tiếng Anh 11" },
-  { value: "c9", label: "Tin học 11" },
-  { value: "c10", label: "Giáo dục kinh tế và pháp luật 11" },
-  { value: "c11", label: "Công nghệ 11" },
-  { value: "c12", label: "Giáo dục thể chất 11" },
+const statusFilters: SelectOption<ClassStatusFilter>[] = [
+  { label: "Tất cả trạng thái", value: "ALL" },
+  { label: "Đang hoạt động", value: "ACTIVE" },
+  { label: "Ngừng hoạt động", value: "INACTIVE" },
 ];
 
 export default function Toolbar({
-  searchValue = "",
-  subjectValue = "all",
-  resultValue = "all",
+  search,
+  subjectId,
+  status,
+  subjects,
   onSearchChange,
   onSubjectChange,
-  onResultChange,
+  onStatusChange,
+  onAddClass,
 }: ToolbarProps) {
+  const subjectFilters: SelectOption<string>[] = [
+    { label: "Tất cả môn học", value: "ALL" },
+    ...subjects.map((subject) => ({
+      label: subject.title,
+      value: subject.id,
+    })),
+  ];
+
   return (
     <div className={cx("wrapper")}>
-      <input
-        type="text"
-        className={cx("search-input")}
-        aria-label="Tìm bài kiểm tra"
-        placeholder="Tìm theo tên bài hoặc môn học..."
-        value={searchValue}
-        onChange={(event) => onSearchChange?.(event.target.value)}
-      />
+      <div className={cx("search-wrapper")}>
+        <Icon
+          className={cx("search-icon")}
+          icon="lucide:search"
+          aria-hidden="true"
+        />
 
-      <select
-        className={cx("select")}
-        aria-label="Lọc môn học"
-        value={subjectValue}
-        onChange={(event) => onSubjectChange?.(event.target.value)}
-      >
-        {subjects.map((subject) => (
-          <option key={subject.value} value={subject.value}>
-            {subject.label}
-          </option>
-        ))}
-      </select>
+        <input
+          className={cx("search")}
+          type="search"
+          placeholder="Tìm theo tên hoặc mã lớp..."
+          aria-label="Tìm kiếm lớp học"
+          value={search}
+          onChange={(event) => onSearchChange(event.target.value)}
+        />
+      </div>
 
-      <select
-        className={cx("select")}
-        aria-label="Lọc kết quả"
-        value={resultValue}
-        onChange={(event) => onResultChange?.(event.target.value)}
-      >
-        <option value="all">Mọi kết quả</option>
-        <option value="graded">Đã có điểm</option>
-        <option value="pending">Chưa có điểm</option>
-      </select>
+      <div className={cx("filter")}>
+        <Select<string>
+          options={subjectFilters}
+          value={subjectId || "ALL"}
+          onChange={(value) => onSubjectChange(value === "ALL" ? "" : value)}
+          ariaLabel="Lọc theo môn học"
+          placeholder="Tất cả môn học"
+          leadingIcon="lucide:book-open"
+          fullWidth
+        />
+      </div>
+
+      <div className={cx("filter")}>
+        <Select<ClassStatusFilter>
+          options={statusFilters}
+          value={status || "ALL"}
+          onChange={onStatusChange}
+          ariaLabel="Lọc theo trạng thái"
+          placeholder="Tất cả trạng thái"
+          leadingIcon="lucide:sliders-horizontal"
+          fullWidth
+        />
+      </div>
+
+      <div className={cx("actions")}>
+        <button className={cx("add-button")} type="button" onClick={onAddClass}>
+          <Icon icon="lucide:plus" aria-hidden="true" />
+          <span>Thêm lớp học</span>
+        </button>
+      </div>
     </div>
   );
 }

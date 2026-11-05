@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
   gap: 24px;
 
   width: 100%;
@@ -11,4 +10,103 @@
   min-height: 0;
 
   box-sizing: border-box;
+}
+
+.stats-container {
+  position: relative;
+}
+
+.list-container {
+  position: relative;
+  min-height: 300px;
+}
+
+/*
+ * ==================== CONFIRM MODAL ====================
+ */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-top: 2px;
+}
+
+.cancel-button,
+.confirm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 42px;
+  padding: 0 16px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+.cancel-button {
+  color: var(--color-muted);
+  background: var(--color-card);
+  border-color: var(--color-border);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg);
+  }
+}
+
+.confirm-button {
+  color: #fff;
+
+  &.primary {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+  }
+
+  &.danger {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+
+    &:hover:not(:disabled) {
+      filter: brightness(0.92);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-actions {
+    > button {
+      flex: 1;
+    }
+  }
 }

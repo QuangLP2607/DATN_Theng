@@ -3,6 +3,8 @@ import { Prisma } from "../../generated/prisma/client";
 import { prisma } from "../../config/prisma";
 import { AppError } from "../../core/error";
 
+import type { Pagination } from "../../utils/zod";
+
 import type { ListUsersQueryDto } from "./dto/listUsers";
 import type { UpdateProfileDto } from "./dto/updateProfile";
 import type { UpdateUserDto } from "./dto/updateUser";
@@ -44,15 +46,7 @@ export const getMe = async (userId: string): Promise<UserResponse> => {
  */
 
 export const getUsers = async (query: ListUsersQueryDto) => {
-  const {
-    page = 1,
-    limit = 10,
-    search,
-    role,
-    status,
-    sortBy = "createdAt",
-    sortOrder = "desc",
-  } = query;
+  const { page, limit, search, role, status, sortBy, order } = query;
 
   const where: Prisma.UserWhereInput = {
     ...(role && { role }),
@@ -78,7 +72,7 @@ export const getUsers = async (query: ListUsersQueryDto) => {
   const skip = (page - 1) * limit;
 
   const orderBy: Prisma.UserOrderByWithRelationInput = {
-    [sortBy]: sortOrder,
+    [sortBy]: order,
   };
 
   const [users, total] = await prisma.$transaction([
@@ -89,19 +83,22 @@ export const getUsers = async (query: ListUsersQueryDto) => {
       skip,
       take: limit,
     }),
+
     prisma.user.count({
       where,
     }),
   ]);
 
+  const pagination: Pagination = {
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
+
   return {
     users,
-    pagination: {
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    },
+    pagination,
   };
 };
 

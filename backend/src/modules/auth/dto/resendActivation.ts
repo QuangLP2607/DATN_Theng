@@ -1,9 +1,8 @@
 import { z } from "zod";
+import { normalizedEmailSchema } from "../../../utils/zod";
 
 export const resendActivationSchema = z.object({
-  email: z
-    .email("Invalid email")
-    .transform((value) => value.trim().toLowerCase()),
+  email: normalizedEmailSchema,
 });
 
 export type ResendActivationDto = z.infer<typeof resendActivationSchema>;

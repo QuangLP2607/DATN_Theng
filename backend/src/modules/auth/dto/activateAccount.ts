@@ -1,9 +1,11 @@
 import { z } from "zod";
 
-export const activateAccountSchema = z.object({
-  token: z.string().min(1, "Activation token is required"),
+import { passwordSchema } from "../../../utils/zod";
 
-  password: z.string().min(6, "Password must be at least 6 characters"),
+export const activateAccountSchema = z.object({
+  token: z.string().trim().min(1, "Activation token is required"),
+
+  password: passwordSchema,
 });
 
 export type ActivateAccountDto = z.infer<typeof activateAccountSchema>;

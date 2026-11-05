@@ -55,20 +55,15 @@ export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
  */
 export type Class = Prisma.ClassModel
 /**
+ * Model ClassTeacher
+ * 
+ */
+export type ClassTeacher = Prisma.ClassTeacherModel
+/**
  * Model Enrollment
  * 
  */
 export type Enrollment = Prisma.EnrollmentModel
-/**
- * Model Course
- * 
- */
-export type Course = Prisma.CourseModel
-/**
- * Model CourseTeacher
- * 
- */
-export type CourseTeacher = Prisma.CourseTeacherModel
 /**
  * Model Exam
  * 
@@ -100,6 +95,11 @@ export type ExamAttempt = Prisma.ExamAttemptModel
  */
 export type ExamAnswer = Prisma.ExamAnswerModel
 /**
+ * Model ExamAnswerOption
+ * 
+ */
+export type ExamAnswerOption = Prisma.ExamAnswerOptionModel
+/**
  * Model Chapter
  * 
  */
@@ -110,6 +110,11 @@ export type Chapter = Prisma.ChapterModel
  */
 export type Lesson = Prisma.LessonModel
 /**
+ * Model LessonAttachment
+ * 
+ */
+export type LessonAttachment = Prisma.LessonAttachmentModel
+/**
  * Model LessonProgress
  * 
  */
@@ -119,6 +124,11 @@ export type LessonProgress = Prisma.LessonProgressModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model Subject
+ * 
+ */
+export type Subject = Prisma.SubjectModel
 /**
  * Model User
  * 

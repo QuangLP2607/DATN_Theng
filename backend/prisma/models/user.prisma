@@ -3,24 +3,33 @@ model User {
   email        String     @unique @db.VarChar(255)
   passwordHash String     @map("password_hash") @db.VarChar(255)
   name         String     @db.VarChar(100)
-  avatar       String?    @db.VarChar(255)
+  avatar       String?    @db.VarChar(500)
   role         UserRole   @default(STUDENT)
   status       UserStatus @default(ACTIVE)
 
-  taughtCourses  CourseTeacher[]
-  enrollments    Enrollment[]
+  // Classes
+  taughtClasses ClassTeacher[]
+  enrollments   Enrollment[]
+
+  // Learning
   lessonProgress LessonProgress[]
 
-  createdAssignments Assignment[]           @relation("AssignmentCreator")
-  submissions        AssignmentSubmission[]
-  gradedSubmissions AssignmentSubmission[]  @relation("SubmissionGrader")
+  // Assignments
+  createdAssignments Assignment[] @relation("AssignmentCreator")
+  submissions        AssignmentSubmission[] @relation("SubmissionStudent")
+  gradedSubmissions  AssignmentSubmission[] @relation("SubmissionGrader")
 
-  createdExams     Exam[]     @relation("ExamCreator")
+  // Exams
+  createdExams Exam[] @relation("ExamCreator")
+  examAttempts ExamAttempt[]
+
+  // Questions
   createdQuestions Question[] @relation("QuestionCreator")
 
-  examAttempts  ExamAttempt[]
+  // Notifications
   notifications Notification[]
 
+  // Account activation
   emailVerifiedAt         DateTime? @map("email_verified_at") @db.Timestamp(6)
   activationTokenHash      String?   @unique @map("activation_token_hash") @db.VarChar(64)
   activationTokenExpiresAt DateTime? @map("activation_token_expires_at") @db.Timestamp(6)

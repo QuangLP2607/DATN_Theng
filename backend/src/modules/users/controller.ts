@@ -6,6 +6,7 @@ import * as userService from "./service";
 import type { ListUsersQueryDto } from "./dto/listUsers";
 import type { UpdateProfileDto } from "./dto/updateProfile";
 import type { UpdateUserDto } from "./dto/updateUser";
+
 import type { UuidParam } from "../../shared/validation/uuidParam";
 
 /*

@@ -1,109 +1,153 @@
 import classNames from "classnames/bind";
+import { Icon } from "@iconify/react";
+
+import type { SubjectListItem } from "@/services/subject";
+import CardGrid from "@/components/CardGrid";
+import Dropdown from "@/components/Dropdown";
 
 import styles from "./CardGrid.module.scss";
-import ClassCard from "./ClassCard";
 
 const cx = classNames.bind(styles);
 
-interface ClassData {
-  id: string;
-  subject: string;
-  teacher: string;
-  students: number;
-  chapters: number;
-  classes: number;
-  progress: number;
-  icon: string;
+const DEFAULT_ICON = "solar:book-2-linear";
+
+interface SubjectCardGridProps {
+  subjects: SubjectListItem[];
+  loading: boolean;
+  onEdit: (subject: SubjectListItem) => void;
 }
 
-const classes: ClassData[] = [
-  {
-    id: "math",
-    subject: "Toán học 11",
-    teacher: "Trần Thị Bình",
-    students: 42,
-    chapters: 8,
-    classes: 2,
-    progress: 65,
-    icon: "lucide:ruler",
-  },
-  {
-    id: "physics",
-    subject: "Vật lý 11",
-    teacher: "Nguyễn Hữu Đức",
-    students: 38,
-    chapters: 7,
-    classes: 2,
-    progress: 40,
-    icon: "lucide:atom",
-  },
-  {
-    id: "chemistry",
-    subject: "Hóa học 11",
-    teacher: "Phạm Thị Lan",
-    students: 35,
-    chapters: 9,
-    classes: 2,
-    progress: 80,
-    icon: "lucide:flask-conical",
-  },
-  {
-    id: "literature",
-    subject: "Ngữ văn 11",
-    teacher: "Hoàng Văn Minh",
-    students: 44,
-    chapters: 6,
-    classes: 2,
-    progress: 48,
-    icon: "lucide:book-open",
-  },
-  {
-    id: "biology",
-    subject: "Sinh học 11",
-    teacher: "Đỗ Thị Hạnh",
-    students: 36,
-    chapters: 8,
-    classes: 1,
-    progress: 72,
-    icon: "lucide:flask-conical",
-  },
-  {
-    id: "english",
-    subject: "Tiếng Anh 11",
-    teacher: "Lê Thị Thanh",
-    students: 41,
-    chapters: 10,
-    classes: 2,
-    progress: 72,
-    icon: "lucide:book-open",
-  },
-  {
-    id: "informatics",
-    subject: "Tin học 11",
-    teacher: "Nguyễn Văn Khải",
-    students: 32,
-    chapters: 7,
-    classes: 1,
-    progress: 82,
-    icon: "lucide:clipboard-list",
-  },
-];
+interface SubjectCardProps {
+  subject: SubjectListItem;
+  onEdit: (subject: SubjectListItem) => void;
+}
 
-export default function CardGrid() {
+function SubjectCard({ subject, onEdit }: SubjectCardProps) {
   return (
-    <div className={cx("wrapper")}>
-      {classes.map((item) => (
-        <ClassCard
-          key={item.id}
-          subject={item.subject}
-          teacher={item.teacher}
-          students={item.students}
-          chapters={item.chapters}
-          classes={item.classes}
-          progress={item.progress}
-          icon={item.icon}
-        />
-      ))}
+    <article className={cx("subject-card")}>
+      <div className={cx("subject-card__header")}>
+        <div className={cx("subject-card__icon")}>
+          <Icon icon={subject.icon || DEFAULT_ICON} />
+        </div>
+
+        <div className={cx("subject-card__info")}>
+          <h3 className={cx("subject-card__title")} title={subject.title}>
+            {subject.title}
+          </h3>
+
+          <span className={cx("subject-card__code")}>{subject.code}</span>
+        </div>
+      </div>
+
+      <p className={cx("subject-card__description")}>
+        {subject.description || "Chưa có mô tả"}
+      </p>
+
+      <div className={cx("subject-card__stats")}>
+        <div className={cx("stat", "stat--chapters")}>
+          <Icon icon="solar:library-linear" />
+          <span>{subject._count.chapters} chương</span>
+        </div>
+
+        <div className={cx("stat", "stat--classes")}>
+          <Icon icon="solar:buildings-2-linear" />
+          <span>{subject._count.classes} lớp</span>
+        </div>
+
+        <div className={cx("subject-card__actions")}>
+          <Dropdown
+            align="end"
+            offset={6}
+            trigger={({ toggle, open }) => (
+              <button
+                type="button"
+                className={cx("subject-card__menu-trigger")}
+                onClick={toggle}
+                aria-label="Tùy chọn môn học"
+                aria-expanded={open}
+              >
+                <Icon icon="solar:menu-dots-bold" />
+              </button>
+            )}
+          >
+            {({ close }) => (
+              <div className={cx("subject-card__menu")}>
+                <button
+                  type="button"
+                  className={cx("subject-card__menu-item")}
+                  onClick={() => {
+                    close();
+                    onEdit(subject);
+                  }}
+                >
+                  <Icon icon="solar:pen-linear" />
+                  <span>Chỉnh sửa</span>
+                </button>
+              </div>
+            )}
+          </Dropdown>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <div className={cx("subject-card", "subject-card--skeleton")}>
+      <div className={cx("subject-card__header")}>
+        <div className={cx("skeleton-icon")} />
+
+        <div className={cx("skeleton-info")}>
+          <div className={cx("skeleton-line", "skeleton-line--title")} />
+          <div className={cx("skeleton-line", "skeleton-line--code")} />
+        </div>
+      </div>
+
+      <div className={cx("skeleton-line", "skeleton-line--description")} />
+
+      <div className={cx("subject-card__stats")}>
+        <div className={cx("skeleton-badge")} />
+        <div className={cx("skeleton-badge", "skeleton-badge--short")} />
+      </div>
     </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className={cx("empty")}>
+      <Icon icon="solar:book-open-linear" />
+      <h3>Không tìm thấy môn học</h3>
+      <p>Thử tìm kiếm với từ khóa khác nhé.</p>
+    </div>
+  );
+}
+
+export default function SubjectCardGrid({
+  subjects,
+  loading,
+  onEdit,
+}: SubjectCardGridProps) {
+  if (loading) {
+    return (
+      <CardGrid>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </CardGrid>
+    );
+  }
+
+  if (subjects.length === 0) {
+    return <EmptyState />;
+  }
+
+  return (
+    <CardGrid>
+      {subjects.map((subject) => (
+        <SubjectCard key={subject.id} subject={subject} onEdit={onEdit} />
+      ))}
+    </CardGrid>
   );
 }

@@ -108,3 +108,20 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const ContentStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]
+
+
+export const LessonAttachmentType = {
+  FILE: 'FILE',
+  LINK: 'LINK'
+} as const
+
+export type LessonAttachmentType = (typeof LessonAttachmentType)[keyof typeof LessonAttachmentType]

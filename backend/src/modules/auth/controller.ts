@@ -1,4 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import ms, { type StringValue } from "ms";
 
 import { sendResponse } from "../../core/response";
@@ -6,32 +6,27 @@ import { refreshAccessToken } from "../../services/jwt";
 
 import * as authService from "./service";
 
+import type { SignUpDto } from "./dto/signUp";
+import type { SignInDto } from "./dto/signIn";
+import type { ActivateAccountDto } from "./dto/activateAccount";
+import type { ResendActivationDto } from "./dto/resendActivation";
+
 /*
  * -------------------- SIGN UP --------------------
  * Only ADMIN can register accounts.
  */
 
 export const signUp = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
-    if (!req.user) {
-      return sendResponse(res, 401, {
-        message: "Authentication required",
-      });
-    }
+    const body = res.locals.validated.body as SignUpDto;
 
-    if (req.user.role !== "ADMIN") {
-      return sendResponse(res, 403, {
-        message: "Only admins can register accounts",
-      });
-    }
+    const user = await authService.signUp(body);
 
-    const user = await authService.signUp(req.body);
-
-    return sendResponse(res, 201, {
+    sendResponse(res, 201, {
       message: "Sign up successfully",
       data: user,
     });
@@ -45,12 +40,14 @@ export const signUp = async (
  */
 
 export const signIn = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
-    const result = await authService.signIn(req.body);
+    const body = res.locals.validated.body as SignInDto;
+
+    const result = await authService.signIn(body);
 
     const { accessToken, refreshToken, user } = result;
 
@@ -71,7 +68,7 @@ export const signIn = async (
       maxAge: maxAgeMs,
     });
 
-    return sendResponse(res, 200, {
+    sendResponse(res, 200, {
       message: "Sign in successfully",
       data: {
         accessToken,
@@ -88,14 +85,16 @@ export const signIn = async (
  */
 
 export const activateAccount = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
-    const result = await authService.activateAccount(req.body);
+    const body = res.locals.validated.body as ActivateAccountDto;
 
-    return sendResponse(res, 200, {
+    const result = await authService.activateAccount(body);
+
+    sendResponse(res, 200, {
       message: result.message,
     });
   } catch (error) {
@@ -108,14 +107,16 @@ export const activateAccount = async (
  */
 
 export const resendActivation = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
-    const result = await authService.resendActivation(req.body);
+    const body = res.locals.validated.body as ResendActivationDto;
 
-    return sendResponse(res, 200, {
+    const result = await authService.resendActivation(body);
+
+    sendResponse(res, 200, {
       message: result.message,
     });
   } catch (error) {
@@ -131,7 +132,7 @@ export const logout = async (
   _req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
     res.clearCookie("refreshToken", {
       httpOnly: true,
@@ -139,7 +140,7 @@ export const logout = async (
       sameSite: "strict",
     });
 
-    return sendResponse(res, 200, {
+    sendResponse(res, 200, {
       message: "Logged out successfully",
     });
   } catch (error) {
@@ -155,25 +156,27 @@ export const refreshToken = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response | void> => {
+): Promise<void> => {
   try {
     const token = req.cookies?.refreshToken;
 
     if (!token) {
-      return sendResponse(res, 401, {
+      sendResponse(res, 401, {
         message: "Missing refresh token",
       });
+      return;
     }
 
     const newAccessToken = refreshAccessToken(token);
 
     if (!newAccessToken) {
-      return sendResponse(res, 403, {
+      sendResponse(res, 403, {
         message: "Invalid or expired refresh token",
       });
+      return;
     }
 
-    return sendResponse(res, 200, {
+    sendResponse(res, 200, {
       message: "Access token refreshed successfully",
       data: {
         accessToken: newAccessToken,

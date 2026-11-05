@@ -1,0 +1,15 @@
+model Subject {
+  id          String  @id @default(uuid()) @db.Uuid
+  code        String  @unique @db.VarChar(20)
+  title       String  @db.VarChar(100)
+  description String? @db.VarChar(255)
+  icon        String  @default("solar:book-2-linear") @db.VarChar(100)
+
+  classes  Class[]
+  chapters Chapter[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@map("subjects")
+}

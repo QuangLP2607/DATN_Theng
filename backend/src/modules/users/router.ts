@@ -9,10 +9,11 @@ import {
 } from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
+import { requireAdmin } from "../../middlewares/requireAdmin";
 import { validateZod } from "../../middlewares/validateZod";
-import { AppError } from "../../core/error";
 
 import { uuidParamSchema } from "../../shared/validation/uuidParam";
+
 import { listUsersQuerySchema } from "./dto/listUsers";
 import { updateProfileSchema } from "./dto/updateProfile";
 import { updateUserSchema } from "./dto/updateUser";
@@ -21,63 +22,29 @@ const router = Router();
 
 router.use(authMiddleware);
 
-/*
- * -------------------- CURRENT USER --------------------
- */
-
+// Current user
 router.get("/me", getMe);
 
-router.patch(
-  "/me",
-  validateZod({
-    body: updateProfileSchema,
-  }),
-  updateMe,
-);
+router.patch("/me", validateZod({ body: updateProfileSchema }), updateMe);
 
-/*
- * -------------------- ADMIN: USER MANAGEMENT --------------------
- */
-
+// Admin: User management
 router.get(
   "/",
-  (req, _res, next) => {
-    if (req.user?.role !== "ADMIN") {
-      return next(AppError.forbidden("Only admins can view all users"));
-    }
-
-    next();
-  },
-  validateZod({
-    query: listUsersQuerySchema,
-  }),
+  requireAdmin,
+  validateZod({ query: listUsersQuerySchema }),
   getUsers,
 );
 
 router.get(
   "/:id",
-  (req, _res, next) => {
-    if (req.user?.role !== "ADMIN") {
-      return next(AppError.forbidden("Only admins can view user details"));
-    }
-
-    next();
-  },
-  validateZod({
-    params: uuidParamSchema,
-  }),
+  requireAdmin,
+  validateZod({ params: uuidParamSchema }),
   getUserById,
 );
 
 router.patch(
   "/:id",
-  (req, _res, next) => {
-    if (req.user?.role !== "ADMIN") {
-      return next(AppError.forbidden("Only admins can update users"));
-    }
-
-    next();
-  },
+  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: updateUserSchema,

@@ -38,7 +38,6 @@ export type ExamAnswerMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
   questionId: string | null
-  selectedOptionId: string | null
   answerText: string | null
   isCorrect: boolean | null
   score: runtime.Decimal | null
@@ -50,7 +49,6 @@ export type ExamAnswerMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
   questionId: string | null
-  selectedOptionId: string | null
   answerText: string | null
   isCorrect: boolean | null
   score: runtime.Decimal | null
@@ -62,7 +60,6 @@ export type ExamAnswerCountAggregateOutputType = {
   id: number
   attemptId: number
   questionId: number
-  selectedOptionId: number
   answerText: number
   isCorrect: number
   score: number
@@ -84,7 +81,6 @@ export type ExamAnswerMinAggregateInputType = {
   id?: true
   attemptId?: true
   questionId?: true
-  selectedOptionId?: true
   answerText?: true
   isCorrect?: true
   score?: true
@@ -96,7 +92,6 @@ export type ExamAnswerMaxAggregateInputType = {
   id?: true
   attemptId?: true
   questionId?: true
-  selectedOptionId?: true
   answerText?: true
   isCorrect?: true
   score?: true
@@ -108,7 +103,6 @@ export type ExamAnswerCountAggregateInputType = {
   id?: true
   attemptId?: true
   questionId?: true
-  selectedOptionId?: true
   answerText?: true
   isCorrect?: true
   score?: true
@@ -207,7 +201,6 @@ export type ExamAnswerGroupByOutputType = {
   id: string
   attemptId: string
   questionId: string
-  selectedOptionId: string | null
   answerText: string | null
   isCorrect: boolean | null
   score: runtime.Decimal | null
@@ -242,7 +235,6 @@ export type ExamAnswerWhereInput = {
   id?: Prisma.UuidFilter<"ExamAnswer"> | string
   attemptId?: Prisma.UuidFilter<"ExamAnswer"> | string
   questionId?: Prisma.UuidFilter<"ExamAnswer"> | string
-  selectedOptionId?: Prisma.UuidNullableFilter<"ExamAnswer"> | string | null
   answerText?: Prisma.StringNullableFilter<"ExamAnswer"> | string | null
   isCorrect?: Prisma.BoolNullableFilter<"ExamAnswer"> | boolean | null
   score?: Prisma.DecimalNullableFilter<"ExamAnswer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -250,14 +242,13 @@ export type ExamAnswerWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"ExamAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.ExamAttemptScalarRelationFilter, Prisma.ExamAttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
-  selectedOption?: Prisma.XOR<Prisma.QuestionOptionNullableScalarRelationFilter, Prisma.QuestionOptionWhereInput> | null
+  selectedOptions?: Prisma.ExamAnswerOptionListRelationFilter
 }
 
 export type ExamAnswerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-  selectedOptionId?: Prisma.SortOrderInput | Prisma.SortOrder
   answerText?: Prisma.SortOrderInput | Prisma.SortOrder
   isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -265,7 +256,7 @@ export type ExamAnswerOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   attempt?: Prisma.ExamAttemptOrderByWithRelationInput
   question?: Prisma.QuestionOrderByWithRelationInput
-  selectedOption?: Prisma.QuestionOptionOrderByWithRelationInput
+  selectedOptions?: Prisma.ExamAnswerOptionOrderByRelationAggregateInput
 }
 
 export type ExamAnswerWhereUniqueInput = Prisma.AtLeast<{
@@ -276,7 +267,6 @@ export type ExamAnswerWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ExamAnswerWhereInput | Prisma.ExamAnswerWhereInput[]
   attemptId?: Prisma.UuidFilter<"ExamAnswer"> | string
   questionId?: Prisma.UuidFilter<"ExamAnswer"> | string
-  selectedOptionId?: Prisma.UuidNullableFilter<"ExamAnswer"> | string | null
   answerText?: Prisma.StringNullableFilter<"ExamAnswer"> | string | null
   isCorrect?: Prisma.BoolNullableFilter<"ExamAnswer"> | boolean | null
   score?: Prisma.DecimalNullableFilter<"ExamAnswer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -284,14 +274,13 @@ export type ExamAnswerWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"ExamAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.ExamAttemptScalarRelationFilter, Prisma.ExamAttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
-  selectedOption?: Prisma.XOR<Prisma.QuestionOptionNullableScalarRelationFilter, Prisma.QuestionOptionWhereInput> | null
+  selectedOptions?: Prisma.ExamAnswerOptionListRelationFilter
 }, "id" | "attemptId_questionId">
 
 export type ExamAnswerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-  selectedOptionId?: Prisma.SortOrderInput | Prisma.SortOrder
   answerText?: Prisma.SortOrderInput | Prisma.SortOrder
   isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -311,7 +300,6 @@ export type ExamAnswerScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"ExamAnswer"> | string
   attemptId?: Prisma.UuidWithAggregatesFilter<"ExamAnswer"> | string
   questionId?: Prisma.UuidWithAggregatesFilter<"ExamAnswer"> | string
-  selectedOptionId?: Prisma.UuidNullableWithAggregatesFilter<"ExamAnswer"> | string | null
   answerText?: Prisma.StringNullableWithAggregatesFilter<"ExamAnswer"> | string | null
   isCorrect?: Prisma.BoolNullableWithAggregatesFilter<"ExamAnswer"> | boolean | null
   score?: Prisma.DecimalNullableWithAggregatesFilter<"ExamAnswer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -328,19 +316,19 @@ export type ExamAnswerCreateInput = {
   updatedAt?: Date | string
   attempt: Prisma.ExamAttemptCreateNestedOneWithoutAnswersInput
   question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
-  selectedOption?: Prisma.QuestionOptionCreateNestedOneWithoutAnswersInput
+  selectedOptions?: Prisma.ExamAnswerOptionCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerUncheckedCreateInput = {
   id?: string
   attemptId: string
   questionId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerUpdateInput = {
@@ -352,26 +340,25 @@ export type ExamAnswerUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.ExamAttemptUpdateOneRequiredWithoutAnswersNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
-  selectedOption?: Prisma.QuestionOptionUpdateOneWithoutAnswersNestedInput
+  selectedOptions?: Prisma.ExamAnswerOptionUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerCreateManyInput = {
   id?: string
   attemptId: string
   questionId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -392,7 +379,6 @@ export type ExamAnswerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -419,7 +405,6 @@ export type ExamAnswerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-  selectedOptionId?: Prisma.SortOrder
   answerText?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -435,7 +420,6 @@ export type ExamAnswerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-  selectedOptionId?: Prisma.SortOrder
   answerText?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -447,7 +431,6 @@ export type ExamAnswerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-  selectedOptionId?: Prisma.SortOrder
   answerText?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -457,6 +440,11 @@ export type ExamAnswerMinOrderByAggregateInput = {
 
 export type ExamAnswerSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
+}
+
+export type ExamAnswerScalarRelationFilter = {
+  is?: Prisma.ExamAnswerWhereInput
+  isNot?: Prisma.ExamAnswerWhereInput
 }
 
 export type ExamAnswerCreateNestedManyWithoutQuestionInput = {
@@ -498,48 +486,6 @@ export type ExamAnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
   connect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
   update?: Prisma.ExamAnswerUpdateWithWhereUniqueWithoutQuestionInput | Prisma.ExamAnswerUpdateWithWhereUniqueWithoutQuestionInput[]
   updateMany?: Prisma.ExamAnswerUpdateManyWithWhereWithoutQuestionInput | Prisma.ExamAnswerUpdateManyWithWhereWithoutQuestionInput[]
-  deleteMany?: Prisma.ExamAnswerScalarWhereInput | Prisma.ExamAnswerScalarWhereInput[]
-}
-
-export type ExamAnswerCreateNestedManyWithoutSelectedOptionInput = {
-  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput> | Prisma.ExamAnswerCreateWithoutSelectedOptionInput[] | Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput[]
-  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput | Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput[]
-  createMany?: Prisma.ExamAnswerCreateManySelectedOptionInputEnvelope
-  connect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-}
-
-export type ExamAnswerUncheckedCreateNestedManyWithoutSelectedOptionInput = {
-  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput> | Prisma.ExamAnswerCreateWithoutSelectedOptionInput[] | Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput[]
-  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput | Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput[]
-  createMany?: Prisma.ExamAnswerCreateManySelectedOptionInputEnvelope
-  connect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-}
-
-export type ExamAnswerUpdateManyWithoutSelectedOptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput> | Prisma.ExamAnswerCreateWithoutSelectedOptionInput[] | Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput[]
-  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput | Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput[]
-  upsert?: Prisma.ExamAnswerUpsertWithWhereUniqueWithoutSelectedOptionInput | Prisma.ExamAnswerUpsertWithWhereUniqueWithoutSelectedOptionInput[]
-  createMany?: Prisma.ExamAnswerCreateManySelectedOptionInputEnvelope
-  set?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  disconnect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  delete?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  connect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  update?: Prisma.ExamAnswerUpdateWithWhereUniqueWithoutSelectedOptionInput | Prisma.ExamAnswerUpdateWithWhereUniqueWithoutSelectedOptionInput[]
-  updateMany?: Prisma.ExamAnswerUpdateManyWithWhereWithoutSelectedOptionInput | Prisma.ExamAnswerUpdateManyWithWhereWithoutSelectedOptionInput[]
-  deleteMany?: Prisma.ExamAnswerScalarWhereInput | Prisma.ExamAnswerScalarWhereInput[]
-}
-
-export type ExamAnswerUncheckedUpdateManyWithoutSelectedOptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput> | Prisma.ExamAnswerCreateWithoutSelectedOptionInput[] | Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput[]
-  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput | Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionInput[]
-  upsert?: Prisma.ExamAnswerUpsertWithWhereUniqueWithoutSelectedOptionInput | Prisma.ExamAnswerUpsertWithWhereUniqueWithoutSelectedOptionInput[]
-  createMany?: Prisma.ExamAnswerCreateManySelectedOptionInputEnvelope
-  set?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  disconnect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  delete?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  connect?: Prisma.ExamAnswerWhereUniqueInput | Prisma.ExamAnswerWhereUniqueInput[]
-  update?: Prisma.ExamAnswerUpdateWithWhereUniqueWithoutSelectedOptionInput | Prisma.ExamAnswerUpdateWithWhereUniqueWithoutSelectedOptionInput[]
-  updateMany?: Prisma.ExamAnswerUpdateManyWithWhereWithoutSelectedOptionInput | Prisma.ExamAnswerUpdateManyWithWhereWithoutSelectedOptionInput[]
   deleteMany?: Prisma.ExamAnswerScalarWhereInput | Prisma.ExamAnswerScalarWhereInput[]
 }
 
@@ -589,6 +535,20 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
+export type ExamAnswerCreateNestedOneWithoutSelectedOptionsInput = {
+  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionsInput>
+  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionsInput
+  connect?: Prisma.ExamAnswerWhereUniqueInput
+}
+
+export type ExamAnswerUpdateOneRequiredWithoutSelectedOptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionsInput>
+  connectOrCreate?: Prisma.ExamAnswerCreateOrConnectWithoutSelectedOptionsInput
+  upsert?: Prisma.ExamAnswerUpsertWithoutSelectedOptionsInput
+  connect?: Prisma.ExamAnswerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ExamAnswerUpdateToOneWithWhereWithoutSelectedOptionsInput, Prisma.ExamAnswerUpdateWithoutSelectedOptionsInput>, Prisma.ExamAnswerUncheckedUpdateWithoutSelectedOptionsInput>
+}
+
 export type ExamAnswerCreateWithoutQuestionInput = {
   id?: string
   answerText?: string | null
@@ -597,18 +557,18 @@ export type ExamAnswerCreateWithoutQuestionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attempt: Prisma.ExamAttemptCreateNestedOneWithoutAnswersInput
-  selectedOption?: Prisma.QuestionOptionCreateNestedOneWithoutAnswersInput
+  selectedOptions?: Prisma.ExamAnswerOptionCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerUncheckedCreateWithoutQuestionInput = {
   id?: string
   attemptId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerCreateOrConnectWithoutQuestionInput = {
@@ -644,60 +604,11 @@ export type ExamAnswerScalarWhereInput = {
   id?: Prisma.UuidFilter<"ExamAnswer"> | string
   attemptId?: Prisma.UuidFilter<"ExamAnswer"> | string
   questionId?: Prisma.UuidFilter<"ExamAnswer"> | string
-  selectedOptionId?: Prisma.UuidNullableFilter<"ExamAnswer"> | string | null
   answerText?: Prisma.StringNullableFilter<"ExamAnswer"> | string | null
   isCorrect?: Prisma.BoolNullableFilter<"ExamAnswer"> | boolean | null
   score?: Prisma.DecimalNullableFilter<"ExamAnswer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"ExamAnswer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ExamAnswer"> | Date | string
-}
-
-export type ExamAnswerCreateWithoutSelectedOptionInput = {
-  id?: string
-  answerText?: string | null
-  isCorrect?: boolean | null
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  attempt: Prisma.ExamAttemptCreateNestedOneWithoutAnswersInput
-  question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
-}
-
-export type ExamAnswerUncheckedCreateWithoutSelectedOptionInput = {
-  id?: string
-  attemptId: string
-  questionId: string
-  answerText?: string | null
-  isCorrect?: boolean | null
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ExamAnswerCreateOrConnectWithoutSelectedOptionInput = {
-  where: Prisma.ExamAnswerWhereUniqueInput
-  create: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput>
-}
-
-export type ExamAnswerCreateManySelectedOptionInputEnvelope = {
-  data: Prisma.ExamAnswerCreateManySelectedOptionInput | Prisma.ExamAnswerCreateManySelectedOptionInput[]
-  skipDuplicates?: boolean
-}
-
-export type ExamAnswerUpsertWithWhereUniqueWithoutSelectedOptionInput = {
-  where: Prisma.ExamAnswerWhereUniqueInput
-  update: Prisma.XOR<Prisma.ExamAnswerUpdateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedUpdateWithoutSelectedOptionInput>
-  create: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionInput>
-}
-
-export type ExamAnswerUpdateWithWhereUniqueWithoutSelectedOptionInput = {
-  where: Prisma.ExamAnswerWhereUniqueInput
-  data: Prisma.XOR<Prisma.ExamAnswerUpdateWithoutSelectedOptionInput, Prisma.ExamAnswerUncheckedUpdateWithoutSelectedOptionInput>
-}
-
-export type ExamAnswerUpdateManyWithWhereWithoutSelectedOptionInput = {
-  where: Prisma.ExamAnswerScalarWhereInput
-  data: Prisma.XOR<Prisma.ExamAnswerUpdateManyMutationInput, Prisma.ExamAnswerUncheckedUpdateManyWithoutSelectedOptionInput>
 }
 
 export type ExamAnswerCreateWithoutAttemptInput = {
@@ -708,18 +619,18 @@ export type ExamAnswerCreateWithoutAttemptInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
-  selectedOption?: Prisma.QuestionOptionCreateNestedOneWithoutAnswersInput
+  selectedOptions?: Prisma.ExamAnswerOptionCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerUncheckedCreateWithoutAttemptInput = {
   id?: string
   questionId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedCreateNestedManyWithoutAnswerInput
 }
 
 export type ExamAnswerCreateOrConnectWithoutAttemptInput = {
@@ -748,10 +659,69 @@ export type ExamAnswerUpdateManyWithWhereWithoutAttemptInput = {
   data: Prisma.XOR<Prisma.ExamAnswerUpdateManyMutationInput, Prisma.ExamAnswerUncheckedUpdateManyWithoutAttemptInput>
 }
 
+export type ExamAnswerCreateWithoutSelectedOptionsInput = {
+  id?: string
+  answerText?: string | null
+  isCorrect?: boolean | null
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attempt: Prisma.ExamAttemptCreateNestedOneWithoutAnswersInput
+  question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
+}
+
+export type ExamAnswerUncheckedCreateWithoutSelectedOptionsInput = {
+  id?: string
+  attemptId: string
+  questionId: string
+  answerText?: string | null
+  isCorrect?: boolean | null
+  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ExamAnswerCreateOrConnectWithoutSelectedOptionsInput = {
+  where: Prisma.ExamAnswerWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionsInput>
+}
+
+export type ExamAnswerUpsertWithoutSelectedOptionsInput = {
+  update: Prisma.XOR<Prisma.ExamAnswerUpdateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedUpdateWithoutSelectedOptionsInput>
+  create: Prisma.XOR<Prisma.ExamAnswerCreateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedCreateWithoutSelectedOptionsInput>
+  where?: Prisma.ExamAnswerWhereInput
+}
+
+export type ExamAnswerUpdateToOneWithWhereWithoutSelectedOptionsInput = {
+  where?: Prisma.ExamAnswerWhereInput
+  data: Prisma.XOR<Prisma.ExamAnswerUpdateWithoutSelectedOptionsInput, Prisma.ExamAnswerUncheckedUpdateWithoutSelectedOptionsInput>
+}
+
+export type ExamAnswerUpdateWithoutSelectedOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attempt?: Prisma.ExamAttemptUpdateOneRequiredWithoutAnswersNestedInput
+  question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
+}
+
+export type ExamAnswerUncheckedUpdateWithoutSelectedOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ExamAnswerCreateManyQuestionInput = {
   id?: string
   attemptId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -767,68 +737,23 @@ export type ExamAnswerUpdateWithoutQuestionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.ExamAttemptUpdateOneRequiredWithoutAnswersNestedInput
-  selectedOption?: Prisma.QuestionOptionUpdateOneWithoutAnswersNestedInput
+  selectedOptions?: Prisma.ExamAnswerOptionUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerUncheckedUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerUncheckedUpdateManyWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ExamAnswerCreateManySelectedOptionInput = {
-  id?: string
-  attemptId: string
-  questionId: string
-  answerText?: string | null
-  isCorrect?: boolean | null
-  score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ExamAnswerUpdateWithoutSelectedOptionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempt?: Prisma.ExamAttemptUpdateOneRequiredWithoutAnswersNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
-}
-
-export type ExamAnswerUncheckedUpdateWithoutSelectedOptionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ExamAnswerUncheckedUpdateManyWithoutSelectedOptionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -839,7 +764,6 @@ export type ExamAnswerUncheckedUpdateManyWithoutSelectedOptionInput = {
 export type ExamAnswerCreateManyAttemptInput = {
   id?: string
   questionId: string
-  selectedOptionId?: string | null
   answerText?: string | null
   isCorrect?: boolean | null
   score?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -855,24 +779,23 @@ export type ExamAnswerUpdateWithoutAttemptInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
-  selectedOption?: Prisma.QuestionOptionUpdateOneWithoutAnswersNestedInput
+  selectedOptions?: Prisma.ExamAnswerOptionUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  selectedOptions?: Prisma.ExamAnswerOptionUncheckedUpdateManyWithoutAnswerNestedInput
 }
 
 export type ExamAnswerUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  selectedOptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answerText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   score?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -880,13 +803,41 @@ export type ExamAnswerUncheckedUpdateManyWithoutAttemptInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ExamAnswerCountOutputType
+ */
+
+export type ExamAnswerCountOutputType = {
+  selectedOptions: number
+}
+
+export type ExamAnswerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  selectedOptions?: boolean | ExamAnswerCountOutputTypeCountSelectedOptionsArgs
+}
+
+/**
+ * ExamAnswerCountOutputType without action
+ */
+export type ExamAnswerCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExamAnswerCountOutputType
+   */
+  select?: Prisma.ExamAnswerCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ExamAnswerCountOutputType without action
+ */
+export type ExamAnswerCountOutputTypeCountSelectedOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExamAnswerOptionWhereInput
+}
 
 
 export type ExamAnswerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
   questionId?: boolean
-  selectedOptionId?: boolean
   answerText?: boolean
   isCorrect?: boolean
   score?: boolean
@@ -894,14 +845,14 @@ export type ExamAnswerSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
+  selectedOptions?: boolean | Prisma.ExamAnswer$selectedOptionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ExamAnswerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["examAnswer"]>
 
 export type ExamAnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
   questionId?: boolean
-  selectedOptionId?: boolean
   answerText?: boolean
   isCorrect?: boolean
   score?: boolean
@@ -909,14 +860,12 @@ export type ExamAnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedAt?: boolean
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
 }, ExtArgs["result"]["examAnswer"]>
 
 export type ExamAnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
   questionId?: boolean
-  selectedOptionId?: boolean
   answerText?: boolean
   isCorrect?: boolean
   score?: boolean
@@ -924,14 +873,12 @@ export type ExamAnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedAt?: boolean
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
 }, ExtArgs["result"]["examAnswer"]>
 
 export type ExamAnswerSelectScalar = {
   id?: boolean
   attemptId?: boolean
   questionId?: boolean
-  selectedOptionId?: boolean
   answerText?: boolean
   isCorrect?: boolean
   score?: boolean
@@ -939,21 +886,20 @@ export type ExamAnswerSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ExamAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "selectedOptionId" | "answerText" | "isCorrect" | "score" | "createdAt" | "updatedAt", ExtArgs["result"]["examAnswer"]>
+export type ExamAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "answerText" | "isCorrect" | "score" | "createdAt" | "updatedAt", ExtArgs["result"]["examAnswer"]>
 export type ExamAnswerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
+  selectedOptions?: boolean | Prisma.ExamAnswer$selectedOptionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ExamAnswerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ExamAnswerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
 }
 export type ExamAnswerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.ExamAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  selectedOption?: boolean | Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>
 }
 
 export type $ExamAnswerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -961,13 +907,12 @@ export type $ExamAnswerPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     attempt: Prisma.$ExamAttemptPayload<ExtArgs>
     question: Prisma.$QuestionPayload<ExtArgs>
-    selectedOption: Prisma.$QuestionOptionPayload<ExtArgs> | null
+    selectedOptions: Prisma.$ExamAnswerOptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     attemptId: string
     questionId: string
-    selectedOptionId: string | null
     answerText: string | null
     isCorrect: boolean | null
     score: runtime.Decimal | null
@@ -1369,7 +1314,7 @@ export interface Prisma__ExamAnswerClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attempt<T extends Prisma.ExamAttemptDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamAttemptDefaultArgs<ExtArgs>>): Prisma.Prisma__ExamAttemptClient<runtime.Types.Result.GetResult<Prisma.$ExamAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   question<T extends Prisma.QuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  selectedOption<T extends Prisma.ExamAnswer$selectedOptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamAnswer$selectedOptionArgs<ExtArgs>>): Prisma.Prisma__QuestionOptionClient<runtime.Types.Result.GetResult<Prisma.$QuestionOptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  selectedOptions<T extends Prisma.ExamAnswer$selectedOptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamAnswer$selectedOptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamAnswerOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1402,7 +1347,6 @@ export interface ExamAnswerFieldRefs {
   readonly id: Prisma.FieldRef<"ExamAnswer", 'String'>
   readonly attemptId: Prisma.FieldRef<"ExamAnswer", 'String'>
   readonly questionId: Prisma.FieldRef<"ExamAnswer", 'String'>
-  readonly selectedOptionId: Prisma.FieldRef<"ExamAnswer", 'String'>
   readonly answerText: Prisma.FieldRef<"ExamAnswer", 'String'>
   readonly isCorrect: Prisma.FieldRef<"ExamAnswer", 'Boolean'>
   readonly score: Prisma.FieldRef<"ExamAnswer", 'Decimal'>
@@ -1809,22 +1753,27 @@ export type ExamAnswerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ExamAnswer.selectedOption
+ * ExamAnswer.selectedOptions
  */
-export type ExamAnswer$selectedOptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ExamAnswer$selectedOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the QuestionOption
+   * Select specific fields to fetch from the ExamAnswerOption
    */
-  select?: Prisma.QuestionOptionSelect<ExtArgs> | null
+  select?: Prisma.ExamAnswerOptionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the QuestionOption
+   * Omit specific fields from the ExamAnswerOption
    */
-  omit?: Prisma.QuestionOptionOmit<ExtArgs> | null
+  omit?: Prisma.ExamAnswerOptionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.QuestionOptionInclude<ExtArgs> | null
-  where?: Prisma.QuestionOptionWhereInput
+  include?: Prisma.ExamAnswerOptionInclude<ExtArgs> | null
+  where?: Prisma.ExamAnswerOptionWhereInput
+  orderBy?: Prisma.ExamAnswerOptionOrderByWithRelationInput | Prisma.ExamAnswerOptionOrderByWithRelationInput[]
+  cursor?: Prisma.ExamAnswerOptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExamAnswerOptionScalarFieldEnum | Prisma.ExamAnswerOptionScalarFieldEnum[]
 }
 
 /**

@@ -11,6 +11,6 @@ model Notification {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  @@index([userId, readAt, createdAt])
+  @@index([userId, readAt])
   @@map("notifications")
 }

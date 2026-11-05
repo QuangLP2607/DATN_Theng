@@ -10,8 +10,8 @@ import {
 } from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
+import { requireAdmin } from "../../middlewares/requireAdmin";
 import { validateZod } from "../../middlewares/validateZod";
-import { AppError } from "../../core/error";
 
 import { signInSchema } from "./dto/signIn";
 import { signUpSchema } from "./dto/signUp";
@@ -20,75 +20,36 @@ import { resendActivationSchema } from "./dto/resendActivation";
 
 const router = Router();
 
-/*
- * -------------------- SIGN UP --------------------
- * Only ADMIN can create accounts.
- */
-
+// Sign up - Admin only
 router.post(
   "/sign-up",
   authMiddleware,
-  (req, _res, next) => {
-    if (req.user?.role !== "ADMIN") {
-      return next(AppError.forbidden("Only admins can register accounts"));
-    }
-
-    next();
-  },
-  validateZod({
-    body: signUpSchema,
-  }),
+  requireAdmin,
+  validateZod({ body: signUpSchema }),
   signUp,
 );
 
-/*
- * -------------------- SIGN IN --------------------
- */
+// Sign in - Public
+router.post("/sign-in", validateZod({ body: signInSchema }), signIn);
 
-router.post(
-  "/sign-in",
-  validateZod({
-    body: signInSchema,
-  }),
-  signIn,
-);
-
-/*
- * -------------------- ACTIVATE ACCOUNT --------------------
- * Public endpoint.
- */
-
+// Activate account - Public
 router.post(
   "/activate-account",
-  validateZod({
-    body: activateAccountSchema,
-  }),
+  validateZod({ body: activateAccountSchema }),
   activateAccount,
 );
 
-/*
- * -------------------- RESEND ACTIVATION EMAIL --------------------
- * Public endpoint.
- */
-
+// Resend activation email - Public
 router.post(
   "/resend-activation",
-  validateZod({
-    body: resendActivationSchema,
-  }),
+  validateZod({ body: resendActivationSchema }),
   resendActivation,
 );
 
-/*
- * -------------------- LOGOUT --------------------
- */
-
+// Logout
 router.post("/logout", logout);
 
-/*
- * -------------------- REFRESH TOKEN --------------------
- */
-
+// Refresh token
 router.post("/refresh-token", refreshToken);
 
 export default router;

@@ -54,19 +54,21 @@ export const ModelName = {
   Assignment: 'Assignment',
   AssignmentSubmission: 'AssignmentSubmission',
   Class: 'Class',
+  ClassTeacher: 'ClassTeacher',
   Enrollment: 'Enrollment',
-  Course: 'Course',
-  CourseTeacher: 'CourseTeacher',
   Exam: 'Exam',
   Question: 'Question',
   QuestionOption: 'QuestionOption',
   ExamQuestion: 'ExamQuestion',
   ExamAttempt: 'ExamAttempt',
   ExamAnswer: 'ExamAnswer',
+  ExamAnswerOption: 'ExamAnswerOption',
   Chapter: 'Chapter',
   Lesson: 'Lesson',
+  LessonAttachment: 'LessonAttachment',
   LessonProgress: 'LessonProgress',
   Notification: 'Notification',
+  Subject: 'Subject',
   User: 'User'
 } as const
 
@@ -88,7 +90,6 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const AssignmentScalarFieldEnum = {
   id: 'id',
-  courseId: 'courseId',
   classId: 'classId',
   title: 'title',
   description: 'description',
@@ -124,7 +125,7 @@ export type AssignmentSubmissionScalarFieldEnum = (typeof AssignmentSubmissionSc
 
 export const ClassScalarFieldEnum = {
   id: 'id',
-  courseId: 'courseId',
+  subjectId: 'subjectId',
   name: 'name',
   code: 'code',
   status: 'status',
@@ -133,6 +134,16 @@ export const ClassScalarFieldEnum = {
 } as const
 
 export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof ClassScalarFieldEnum]
+
+
+export const ClassTeacherScalarFieldEnum = {
+  classId: 'classId',
+  teacherId: 'teacherId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClassTeacherScalarFieldEnum = (typeof ClassTeacherScalarFieldEnum)[keyof typeof ClassTeacherScalarFieldEnum]
 
 
 export const EnrollmentScalarFieldEnum = {
@@ -148,31 +159,8 @@ export const EnrollmentScalarFieldEnum = {
 export type EnrollmentScalarFieldEnum = (typeof EnrollmentScalarFieldEnum)[keyof typeof EnrollmentScalarFieldEnum]
 
 
-export const CourseScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  thumbnail: 'thumbnail',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
-
-
-export const CourseTeacherScalarFieldEnum = {
-  courseId: 'courseId',
-  teacherId: 'teacherId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CourseTeacherScalarFieldEnum = (typeof CourseTeacherScalarFieldEnum)[keyof typeof CourseTeacherScalarFieldEnum]
-
-
 export const ExamScalarFieldEnum = {
   id: 'id',
-  courseId: 'courseId',
   classId: 'classId',
   title: 'title',
   description: 'description',
@@ -246,7 +234,6 @@ export const ExamAnswerScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
   questionId: 'questionId',
-  selectedOptionId: 'selectedOptionId',
   answerText: 'answerText',
   isCorrect: 'isCorrect',
   score: 'score',
@@ -257,12 +244,21 @@ export const ExamAnswerScalarFieldEnum = {
 export type ExamAnswerScalarFieldEnum = (typeof ExamAnswerScalarFieldEnum)[keyof typeof ExamAnswerScalarFieldEnum]
 
 
+export const ExamAnswerOptionScalarFieldEnum = {
+  answerId: 'answerId',
+  optionId: 'optionId'
+} as const
+
+export type ExamAnswerOptionScalarFieldEnum = (typeof ExamAnswerOptionScalarFieldEnum)[keyof typeof ExamAnswerOptionScalarFieldEnum]
+
+
 export const ChapterScalarFieldEnum = {
   id: 'id',
-  courseId: 'courseId',
+  subjectId: 'subjectId',
   title: 'title',
   description: 'description',
   position: 'position',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -278,11 +274,30 @@ export const LessonScalarFieldEnum = {
   content: 'content',
   duration: 'duration',
   position: 'position',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const LessonAttachmentScalarFieldEnum = {
+  id: 'id',
+  lessonId: 'lessonId',
+  title: 'title',
+  type: 'type',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  size: 'size',
+  externalUrl: 'externalUrl',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LessonAttachmentScalarFieldEnum = (typeof LessonAttachmentScalarFieldEnum)[keyof typeof LessonAttachmentScalarFieldEnum]
 
 
 export const LessonProgressScalarFieldEnum = {
@@ -311,6 +326,19 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const SubjectScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  title: 'title',
+  description: 'description',
+  icon: 'icon',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

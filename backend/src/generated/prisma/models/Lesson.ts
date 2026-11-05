@@ -44,6 +44,7 @@ export type LessonMinAggregateOutputType = {
   content: string | null
   duration: number | null
   position: number | null
+  status: $Enums.ContentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +57,7 @@ export type LessonMaxAggregateOutputType = {
   content: string | null
   duration: number | null
   position: number | null
+  status: $Enums.ContentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,6 +70,7 @@ export type LessonCountAggregateOutputType = {
   content: number
   duration: number
   position: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,6 +95,7 @@ export type LessonMinAggregateInputType = {
   content?: true
   duration?: true
   position?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -104,6 +108,7 @@ export type LessonMaxAggregateInputType = {
   content?: true
   duration?: true
   position?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -116,6 +121,7 @@ export type LessonCountAggregateInputType = {
   content?: true
   duration?: true
   position?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -215,6 +221,7 @@ export type LessonGroupByOutputType = {
   content: string | null
   duration: number | null
   position: number
+  status: $Enums.ContentStatus
   createdAt: Date
   updatedAt: Date
   _count: LessonCountAggregateOutputType | null
@@ -250,9 +257,11 @@ export type LessonWhereInput = {
   content?: Prisma.StringNullableFilter<"Lesson"> | string | null
   duration?: Prisma.IntNullableFilter<"Lesson"> | number | null
   position?: Prisma.IntFilter<"Lesson"> | number
+  status?: Prisma.EnumContentStatusFilter<"Lesson"> | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   chapter?: Prisma.XOR<Prisma.ChapterScalarRelationFilter, Prisma.ChapterWhereInput>
+  attachments?: Prisma.LessonAttachmentListRelationFilter
   progress?: Prisma.LessonProgressListRelationFilter
 }
 
@@ -264,9 +273,11 @@ export type LessonOrderByWithRelationInput = {
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   chapter?: Prisma.ChapterOrderByWithRelationInput
+  attachments?: Prisma.LessonAttachmentOrderByRelationAggregateInput
   progress?: Prisma.LessonProgressOrderByRelationAggregateInput
 }
 
@@ -282,9 +293,11 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.StringNullableFilter<"Lesson"> | string | null
   duration?: Prisma.IntNullableFilter<"Lesson"> | number | null
   position?: Prisma.IntFilter<"Lesson"> | number
+  status?: Prisma.EnumContentStatusFilter<"Lesson"> | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   chapter?: Prisma.XOR<Prisma.ChapterScalarRelationFilter, Prisma.ChapterWhereInput>
+  attachments?: Prisma.LessonAttachmentListRelationFilter
   progress?: Prisma.LessonProgressListRelationFilter
 }, "id" | "chapterId_position">
 
@@ -296,6 +309,7 @@ export type LessonOrderByWithAggregationInput = {
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.LessonCountOrderByAggregateInput
@@ -316,6 +330,7 @@ export type LessonScalarWhereWithAggregatesInput = {
   content?: Prisma.StringNullableWithAggregatesFilter<"Lesson"> | string | null
   duration?: Prisma.IntNullableWithAggregatesFilter<"Lesson"> | number | null
   position?: Prisma.IntWithAggregatesFilter<"Lesson"> | number
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Lesson"> | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Lesson"> | Date | string
 }
@@ -327,9 +342,11 @@ export type LessonCreateInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   chapter: Prisma.ChapterCreateNestedOneWithoutLessonsInput
+  attachments?: Prisma.LessonAttachmentCreateNestedManyWithoutLessonInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutLessonInput
 }
 
@@ -341,8 +358,10 @@ export type LessonUncheckedCreateInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedCreateNestedManyWithoutLessonInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutLessonInput
 }
 
@@ -353,9 +372,11 @@ export type LessonUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chapter?: Prisma.ChapterUpdateOneRequiredWithoutLessonsNestedInput
+  attachments?: Prisma.LessonAttachmentUpdateManyWithoutLessonNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutLessonNestedInput
 }
 
@@ -367,8 +388,10 @@ export type LessonUncheckedUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedUpdateManyWithoutLessonNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutLessonNestedInput
 }
 
@@ -380,6 +403,7 @@ export type LessonCreateManyInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -391,6 +415,7 @@ export type LessonUpdateManyMutationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -403,6 +428,7 @@ export type LessonUncheckedUpdateManyInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -430,6 +456,7 @@ export type LessonCountOrderByAggregateInput = {
   content?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -447,6 +474,7 @@ export type LessonMaxOrderByAggregateInput = {
   content?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -459,6 +487,7 @@ export type LessonMinOrderByAggregateInput = {
   content?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -527,6 +556,20 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type LessonCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAttachmentsInput, Prisma.LessonUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.LessonWhereUniqueInput
+}
+
+export type LessonUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutAttachmentsInput, Prisma.LessonUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.LessonUpsertWithoutAttachmentsInput
+  connect?: Prisma.LessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LessonUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.LessonUpdateWithoutAttachmentsInput>, Prisma.LessonUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type LessonCreateNestedOneWithoutProgressInput = {
   create?: Prisma.XOR<Prisma.LessonCreateWithoutProgressInput, Prisma.LessonUncheckedCreateWithoutProgressInput>
   connectOrCreate?: Prisma.LessonCreateOrConnectWithoutProgressInput
@@ -548,8 +591,10 @@ export type LessonCreateWithoutChapterInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.LessonAttachmentCreateNestedManyWithoutLessonInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutLessonInput
 }
 
@@ -560,8 +605,10 @@ export type LessonUncheckedCreateWithoutChapterInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedCreateNestedManyWithoutLessonInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutLessonInput
 }
 
@@ -602,8 +649,81 @@ export type LessonScalarWhereInput = {
   content?: Prisma.StringNullableFilter<"Lesson"> | string | null
   duration?: Prisma.IntNullableFilter<"Lesson"> | number | null
   position?: Prisma.IntFilter<"Lesson"> | number
+  status?: Prisma.EnumContentStatusFilter<"Lesson"> | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
+}
+
+export type LessonCreateWithoutAttachmentsInput = {
+  id?: string
+  title: string
+  type: $Enums.LessonType
+  content?: string | null
+  duration?: number | null
+  position: number
+  status?: $Enums.ContentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chapter: Prisma.ChapterCreateNestedOneWithoutLessonsInput
+  progress?: Prisma.LessonProgressCreateNestedManyWithoutLessonInput
+}
+
+export type LessonUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  chapterId: string
+  title: string
+  type: $Enums.LessonType
+  content?: string | null
+  duration?: number | null
+  position: number
+  status?: $Enums.ContentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutLessonInput
+}
+
+export type LessonCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAttachmentsInput, Prisma.LessonUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type LessonUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.LessonUpdateWithoutAttachmentsInput, Prisma.LessonUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.LessonCreateWithoutAttachmentsInput, Prisma.LessonUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.LessonWhereInput
+}
+
+export type LessonUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.LessonWhereInput
+  data: Prisma.XOR<Prisma.LessonUpdateWithoutAttachmentsInput, Prisma.LessonUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type LessonUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumLessonTypeFieldUpdateOperationsInput | $Enums.LessonType
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chapter?: Prisma.ChapterUpdateOneRequiredWithoutLessonsNestedInput
+  progress?: Prisma.LessonProgressUpdateManyWithoutLessonNestedInput
+}
+
+export type LessonUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumLessonTypeFieldUpdateOperationsInput | $Enums.LessonType
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonCreateWithoutProgressInput = {
@@ -613,9 +733,11 @@ export type LessonCreateWithoutProgressInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   chapter: Prisma.ChapterCreateNestedOneWithoutLessonsInput
+  attachments?: Prisma.LessonAttachmentCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUncheckedCreateWithoutProgressInput = {
@@ -626,8 +748,10 @@ export type LessonUncheckedCreateWithoutProgressInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedCreateNestedManyWithoutLessonInput
 }
 
 export type LessonCreateOrConnectWithoutProgressInput = {
@@ -653,9 +777,11 @@ export type LessonUpdateWithoutProgressInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chapter?: Prisma.ChapterUpdateOneRequiredWithoutLessonsNestedInput
+  attachments?: Prisma.LessonAttachmentUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutProgressInput = {
@@ -666,8 +792,10 @@ export type LessonUncheckedUpdateWithoutProgressInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonCreateManyChapterInput = {
@@ -677,6 +805,7 @@ export type LessonCreateManyChapterInput = {
   content?: string | null
   duration?: number | null
   position: number
+  status?: $Enums.ContentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -688,8 +817,10 @@ export type LessonUpdateWithoutChapterInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.LessonAttachmentUpdateManyWithoutLessonNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutLessonNestedInput
 }
 
@@ -700,8 +831,10 @@ export type LessonUncheckedUpdateWithoutChapterInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.LessonAttachmentUncheckedUpdateManyWithoutLessonNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutLessonNestedInput
 }
 
@@ -712,6 +845,7 @@ export type LessonUncheckedUpdateManyWithoutChapterInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -722,10 +856,12 @@ export type LessonUncheckedUpdateManyWithoutChapterInput = {
  */
 
 export type LessonCountOutputType = {
+  attachments: number
   progress: number
 }
 
 export type LessonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attachments?: boolean | LessonCountOutputTypeCountAttachmentsArgs
   progress?: boolean | LessonCountOutputTypeCountProgressArgs
 }
 
@@ -737,6 +873,13 @@ export type LessonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
    * Select specific fields to fetch from the LessonCountOutputType
    */
   select?: Prisma.LessonCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LessonAttachmentWhereInput
 }
 
 /**
@@ -755,9 +898,11 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   content?: boolean
   duration?: boolean
   position?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>
+  attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
   progress?: boolean | Prisma.Lesson$progressArgs<ExtArgs>
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
@@ -770,6 +915,7 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   content?: boolean
   duration?: boolean
   position?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>
@@ -783,6 +929,7 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   content?: boolean
   duration?: boolean
   position?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>
@@ -796,13 +943,15 @@ export type LessonSelectScalar = {
   content?: boolean
   duration?: boolean
   position?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "type" | "content" | "duration" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "type" | "content" | "duration" | "position" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>
+  attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
   progress?: boolean | Prisma.Lesson$progressArgs<ExtArgs>
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -817,6 +966,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Lesson"
   objects: {
     chapter: Prisma.$ChapterPayload<ExtArgs>
+    attachments: Prisma.$LessonAttachmentPayload<ExtArgs>[]
     progress: Prisma.$LessonProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -827,6 +977,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     content: string | null
     duration: number | null
     position: number
+    status: $Enums.ContentStatus
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["lesson"]>
@@ -1224,6 +1375,7 @@ readonly fields: LessonFieldRefs;
 export interface Prisma__LessonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   chapter<T extends Prisma.ChapterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChapterDefaultArgs<ExtArgs>>): Prisma.Prisma__ChapterClient<runtime.Types.Result.GetResult<Prisma.$ChapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  attachments<T extends Prisma.Lesson$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   progress<T extends Prisma.Lesson$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1261,6 +1413,7 @@ export interface LessonFieldRefs {
   readonly content: Prisma.FieldRef<"Lesson", 'String'>
   readonly duration: Prisma.FieldRef<"Lesson", 'Int'>
   readonly position: Prisma.FieldRef<"Lesson", 'Int'>
+  readonly status: Prisma.FieldRef<"Lesson", 'ContentStatus'>
   readonly createdAt: Prisma.FieldRef<"Lesson", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Lesson", 'DateTime'>
 }
@@ -1661,6 +1814,30 @@ export type LessonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Lessons to delete.
    */
   limit?: number
+}
+
+/**
+ * Lesson.attachments
+ */
+export type Lesson$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LessonAttachment
+   */
+  select?: Prisma.LessonAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LessonAttachment
+   */
+  omit?: Prisma.LessonAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LessonAttachmentInclude<ExtArgs> | null
+  where?: Prisma.LessonAttachmentWhereInput
+  orderBy?: Prisma.LessonAttachmentOrderByWithRelationInput | Prisma.LessonAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.LessonAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LessonAttachmentScalarFieldEnum | Prisma.LessonAttachmentScalarFieldEnum[]
 }
 
 /**
