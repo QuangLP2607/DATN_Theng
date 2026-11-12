@@ -1,0 +1,59 @@
+model Class {
+  id       String      @id @default(uuid()) @db.Uuid
+  courseId String      @map("course_id") @db.Uuid
+  name     String      @db.VarChar(255)
+  code     String      @unique @db.VarChar(50)
+  status   ClassStatus @default(ACTIVE)
+
+  maxStudents Int?      @map("max_students")
+  startAt     DateTime? @map("start_at") @db.Timestamp(6)
+  endAt       DateTime? @map("end_at") @db.Timestamp(6)
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Restrict)
+
+  teachers    ClassTeacher[]
+  enrollments Enrollment[]
+
+  assignments Assignment[]
+  exams       Exam[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([courseId])
+  @@index([status])
+  @@map("classes")
+}
+
+model ClassTeacher {
+  classId   String @map("class_id") @db.Uuid
+  teacherId String @map("teacher_id") @db.Uuid
+
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacher User  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@id([classId, teacherId])
+  @@index([teacherId])
+  @@map("class_teachers")
+}
+
+model Enrollment {
+  id        String           @id @default(uuid()) @db.Uuid
+  classId   String           @map("class_id") @db.Uuid
+  studentId String           @map("student_id") @db.Uuid
+  status    EnrollmentStatus @default(ACTIVE)
+  joinedAt  DateTime         @default(now()) @map("joined_at") @db.Timestamp(6)
+
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student User  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([classId, studentId])
+  @@index([studentId])
+  @@map("enrollments")
+}

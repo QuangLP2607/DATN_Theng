@@ -12,7 +12,7 @@ import type { SignInDto } from "./dto/signIn";
 import type { ActivateAccountDto } from "./dto/activateAccount";
 import type { ResendActivationDto } from "./dto/resendActivation";
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = 12;
 const ACTIVATION_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 
 /*
@@ -21,6 +21,7 @@ const ACTIVATION_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 
 const generateActivationToken = () => {
   const token = randomBytes(32).toString("hex");
+
   const tokenHash = createHash("sha256").update(token).digest("hex");
 
   return {
@@ -29,17 +30,22 @@ const generateActivationToken = () => {
   };
 };
 
+const hashActivationToken = (token: string) =>
+  createHash("sha256").update(token).digest("hex");
+
 /*
  * -------------------- SIGN UP --------------------
+ *
+ * Only ADMIN can register accounts.
+ * New accounts must activate their email before signing in.
  */
 
 export const signUp = async (data: SignUpDto) => {
   const { token, tokenHash } = generateActivationToken();
 
-  const temporaryPasswordHash = await bcrypt.hash(
-    randomBytes(32).toString("hex"),
-    SALT_ROUNDS,
-  );
+  const temporaryPassword = randomBytes(32).toString("hex");
+
+  const passwordHash = await bcrypt.hash(temporaryPassword, SALT_ROUNDS);
 
   const user = await prisma.user.create({
     data: {
@@ -47,7 +53,7 @@ export const signUp = async (data: SignUpDto) => {
       name: data.name,
       role: data.role,
       status: "INACTIVE",
-      passwordHash: temporaryPasswordHash,
+      passwordHash,
       emailVerifiedAt: null,
       activationTokenHash: tokenHash,
       activationTokenExpiresAt: new Date(Date.now() + ACTIVATION_TOKEN_TTL_MS),
@@ -69,8 +75,12 @@ export const signUp = async (data: SignUpDto) => {
       token,
     });
   } catch (error) {
-    await prisma.user.delete({
-      where: { id: user.id },
+    // Remove the newly created account if email delivery fails.
+    await prisma.user.deleteMany({
+      where: {
+        id: user.id,
+        activationTokenHash: tokenHash,
+      },
     });
 
     throw error;
@@ -84,25 +94,28 @@ export const signUp = async (data: SignUpDto) => {
  */
 
 export const activateAccount = async (data: ActivateAccountDto) => {
-  const tokenHash = createHash("sha256").update(data.token).digest("hex");
+  const tokenHash = hashActivationToken(data.token);
+  const now = new Date();
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: {
       activationTokenHash: tokenHash,
+      activationTokenExpiresAt: {
+        gt: now,
+      },
+      emailVerifiedAt: null,
+      status: "INACTIVE",
+    },
+    select: {
+      id: true,
     },
   });
 
-  if (
-    !user ||
-    !user.activationTokenExpiresAt ||
-    user.activationTokenExpiresAt.getTime() <= Date.now() ||
-    user.emailVerifiedAt
-  ) {
+  if (!user) {
     throw AppError.unauthorized("Activation link is invalid or expired");
   }
 
   const passwordHash = await bcrypt.hash(data.password, SALT_ROUNDS);
-  const now = new Date();
 
   const result = await prisma.user.updateMany({
     where: {
@@ -142,13 +155,20 @@ export const resendActivation = async (data: ResendActivationDto) => {
       "If the account requires activation, an activation email will be sent.",
   };
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: {
       email: data.email,
+      emailVerifiedAt: null,
+      status: "INACTIVE",
+    },
+    select: {
+      id: true,
+      email: true,
+      name: true,
     },
   });
 
-  if (!user || user.emailVerifiedAt || user.status !== "INACTIVE") {
+  if (!user) {
     return genericResponse;
   }
 
@@ -166,12 +186,30 @@ export const resendActivation = async (data: ResendActivationDto) => {
     },
   });
 
-  if (result.count === 1) {
+  if (result.count !== 1) {
+    return genericResponse;
+  }
+
+  try {
     await sendActivationEmail({
       email: user.email,
       name: user.name,
       token,
     });
+  } catch (error) {
+    // Invalidate the new token if email delivery fails.
+    await prisma.user.updateMany({
+      where: {
+        id: user.id,
+        activationTokenHash: tokenHash,
+      },
+      data: {
+        activationTokenHash: null,
+        activationTokenExpiresAt: null,
+      },
+    });
+
+    throw error;
   }
 
   return genericResponse;
@@ -186,8 +224,19 @@ export const signIn = async (data: SignInDto) => {
     where: {
       email: data.email,
     },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      avatarKey: true,
+      role: true,
+      status: true,
+      passwordHash: true,
+      emailVerifiedAt: true,
+    },
   });
 
+  // Do not reveal whether an email exists.
   if (!user) {
     throw AppError.unauthorized("Invalid email or password");
   }
@@ -223,7 +272,7 @@ export const signIn = async (data: SignInDto) => {
       id: user.id,
       email: user.email,
       name: user.name,
-      avatar: user.avatar,
+      avatarKey: user.avatarKey,
       role: user.role,
       status: user.status,
     },

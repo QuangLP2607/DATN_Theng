@@ -548,14 +548,6 @@ export type EnumLessonTypeFieldUpdateOperationsInput = {
   set?: $Enums.LessonType
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type LessonCreateNestedOneWithoutAttachmentsInput = {
   create?: Prisma.XOR<Prisma.LessonCreateWithoutAttachmentsInput, Prisma.LessonUncheckedCreateWithoutAttachmentsInput>
   connectOrCreate?: Prisma.LessonCreateOrConnectWithoutAttachmentsInput

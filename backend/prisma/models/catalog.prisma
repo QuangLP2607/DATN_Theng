@@ -1,0 +1,61 @@
+model Subject {
+  id          String  @id @default(uuid()) @db.Uuid
+  code        String  @unique @db.VarChar(20)
+  title       String  @db.VarChar(100)
+  description String? @db.VarChar(255)
+  icon        String  @default("solar:book-2-linear") @db.VarChar(100)
+
+  subjectGrades SubjectGrade[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@map("subjects")
+}
+
+model SubjectGrade {
+  id        String     @id @default(uuid()) @db.Uuid
+  subjectId String     @map("subject_id") @db.Uuid
+  grade     GradeLevel
+
+  subject Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  courses Course[]
+  questions Question[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([subjectId, grade])
+  @@index([grade])
+  @@map("subject_grades")
+}
+
+model Course {
+  id             String       @id @default(uuid()) @db.Uuid
+  subjectGradeId String       @map("subject_grade_id") @db.Uuid
+  title          String       @db.VarChar(255)
+  code           String       @unique @db.VarChar(50)
+  description    String?      @db.Text
+  thumbnailKey   String?      @map("thumbnail_key") @db.VarChar(500)
+  targetYear     Int?         @map("target_year")
+  status         CourseStatus @default(DRAFT)
+
+  createdById String @map("created_by_id") @db.Uuid
+
+  subjectGrade SubjectGrade @relation(fields: [subjectGradeId], references: [id], onDelete: Restrict)
+  createdBy    User         @relation("CourseCreator", fields: [createdById], references: [id], onDelete: Restrict)
+
+  chapters Chapter[]
+  classes  Class[]
+
+  publishedAt DateTime? @map("published_at") @db.Timestamp(6)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([subjectGradeId])
+  @@index([createdById])
+  @@index([status])
+  @@index([targetYear])
+  @@map("courses")
+}

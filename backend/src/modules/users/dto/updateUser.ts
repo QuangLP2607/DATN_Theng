@@ -7,10 +7,10 @@ export const updateUserSchema = nonEmptyObject(
   z.object({
     name: stringSchema("Name", 1, 100).optional(),
 
-    avatar: z
+    avatarKey: z
       .string()
       .trim()
-      .max(255, "Avatar URL is too long")
+      .max(500, "Avatar key is too long")
       .nullable()
       .optional(),
 

@@ -1,138 +1,77 @@
 import { Router } from "express";
 
 import {
-  getChaptersBysubject,
-  getChapterById,
-  createChapter,
-  updateChapter,
-} from "./chapter.controller";
-
-import {
-  getLessonsByChapter,
+  getLessons,
   getLessonById,
   createLesson,
   updateLesson,
-} from "./lesson.controller";
-
-import { updateLessonProgress } from "./progress.controller";
+  deleteLesson,
+} from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
-import { requireAdmin } from "../../middlewares/requireAdmin";
-import { requireSubjectAccess } from "../../middlewares/requireSubjectAccess";
 import { validateZod } from "../../middlewares/validateZod";
 
-import { chapterParamsSchema, subjectParamsSchema } from "./dto/chapterParams";
+import { loadAbility } from "../access/middlewares/ability.middleware";
 
-import { lessonParamsSchema } from "./dto/lessonParams";
-import { createChapterSchema } from "./dto/createChapter";
-import { updateChapterSchema } from "./dto/updateChapter";
+import {
+  chapterIdParamsSchema,
+  lessonIdParamsSchema,
+} from "./dto/lessonParams";
+
+import { listLessonsQuerySchema } from "./dto/listLessons";
 import { createLessonSchema } from "./dto/createLesson";
 import { updateLessonSchema } from "./dto/updateLesson";
-import { updateLessonProgressSchema } from "./dto/updateLessonProgress";
 
 const router = Router();
 
-router.use(authMiddleware);
+router.use(authMiddleware, loadAbility);
 
-// ======================================================
-// CHAPTER
-// ======================================================
-
-// Get chapters by subject
+// List lessons in a chapter
 router.get(
-  "/subjects/:subjectId/chapters",
-  validateZod({ params: subjectParamsSchema }),
-  requireSubjectAccess({
-    resource: "subject",
-    param: "subjectId",
+  "/chapters/:chapterId/lessons",
+  validateZod({
+    params: chapterIdParamsSchema,
+    query: listLessonsQuerySchema,
   }),
-  getChaptersBysubject,
+  getLessons,
 );
 
-// Create chapter - Admin only
+// Create lesson in a chapter
 router.post(
-  "/subjects/:subjectId/chapters",
+  "/chapters/:chapterId/lessons",
   validateZod({
-    params: subjectParamsSchema,
-    body: createChapterSchema,
-  }),
-  requireAdmin,
-  createChapter,
-);
-
-// Get chapter by ID
-router.get(
-  "/chapters/:id",
-  validateZod({ params: chapterParamsSchema }),
-  requireSubjectAccess({ resource: "chapter" }),
-  getChapterById,
-);
-
-// Update chapter - Admin only
-router.patch(
-  "/chapters/:id",
-  validateZod({
-    params: chapterParamsSchema,
-    body: updateChapterSchema,
-  }),
-  requireAdmin,
-  updateChapter,
-);
-
-// ======================================================
-// LESSON
-// ======================================================
-
-// Get lessons by chapter
-router.get(
-  "/chapters/:id/lessons",
-  validateZod({ params: chapterParamsSchema }),
-  requireSubjectAccess({ resource: "chapter" }),
-  getLessonsByChapter,
-);
-
-// Create lesson - Admin only
-router.post(
-  "/chapters/:id/lessons",
-  validateZod({
-    params: chapterParamsSchema,
+    params: chapterIdParamsSchema,
     body: createLessonSchema,
   }),
-  requireAdmin,
   createLesson,
 );
 
-// Get lesson by ID
+// Get lesson detail
 router.get(
   "/lessons/:id",
-  validateZod({ params: lessonParamsSchema }),
-  requireSubjectAccess({ resource: "lesson" }),
+  validateZod({
+    params: lessonIdParamsSchema,
+  }),
   getLessonById,
 );
 
-// Update lesson - Admin only
+// Update lesson
 router.patch(
   "/lessons/:id",
   validateZod({
-    params: lessonParamsSchema,
+    params: lessonIdParamsSchema,
     body: updateLessonSchema,
   }),
-  requireAdmin,
   updateLesson,
 );
 
-// ======================================================
-// LESSON PROGRESS
-// ======================================================
-
-// Update lesson progress - Student only
-router.patch(
-  "/lessons/:id/progress",
+// Delete lesson
+router.delete(
+  "/lessons/:id",
   validateZod({
-    params: lessonParamsSchema,
-    body: updateLessonProgressSchema,
+    params: lessonIdParamsSchema,
   }),
-  updateLessonProgress,
+  deleteLesson,
 );
 
 export default router;

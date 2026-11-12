@@ -1,6 +1,8 @@
 const PAGE_TITLES: Record<string, string> = {
   "/admin": "Tổng quan",
+  "/admin/users": "Người dùng",
   "/admin/subjects": "Môn học",
+  "/admin/courses": "Khóa học",
   "/admin/classes": "Lớp học",
   "/admin/statistics": "Thống kê",
   "/admin/settings": "Cài đặt",

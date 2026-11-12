@@ -1,12 +1,26 @@
 import type { ApiResponse } from "@/interfaces/common";
 
-import type { Chapter } from "@/interfaces/chapter";
+import type {
+  Chapter,
+  ChapterDetail,
+  ChapterListItem,
+} from "@/interfaces/chapter";
+
+import type { ContentStatus } from "@/interfaces/lesson";
 
 import apiClient from "./apiClient";
 
 /*
  * ==================== TYPES ====================
  */
+
+export interface GetChaptersParams {
+  status?: ContentStatus;
+}
+
+export interface GetChaptersResponse {
+  chapters: ChapterListItem[];
+}
 
 export interface CreateChapterPayload {
   title: string;
@@ -18,10 +32,7 @@ export interface UpdateChapterPayload {
   title?: string;
   description?: string | null;
   position?: number;
-}
-
-export interface GetChaptersResponse {
-  chapters: Chapter[];
+  status?: ContentStatus;
 }
 
 /*
@@ -29,9 +40,14 @@ export interface GetChaptersResponse {
  */
 
 const chapterApi = {
-  async getChapters(subjectId: string): Promise<GetChaptersResponse> {
+  // Get chapters by course
+  async getChapters(
+    courseId: string,
+    params?: GetChaptersParams,
+  ): Promise<ChapterListItem[]> {
     const response = await apiClient.get<ApiResponse<GetChaptersResponse>>(
-      `/subjects/${subjectId}/chapters`,
+      `/courses/${courseId}/chapters`,
+      { params },
     );
 
     const data = response.data.data;
@@ -40,15 +56,31 @@ const chapterApi = {
       throw new Error("Dữ liệu danh sách chương không hợp lệ.");
     }
 
+    return data.chapters;
+  },
+
+  // Get chapter detail
+  async getChapterById(id: string): Promise<ChapterDetail> {
+    const response = await apiClient.get<ApiResponse<ChapterDetail>>(
+      `/chapters/${id}`,
+    );
+
+    const data = response.data.data;
+
+    if (!data) {
+      throw new Error("Dữ liệu chương trả về không hợp lệ.");
+    }
+
     return data;
   },
 
+  // Create chapter
   async createChapter(
-    subjectId: string,
+    courseId: string,
     payload: CreateChapterPayload,
   ): Promise<Chapter> {
     const response = await apiClient.post<ApiResponse<Chapter>>(
-      `/subjects/${subjectId}/chapters`,
+      `/courses/${courseId}/chapters`,
       payload,
     );
 
@@ -61,20 +93,7 @@ const chapterApi = {
     return data;
   },
 
-  async getChapterById(id: string): Promise<Chapter> {
-    const response = await apiClient.get<ApiResponse<Chapter>>(
-      `/chapters/${id}`,
-    );
-
-    const data = response.data.data;
-
-    if (!data) {
-      throw new Error("Không tìm thấy chương học.");
-    }
-
-    return data;
-  },
-
+  // Update chapter
   async updateChapter(
     id: string,
     payload: UpdateChapterPayload,
@@ -91,6 +110,11 @@ const chapterApi = {
     }
 
     return data;
+  },
+
+  // Delete chapter
+  async deleteChapter(id: string): Promise<void> {
+    await apiClient.delete<ApiResponse<null>>(`/chapters/${id}`);
   },
 };
 

@@ -7,8 +7,11 @@
   place-items: center;
 
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   padding: 20px;
 
+  overflow-x: hidden;
   overflow-y: auto;
 
   background: rgb(15 23 42 / 45%);
@@ -16,30 +19,39 @@
 }
 
 .modal {
-  box-sizing: border-box;
+  position: relative;
 
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
   width: 100%;
   max-width: 480px;
   max-height: calc(100dvh - 40px);
+  min-width: 0;
+  min-height: 0;
 
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
 
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 
-  box-shadow: 0 24px 80px rgb(15 23 42 / 20%);
+  box-shadow: var(--shadow-xl);
 
-  animation: modal-appear 0.2s ease;
+  animation: modal-appear var(--transition-normal);
 }
 
 .header {
   display: flex;
+  flex: 0 0 auto;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
 
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
   padding: 24px;
 
   border-bottom: 1px solid var(--color-border);
@@ -48,6 +60,7 @@
 .header-content {
   flex: 1;
   min-width: 0;
+  overflow-wrap: anywhere;
 
   h2 {
     margin: 0;
@@ -75,9 +88,10 @@
 
 .close-button {
   display: grid;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   place-items: center;
 
+  box-sizing: border-box;
   width: 34px;
   height: 34px;
 
@@ -89,8 +103,8 @@
   cursor: pointer;
 
   transition:
-    color 0.2s ease,
-    background 0.2s ease;
+    color var(--transition-normal),
+    background var(--transition-normal);
 
   svg {
     width: 18px;
@@ -114,7 +128,32 @@
 }
 
 .body {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
   padding: 24px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
 }
 
 @keyframes modal-appear {
@@ -131,16 +170,18 @@
 
 @media (max-width: 480px) {
   .overlay {
+    place-items: center;
     padding: 12px;
   }
 
   .modal {
     max-height: calc(100dvh - 24px);
+    border-radius: var(--radius-md);
   }
 
   .header {
     gap: 12px;
-    padding: 20px;
+    padding: 18px;
   }
 
   .header-content {
@@ -150,7 +191,17 @@
   }
 
   .body {
-    padding: 20px;
+    padding: 18px;
+  }
+}
+
+@media (max-height: 600px) {
+  .overlay {
+    place-items: start center;
+  }
+
+  .modal {
+    margin: auto 0;
   }
 }
 

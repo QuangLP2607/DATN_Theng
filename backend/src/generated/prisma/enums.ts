@@ -26,6 +26,24 @@ export const UserStatus = {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
+export const GradeLevel = {
+  GRADE_10: 'GRADE_10',
+  GRADE_11: 'GRADE_11',
+  GRADE_12: 'GRADE_12'
+} as const
+
+export type GradeLevel = (typeof GradeLevel)[keyof typeof GradeLevel]
+
+
+export const CourseStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type CourseStatus = (typeof CourseStatus)[keyof typeof CourseStatus]
+
+
 export const ClassStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE'
@@ -50,6 +68,23 @@ export const LessonType = {
 } as const
 
 export type LessonType = (typeof LessonType)[keyof typeof LessonType]
+
+
+export const ContentStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]
+
+
+export const LessonAttachmentType = {
+  FILE: 'FILE',
+  LINK: 'LINK'
+} as const
+
+export type LessonAttachmentType = (typeof LessonAttachmentType)[keyof typeof LessonAttachmentType]
 
 
 export const AssignmentStatus = {
@@ -81,6 +116,15 @@ export const QuestionType = {
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 
 
+export const QuestionDifficulty = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  HARD: 'HARD'
+} as const
+
+export type QuestionDifficulty = (typeof QuestionDifficulty)[keyof typeof QuestionDifficulty]
+
+
 export const ExamStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
@@ -108,20 +152,3 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
-
-
-export const ContentStatus = {
-  DRAFT: 'DRAFT',
-  PUBLISHED: 'PUBLISHED',
-  ARCHIVED: 'ARCHIVED'
-} as const
-
-export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]
-
-
-export const LessonAttachmentType = {
-  FILE: 'FILE',
-  LINK: 'LINK'
-} as const
-
-export type LessonAttachmentType = (typeof LessonAttachmentType)[keyof typeof LessonAttachmentType]

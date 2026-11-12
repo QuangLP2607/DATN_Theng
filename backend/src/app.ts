@@ -9,12 +9,12 @@ import notFoundHandler from "./middlewares/notFound";
 import authRoutes from "./modules/auth/router";
 import usersRoutes from "./modules/users/router";
 import subjectRoutes from "./modules/subject/router";
-import classRoutes from "./modules/class/router";
-import examRoutes from "./modules/exam/router";
-import questionRoutes from "./modules/question/router";
+import subjectGradeRoutes from "./modules/subject-grade/router";
+import courseRoutes from "./modules/course/router";
+import chapterRoutes from "./modules/chapter/router";
 import lessonRoutes from "./modules/lesson/router";
-import assignmentRoutes from "./modules/assignment/router";
-import statsRoutes from "./modules/stats/router";
+import lessonAttachmentRoutes from "./modules/lesson-attachment/router";
+import classRoutes from "./modules/class/router";
 
 const app = express();
 
@@ -44,12 +44,13 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/subjects", subjectRoutes);
+app.use("/api/subject-grades", subjectGradeRoutes);
+app.use("/api/courses", courseRoutes);
 app.use("/api/classes", classRoutes);
-app.use("/api/exams", examRoutes);
-app.use("/api/questions", questionRoutes);
-app.use("/api/lessons", lessonRoutes);
-app.use("/api/assignments", assignmentRoutes);
-app.use("/api/stats", statsRoutes);
+
+app.use("/api", chapterRoutes);
+app.use("/api", lessonRoutes);
+app.use("/api", lessonAttachmentRoutes);
 
 /*
  * 404

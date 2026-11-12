@@ -21,10 +21,15 @@ import TeacherStudents from "@/pages/teacher/Students";
 import TeacherNotifications from "@/pages/teacher/Notifications";
 
 import AdminHome from "@/pages/admin/Home";
-import AdminClasses from "@/pages/admin/Classes";
 import AdminUsers from "@/pages/admin/Users";
-import AdminStatistics from "@/pages/admin/Statistics";
 import AdminSubjects from "@/pages/admin/Subjects";
+import AdminSubjectGrades from "@/pages/admin/SubjectGrades";
+import AdminCourses from "@/pages/admin/Courses";
+import AdminCourseDetail from "@/pages/admin/CourseDetail";
+import AdminClasses from "@/pages/admin/Classes";
+
+import AdminStatistics from "@/pages/admin/Statistics";
+
 import AdminSettings from "@/pages/admin/Settings";
 
 import MainLayout from "@/layouts/MainLayout";
@@ -196,6 +201,33 @@ export const router = createBrowserRouter(
             <ProtectedRoute
               allowedRoles={["ADMIN"]}
               element={<AdminSubjects />}
+            />
+          ),
+        },
+        {
+          path: "/admin/subject-grades/:id",
+          element: (
+            <ProtectedRoute
+              allowedRoles={["ADMIN"]}
+              element={<AdminSubjectGrades />}
+            />
+          ),
+        },
+        {
+          path: "/admin/courses",
+          element: (
+            <ProtectedRoute
+              allowedRoles={["ADMIN"]}
+              element={<AdminCourses />}
+            />
+          ),
+        },
+        {
+          path: "/admin/courses/:id",
+          element: (
+            <ProtectedRoute
+              allowedRoles={["ADMIN"]}
+              element={<AdminCourseDetail />}
             />
           ),
         },

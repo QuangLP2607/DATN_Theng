@@ -12,8 +12,10 @@ interface CardGridProps {
 export default function CardGrid({ children }: CardGridProps) {
   return (
     <div className={cx("card-grid")}>
-      {Children.map(children, (child) => (
-        <div className={cx("card-grid__item")}>{child}</div>
+      {Children.toArray(children).map((child, index) => (
+        <div key={index} className={cx("card-grid__item")}>
+          {child}
+        </div>
       ))}
     </div>
   );

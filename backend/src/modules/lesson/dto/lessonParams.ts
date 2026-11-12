@@ -1,7 +1,12 @@
 import { z } from "zod";
 
-export const lessonParamsSchema = z.object({
-  id: z.uuid("Invalid lesson ID"),
+export const chapterIdParamsSchema = z.object({
+  chapterId: z.string().uuid("Chapter ID không hợp lệ."),
 });
 
-export type LessonParamsDto = z.infer<typeof lessonParamsSchema>;
+export const lessonIdParamsSchema = z.object({
+  id: z.string().uuid("Lesson ID không hợp lệ."),
+});
+
+export type ChapterIdParams = z.infer<typeof chapterIdParamsSchema>;
+export type LessonIdParams = z.infer<typeof lessonIdParamsSchema>;

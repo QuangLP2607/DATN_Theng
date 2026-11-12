@@ -4,81 +4,141 @@ import classNames from "classnames/bind";
 import Pagination from "@/components/Pagination";
 import Loading from "@/components/Loading";
 import ErrorState from "@/components/ErrorState";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
 import type { DataTableSort } from "@/components/DataTable";
 
-import Toolbar from "./components/Toolbar";
-import ClassList from "./components/ClassList";
-import AddModal from "./components/AddModal";
-
+import courseApi, { type CourseListItem } from "@/services/course";
 import classApi, {
   type ClassListItem,
   type ClassSortBy,
-  type GetClassesResponse,
 } from "@/services/class";
 
-import subjectApi, { type SubjectListItem } from "@/services/subject";
-
 import type { ClassStatus } from "@/interfaces/class";
+import type { SortOrder } from "@/interfaces/common";
 
 import useDebouncedSearch from "@/hooks/useDebouncedSearch";
+
+import Toolbar, {
+  type ClassSortOption,
+  type ClassStatusFilter,
+} from "./components/Toolbar";
+
+import ClassTable from "./components/ClassTable";
+import ClassModal from "./components/ClassModal";
 
 import styles from "./Classes.module.scss";
 
 const cx = classNames.bind(styles);
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
-type StatusFilter = ClassStatus | "ALL";
+const INITIAL_SORT: ClassSortOption = "newest";
 
-const DEFAULT_SORT: DataTableSort = {
-  key: "createdAt",
-  direction: "desc",
+const SORT_CONFIG: Record<
+  ClassSortOption,
+  {
+    sortBy: ClassSortBy;
+    order: SortOrder;
+  }
+> = {
+  newest: {
+    sortBy: "createdAt",
+    order: "desc",
+  },
+  oldest: {
+    sortBy: "createdAt",
+    order: "asc",
+  },
+  nameAsc: {
+    sortBy: "name",
+    order: "asc",
+  },
+  nameDesc: {
+    sortBy: "name",
+    order: "desc",
+  },
 };
+
+const TABLE_SORT_CONFIG: Record<
+  string,
+  {
+    sortBy: ClassSortBy;
+    order: SortOrder;
+  }
+> = {
+  name: {
+    sortBy: "name",
+    order: "asc",
+  },
+  startAt: {
+    sortBy: "startAt",
+    order: "asc",
+  },
+};
+
+interface ClassListResult {
+  classes: ClassListItem[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
 
 export default function Classes() {
   const [classes, setClasses] = useState<ClassListItem[]>([]);
-  const [result, setResult] = useState<GetClassesResponse | null>(null);
-  const [subjects, setSubjects] = useState<SubjectListItem[]>([]);
+  const [result, setResult] = useState<ClassListResult | null>(null);
+  const [courses, setCourses] = useState<CourseListItem[]>([]);
 
   const [loading, setLoading] = useState(true);
+  const [courseLoading, setCourseLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [editingClass, setEditingClass] = useState<ClassListItem | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedClass, setSelectedClass] = useState<ClassListItem | null>(
+    null,
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [subjectId, setSubjectId] = useState("");
-  const [status, setStatus] = useState<StatusFilter>("ALL");
-  const [sort, setSort] = useState<DataTableSort | null>(DEFAULT_SORT);
+  const [sort, setSort] = useState<ClassSortOption>(INITIAL_SORT);
+  const [tableSort, setTableSort] = useState<DataTableSort | null>(null);
+  const [courseId, setCourseId] = useState("");
+  const [status, setStatus] = useState<ClassStatusFilter>("ALL");
 
   const requestIdRef = useRef(0);
-
-  /*
-   * ==================== FETCH CLASSES ====================
-   */
 
   const fetchClasses = useCallback(
     async (
       page: number,
       keyword: string,
-      currentSubjectId: string,
-      currentStatus: StatusFilter,
-      currentSort: DataTableSort | null,
+      sortOption: ClassSortOption,
+      selectedCourseId: string,
+      statusFilter: ClassStatusFilter,
+      tableSortOption?: DataTableSort | null,
     ) => {
       const requestId = ++requestIdRef.current;
 
       setLoading(true);
+      setError("");
 
       try {
+        const tableSortConfig = tableSortOption
+          ? TABLE_SORT_CONFIG[tableSortOption.key]
+          : undefined;
+
+        const { sortBy, order } = tableSortConfig ?? SORT_CONFIG[sortOption];
+
         const response = await classApi.getClasses({
           page,
           limit: PAGE_SIZE,
           search: keyword.trim() || undefined,
-          subjectId: currentSubjectId || undefined,
-          status: currentStatus === "ALL" ? undefined : currentStatus,
-          sortBy: (currentSort?.key as ClassSortBy) ?? "createdAt",
-          sortOrder: currentSort?.direction ?? "desc",
+          sortBy,
+          order,
+          courseId: selectedCourseId || undefined,
+          status:
+            statusFilter === "ALL" ? undefined : (statusFilter as ClassStatus),
         });
 
         if (requestId !== requestIdRef.current) return;
@@ -86,7 +146,6 @@ export default function Classes() {
         setClasses(response.classes);
         setResult(response);
         setCurrentPage(response.pagination.page);
-        setError("");
       } catch {
         if (requestId === requestIdRef.current) {
           setError("Không thể tải danh sách lớp học.");
@@ -100,76 +159,45 @@ export default function Classes() {
     [],
   );
 
-  /*
-   * ==================== FETCH SUBJECTS ====================
-   */
-
-  const fetchSubjects = useCallback(async () => {
-    try {
-      const response = await subjectApi.getSubjects({
-        page: 1,
-        limit: 100,
-        sortBy: "title",
-        sortOrder: "asc",
-      });
-
-      return response.subjects;
-    } catch {
-      return [];
-    }
-  }, []);
-
-  /*
-   * ==================== DEBOUNCED SEARCH ====================
-   */
-
   const debouncedSearch = useDebouncedSearch(
     (
       keyword: string,
-      currentSubjectId: string,
-      currentStatus: StatusFilter,
-      currentSort: DataTableSort | null,
+      sortOption: ClassSortOption,
+      selectedCourseId: string,
+      statusFilter: ClassStatusFilter,
     ) => {
       void fetchClasses(
         1,
         keyword,
-        currentSubjectId,
-        currentStatus,
-        currentSort,
+        sortOption,
+        selectedCourseId,
+        statusFilter,
+        null,
       );
     },
     400,
   );
 
-  /*
-   * ==================== INITIAL DATA ====================
-   */
-
   useEffect(() => {
     let cancelled = false;
-
     const requestId = ++requestIdRef.current;
 
-    const loadInitialData = async () => {
-      setLoading(true);
-
+    const loadClasses = async () => {
       try {
-        const [classResponse, subjectResponse] = await Promise.all([
-          classApi.getClasses({
-            page: 1,
-            limit: PAGE_SIZE,
-            sortBy: "createdAt",
-            sortOrder: "desc",
-          }),
-          fetchSubjects(),
-        ]);
+        const { sortBy, order } = SORT_CONFIG[INITIAL_SORT];
+
+        const response = await classApi.getClasses({
+          page: 1,
+          limit: PAGE_SIZE,
+          sortBy,
+          order,
+        });
 
         if (cancelled || requestId !== requestIdRef.current) return;
 
-        setClasses(classResponse.classes);
-        setResult(classResponse);
-        setCurrentPage(classResponse.pagination.page);
-        setSubjects(subjectResponse);
+        setClasses(response.classes);
+        setResult(response);
+        setCurrentPage(response.pagination.page);
         setError("");
       } catch {
         if (!cancelled && requestId === requestIdRef.current) {
@@ -182,68 +210,106 @@ export default function Classes() {
       }
     };
 
-    void loadInitialData();
+    void loadClasses();
 
     return () => {
       cancelled = true;
       requestIdRef.current += 1;
       debouncedSearch.cancel();
     };
-  }, [debouncedSearch, fetchSubjects]);
+  }, [debouncedSearch]);
 
-  /*
-   * ==================== SEARCH ====================
-   */
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadCourses = async () => {
+      try {
+        const response = await courseApi.getCourses({
+          page: 1,
+          limit: 100,
+          sortBy: "title",
+          order: "asc",
+        });
+
+        if (!cancelled) {
+          setCourses(response.courses);
+        }
+      } catch {
+        if (!cancelled) {
+          setCourses([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setCourseLoading(false);
+        }
+      }
+    };
+
+    void loadCourses();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setCurrentPage(1);
+    setTableSort(null);
 
-    debouncedSearch(value, subjectId, status, sort);
+    debouncedSearch.cancel();
+    debouncedSearch(value, sort, courseId, status);
   };
 
-  /*
-   * ==================== FILTER SUBJECT ====================
-   */
-
-  const handleSubjectChange = (value: string) => {
+  const handleSortChange = (value: ClassSortOption) => {
     debouncedSearch.cancel();
 
-    setSubjectId(value);
+    setSort(value);
+    setTableSort(null);
     setCurrentPage(1);
 
-    void fetchClasses(1, search, value, status, sort);
+    void fetchClasses(1, search, value, courseId, status, null);
   };
 
-  /*
-   * ==================== FILTER STATUS ====================
-   */
+  const handleTableSortChange = (value: DataTableSort | null) => {
+    debouncedSearch.cancel();
 
-  const handleStatusChange = (value: StatusFilter) => {
+    setTableSort(value);
+    setCurrentPage(1);
+
+    void fetchClasses(1, search, sort, courseId, status, value);
+  };
+
+  const handleCourseChange = (value: string) => {
+    debouncedSearch.cancel();
+
+    setCourseId(value);
+    setTableSort(null);
+    setCurrentPage(1);
+
+    void fetchClasses(1, search, sort, value, status, null);
+  };
+
+  const handleStatusChange = (value: ClassStatusFilter) => {
     debouncedSearch.cancel();
 
     setStatus(value);
+    setTableSort(null);
     setCurrentPage(1);
 
-    void fetchClasses(1, search, subjectId, value, sort);
+    void fetchClasses(1, search, sort, courseId, value, null);
   };
 
-  /*
-   * ==================== SORT ====================
-   */
-
-  const handleSortChange = (nextSort: DataTableSort | null) => {
+  const handleClearFilters = () => {
     debouncedSearch.cancel();
 
-    setSort(nextSort);
+    setCourseId("");
+    setStatus("ALL");
+    setTableSort(null);
     setCurrentPage(1);
 
-    void fetchClasses(1, search, subjectId, status, nextSort);
+    void fetchClasses(1, search, sort, "", "ALL", null);
   };
-
-  /*
-   * ==================== PAGINATION ====================
-   */
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -254,10 +320,9 @@ export default function Classes() {
       }
 
       debouncedSearch.cancel();
-
       setCurrentPage(page);
 
-      void fetchClasses(page, search, subjectId, status, sort);
+      void fetchClasses(page, search, sort, courseId, status, tableSort);
     },
     [
       result?.pagination.totalPages,
@@ -265,75 +330,85 @@ export default function Classes() {
       debouncedSearch,
       fetchClasses,
       search,
-      subjectId,
-      status,
       sort,
+      courseId,
+      status,
+      tableSort,
     ],
   );
 
-  /*
-   * ==================== RETRY ====================
-   */
-
   const handleRetry = () => {
-    void fetchClasses(currentPage, search, subjectId, status, sort);
+    void fetchClasses(currentPage, search, sort, courseId, status, tableSort);
   };
 
-  /*
-   * ==================== ADD / EDIT CLASS ====================
-   */
-
-  const handleAddClass = () => {
-    setEditingClass(null);
-    setShowAddModal(true);
+  const handleOpenCreateModal = () => {
+    setSelectedClass(null);
+    setShowModal(true);
   };
 
-  const handleEditClass = (classItem: ClassListItem) => {
-    setEditingClass(classItem);
-    setShowAddModal(true);
+  const handleEdit = (item: ClassListItem) => {
+    setSelectedClass(item);
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowAddModal(false);
-    setEditingClass(null);
+    setShowModal(false);
+    setSelectedClass(null);
   };
 
-  const handleModalSuccess = () => {
-    const nextPage = editingClass ? currentPage : 1;
+  const handleSuccess = () => {
+    void fetchClasses(currentPage, search, sort, courseId, status, tableSort);
+  };
 
-    handleCloseModal();
-    debouncedSearch.cancel();
-    setCurrentPage(nextPage);
+  const handleDelete = async (item: ClassListItem) => {
+    const confirmed = window.confirm(
+      `Bạn có chắc chắn muốn xóa lớp "${item.name}" không?`,
+    );
 
-    void Promise.all([
-      fetchClasses(nextPage, search, subjectId, status, sort),
-      fetchSubjects().then(setSubjects),
-    ]);
+    if (!confirmed) return;
+
+    try {
+      await classApi.deleteClass(item.id);
+
+      const nextPage =
+        classes.length === 1 && currentPage > 1 ? currentPage - 1 : currentPage;
+
+      void fetchClasses(nextPage, search, sort, courseId, status, tableSort);
+    } catch {
+      setError("Không thể xóa lớp học. Vui lòng thử lại.");
+    }
   };
 
   return (
     <main className={cx("wrapper")}>
+      <PageBreadcrumb items={[{ label: "Quản lý" }, { label: "Lớp học" }]} />
+
       <Toolbar
         search={search}
-        subjectId={subjectId}
+        sort={sort}
+        courseId={courseId}
         status={status}
-        subjects={subjects}
+        courses={courses}
+        courseLoading={courseLoading}
         onSearchChange={handleSearchChange}
-        onSubjectChange={handleSubjectChange}
+        onSortChange={handleSortChange}
+        onCourseChange={handleCourseChange}
         onStatusChange={handleStatusChange}
-        onAddClass={handleAddClass}
+        onClearFilters={handleClearFilters}
+        onAddClass={handleOpenCreateModal}
       />
 
       <section className={cx("list-container")}>
         {loading && !result ? (
           <Loading />
         ) : (
-          <ClassList
+          <ClassTable
             classes={classes}
             loading={loading}
-            sort={sort}
-            onSortChange={handleSortChange}
-            onEdit={handleEditClass}
+            sort={tableSort}
+            onSortChange={handleTableSortChange}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
           />
         )}
 
@@ -354,12 +429,13 @@ export default function Classes() {
         />
       )}
 
-      {showAddModal && (
-        <AddModal
-          classItem={editingClass}
-          subjects={subjects}
+      {showModal && (
+        <ClassModal
+          key={selectedClass?.id ?? "create"}
+          classItem={selectedClass}
+          courses={courses}
           onClose={handleCloseModal}
-          onSuccess={handleModalSuccess}
+          onSuccess={handleSuccess}
         />
       )}
     </main>

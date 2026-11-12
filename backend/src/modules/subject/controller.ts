@@ -1,6 +1,10 @@
 import type { NextFunction, Request, Response } from "express";
 
 import { sendResponse } from "../../core/response";
+import { AppError } from "../../core/error";
+
+import { AccessAction } from "../access/actions";
+
 import * as subjectService from "./service";
 
 import type { ListSubjectsQueryDto } from "./dto/listSubjects";
@@ -10,18 +14,22 @@ import type { UpdateSubjectDto } from "./dto/updateSubject";
 import type { UuidParam } from "../../shared/validation/uuidParam";
 
 /*
- * -------------------- LIST SUBJECTS --------------------
+ * -------------------- GET SUBJECTS --------------------
  */
 
 export const getSubjects = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authorization ability not initialized");
+    }
+
     const query = res.locals.validated.query as ListSubjectsQueryDto;
 
-    const result = await subjectService.getSubjects(query);
+    const result = await subjectService.getSubjects(req.ability, query);
 
     sendResponse(res, 200, {
       message: "Get subjects successfully",
@@ -37,14 +45,18 @@ export const getSubjects = async (
  */
 
 export const getSubjectById = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authorization ability not initialized");
+    }
+
     const params = res.locals.validated.params as UuidParam;
 
-    const subject = await subjectService.getSubjectById(params.id);
+    const subject = await subjectService.getSubjectById(req.ability, params.id);
 
     sendResponse(res, 200, {
       message: "Get subject successfully",
@@ -56,15 +68,23 @@ export const getSubjectById = async (
 };
 
 /*
- * -------------------- CREATE COURSE --------------------
+ * -------------------- CREATE SUBJECT --------------------
  */
 
 export const createSubject = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authorization ability not initialized");
+    }
+
+    if (!req.ability.can(AccessAction.CREATE, "Subject")) {
+      throw AppError.forbidden("You are not allowed to create subjects");
+    }
+
     const body = res.locals.validated.body as CreateSubjectDto;
 
     const subject = await subjectService.createSubject(body);
@@ -79,45 +99,35 @@ export const createSubject = async (
 };
 
 /*
- * -------------------- UPDATE COURSE --------------------
+ * -------------------- UPDATE SUBJECT --------------------
  */
 
 export const updateSubject = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authorization ability not initialized");
+    }
+
+    if (!req.ability.can(AccessAction.UPDATE, "Subject")) {
+      throw AppError.forbidden("You are not allowed to update subjects");
+    }
+
     const params = res.locals.validated.params as UuidParam;
     const body = res.locals.validated.body as UpdateSubjectDto;
 
-    const subject = await subjectService.updateSubject(params.id, body);
+    const subject = await subjectService.updateSubject(
+      req.ability,
+      params.id,
+      body,
+    );
 
     sendResponse(res, 200, {
       message: "Update subject successfully",
       data: subject,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-/*
- * -------------------- DELETE COURSE --------------------
- */
-
-export const deleteSubject = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
-  try {
-    const params = res.locals.validated.params as UuidParam;
-
-    await subjectService.deleteSubject(params.id);
-
-    sendResponse(res, 200, {
-      message: "Delete subject successfully",
     });
   } catch (error) {
     next(error);

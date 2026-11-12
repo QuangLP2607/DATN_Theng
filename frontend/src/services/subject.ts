@@ -15,13 +15,6 @@ import apiClient from "./apiClient";
 
 export type SubjectSortBy = "code" | "title" | "createdAt" | "updatedAt";
 
-export interface SubjectListItem extends Subject {
-  _count: {
-    classes: number;
-    chapters: number;
-  };
-}
-
 export interface GetSubjectsParams extends PaginationParams {
   search?: string;
   sortBy?: SubjectSortBy;
@@ -29,21 +22,21 @@ export interface GetSubjectsParams extends PaginationParams {
 }
 
 export interface GetSubjectsResponse {
-  subjects: SubjectListItem[];
+  subjects: Subject[];
   pagination: Pagination;
 }
 
 export interface CreateSubjectPayload {
   code: string;
   title: string;
-  description?: string;
+  description?: string | null;
   icon?: string;
 }
 
 export interface UpdateSubjectPayload {
   code?: string;
   title?: string;
-  description?: string;
+  description?: string | null;
   icon?: string;
 }
 
@@ -112,10 +105,6 @@ const subjectApi = {
     }
 
     return data;
-  },
-
-  async deleteSubject(id: string): Promise<void> {
-    await apiClient.delete<ApiResponse<null>>(`/subjects/${id}`);
   },
 };
 

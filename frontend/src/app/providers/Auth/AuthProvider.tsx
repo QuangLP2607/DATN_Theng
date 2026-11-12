@@ -1,6 +1,7 @@
-import { type ReactNode, useCallback, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 
 import type { User } from "@/interfaces/user";
+import { setAuthFailureHandler } from "@/services/apiClient";
 
 import { AuthContext, type AuthContextType } from "./AuthContext";
 
@@ -32,6 +33,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const isSignedIn = Boolean(token && user);
 
+  // ========================================
+  // LOGIN
+  // ========================================
+
   const login = useCallback((accessToken: string, signedInUser: User) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("user", JSON.stringify(signedInUser));
@@ -40,14 +45,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(signedInUser);
   }, []);
 
+  // ========================================
+  // LOGOUT
+  // ========================================
+
   const logout = useCallback(() => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
 
     setToken(null);
     setUser(null);
   }, []);
+
+  // ========================================
+  // AUTH FAILURE HANDLER
+  // ========================================
+
+  useEffect(() => {
+    return setAuthFailureHandler(logout);
+  }, [logout]);
+
+  // ========================================
+  // CONTEXT VALUE
+  // ========================================
 
   const value: AuthContextType = {
     user,

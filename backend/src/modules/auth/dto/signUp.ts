@@ -6,9 +6,7 @@ import { normalizedEmailSchema, stringSchema } from "../../../utils/zod";
 export const signUpSchema = z
   .object({
     email: normalizedEmailSchema,
-
     name: stringSchema("Name", 1, 100),
-
     role: z.enum(UserRole),
   })
   .strict();

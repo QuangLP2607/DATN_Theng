@@ -2,7 +2,11 @@ import type { Request, Response, NextFunction } from "express";
 import ms, { type StringValue } from "ms";
 
 import { sendResponse } from "../../core/response";
+import { AppError } from "../../core/error";
+
 import { refreshAccessToken } from "../../services/jwt";
+
+import { AccessAction } from "../access/actions";
 
 import * as authService from "./service";
 
@@ -11,23 +15,57 @@ import type { SignInDto } from "./dto/signIn";
 import type { ActivateAccountDto } from "./dto/activateAccount";
 import type { ResendActivationDto } from "./dto/resendActivation";
 
+const getRefreshCookieOptions = () => {
+  const expiresIn = process.env.JWT_REFRESH_TOKEN_EXPIRES ?? "7d";
+
+  const maxAge = ms(expiresIn as StringValue);
+
+  if (maxAge === undefined || maxAge <= 0) {
+    throw new Error(`Invalid JWT_REFRESH_TOKEN_EXPIRES: ${expiresIn}`);
+  }
+
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict" as const,
+    path: "/",
+    maxAge,
+  };
+};
+
+const clearRefreshCookie = (res: Response) => {
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+  });
+};
+
 /*
  * -------------------- SIGN UP --------------------
- * Only ADMIN can register accounts.
  */
 
 export const signUp = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authorization ability not initialized");
+    }
+
+    if (!req.ability.can(AccessAction.CREATE, "User")) {
+      throw AppError.forbidden("You are not allowed to create users");
+    }
+
     const body = res.locals.validated.body as SignUpDto;
 
     const user = await authService.signUp(body);
 
     sendResponse(res, 201, {
-      message: "Sign up successfully",
+      message: "User created successfully. Activation email has been sent.",
       data: user,
     });
   } catch (error) {
@@ -49,30 +87,13 @@ export const signIn = async (
 
     const result = await authService.signIn(body);
 
-    const { accessToken, refreshToken, user } = result;
-
-    const refreshTokenExpires = process.env.JWT_REFRESH_TOKEN_EXPIRES ?? "7d";
-
-    const maxAgeMs = ms(refreshTokenExpires as StringValue);
-
-    if (maxAgeMs === undefined || maxAgeMs <= 0) {
-      throw new Error(
-        `Invalid time format for JWT_REFRESH_TOKEN_EXPIRES: ${refreshTokenExpires}`,
-      );
-    }
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: maxAgeMs,
-    });
+    res.cookie("refreshToken", result.refreshToken, getRefreshCookieOptions());
 
     sendResponse(res, 200, {
       message: "Sign in successfully",
       data: {
-        accessToken,
-        user,
+        accessToken: result.accessToken,
+        user: result.user,
       },
     });
   } catch (error) {
@@ -134,11 +155,7 @@ export const logout = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
+    clearRefreshCookie(res);
 
     sendResponse(res, 200, {
       message: "Logged out successfully",
@@ -160,26 +177,22 @@ export const refreshToken = async (
   try {
     const token = req.cookies?.refreshToken;
 
-    if (!token) {
-      sendResponse(res, 401, {
-        message: "Missing refresh token",
-      });
-      return;
+    if (!token || typeof token !== "string") {
+      throw AppError.unauthorized("Refresh token is missing");
     }
 
-    const newAccessToken = refreshAccessToken(token);
+    const accessToken = refreshAccessToken(token);
 
-    if (!newAccessToken) {
-      sendResponse(res, 403, {
-        message: "Invalid or expired refresh token",
-      });
-      return;
+    if (!accessToken) {
+      clearRefreshCookie(res);
+
+      throw AppError.unauthorized("Refresh token is invalid or expired");
     }
 
     sendResponse(res, 200, {
       message: "Access token refreshed successfully",
       data: {
-        accessToken: newAccessToken,
+        accessToken,
       },
     });
   } catch (error) {

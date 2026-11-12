@@ -3,17 +3,25 @@ import { Prisma } from "../../generated/prisma/client";
 import { prisma } from "../../config/prisma";
 import { AppError } from "../../core/error";
 
+import { AccessAction } from "../access/actions";
+import { accessibleBy } from "../access/casl-prisma";
+import type { AppAbility } from "../access/casl-prisma";
+
 import type { Pagination } from "../../utils/zod";
 
 import type { ListUsersQueryDto } from "./dto/listUsers";
 import type { UpdateProfileDto } from "./dto/updateProfile";
 import type { UpdateUserDto } from "./dto/updateUser";
 
+/*
+ * -------------------- SELECT --------------------
+ */
+
 const userSelect = {
   id: true,
   email: true,
   name: true,
-  avatar: true,
+  avatarKey: true,
   role: true,
   status: true,
   createdAt: true,
@@ -28,9 +36,19 @@ export type UserResponse = Prisma.UserGetPayload<{
  * -------------------- GET CURRENT USER --------------------
  */
 
-export const getMe = async (userId: string): Promise<UserResponse> => {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
+export const getMe = async (
+  ability: AppAbility,
+  userId: string,
+): Promise<UserResponse> => {
+  const accessWhere: Prisma.UserWhereInput = accessibleBy(
+    ability,
+    AccessAction.READ,
+  ).ofType("User");
+
+  const user = await prisma.user.findFirst({
+    where: {
+      AND: [{ id: userId }, accessWhere],
+    },
     select: userSelect,
   });
 
@@ -45,13 +63,29 @@ export const getMe = async (userId: string): Promise<UserResponse> => {
  * -------------------- LIST USERS --------------------
  */
 
-export const getUsers = async (query: ListUsersQueryDto) => {
+export const getUsers = async (
+  ability: AppAbility,
+  query: ListUsersQueryDto,
+) => {
   const { page, limit, search, role, status, sortBy, order } = query;
 
-  const where: Prisma.UserWhereInput = {
-    ...(role && { role }),
-    ...(status && { status }),
-    ...(search && {
+  const accessWhere: Prisma.UserWhereInput = accessibleBy(
+    ability,
+    AccessAction.READ,
+  ).ofType("User");
+
+  const conditions: Prisma.UserWhereInput[] = [accessWhere];
+
+  if (role) {
+    conditions.push({ role });
+  }
+
+  if (status) {
+    conditions.push({ status });
+  }
+
+  if (search) {
+    conditions.push({
       OR: [
         {
           name: {
@@ -66,7 +100,11 @@ export const getUsers = async (query: ListUsersQueryDto) => {
           },
         },
       ],
-    }),
+    });
+  }
+
+  const where: Prisma.UserWhereInput = {
+    AND: conditions,
   };
 
   const skip = (page - 1) * limit;
@@ -106,9 +144,19 @@ export const getUsers = async (query: ListUsersQueryDto) => {
  * -------------------- GET USER BY ID --------------------
  */
 
-export const getUserById = async (id: string): Promise<UserResponse> => {
-  const user = await prisma.user.findUnique({
-    where: { id },
+export const getUserById = async (
+  ability: AppAbility,
+  id: string,
+): Promise<UserResponse> => {
+  const accessWhere: Prisma.UserWhereInput = accessibleBy(
+    ability,
+    AccessAction.READ,
+  ).ofType("User");
+
+  const user = await prisma.user.findFirst({
+    where: {
+      AND: [{ id }, accessWhere],
+    },
     select: userSelect,
   });
 
@@ -124,45 +172,53 @@ export const getUserById = async (id: string): Promise<UserResponse> => {
  */
 
 export const updateProfile = async (
+  ability: AppAbility,
   userId: string,
   data: UpdateProfileDto,
 ): Promise<UserResponse> => {
-  const existingUser = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { id: true },
+  const accessWhere: Prisma.UserWhereInput = accessibleBy(
+    ability,
+    AccessAction.UPDATE,
+  ).ofType("User");
+
+  const result = await prisma.user.updateMany({
+    where: {
+      AND: [{ id: userId }, accessWhere],
+    },
+    data,
   });
 
-  if (!existingUser) {
+  if (result.count !== 1) {
     throw AppError.notFound("User not found");
   }
 
-  return prisma.user.update({
-    where: { id: userId },
-    data,
-    select: userSelect,
-  });
+  return getMe(ability, userId);
 };
 
 /*
- * -------------------- ADMIN UPDATE USER --------------------
+ * -------------------- UPDATE USER --------------------
  */
 
 export const updateUser = async (
+  ability: AppAbility,
   id: string,
   data: UpdateUserDto,
 ): Promise<UserResponse> => {
-  const existingUser = await prisma.user.findUnique({
-    where: { id },
-    select: { id: true },
+  const accessWhere: Prisma.UserWhereInput = accessibleBy(
+    ability,
+    AccessAction.UPDATE,
+  ).ofType("User");
+
+  const result = await prisma.user.updateMany({
+    where: {
+      AND: [{ id }, accessWhere],
+    },
+    data,
   });
 
-  if (!existingUser) {
+  if (result.count !== 1) {
     throw AppError.notFound("User not found");
   }
 
-  return prisma.user.update({
-    where: { id },
-    data,
-    select: userSelect,
-  });
+  return getUserById(ability, id);
 };

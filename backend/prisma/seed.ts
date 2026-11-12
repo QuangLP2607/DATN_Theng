@@ -1,83 +1,76 @@
-import "dotenv/config";
-import bcrypt from "bcrypt";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../src/generated/prisma/client";
+import { faker } from "@faker-js/faker/locale/vi";
 
-const connectionString = process.env.DATABASE_URL;
+import { prisma } from "../src/config/prisma";
 
-if (!connectionString) {
-  throw new Error("DATABASE_URL is not configured");
+import { seedUsers } from "./seeds/users.seed";
+import { seedCatalogLearning } from "./seeds/catalog-learning.seed";
+import { seedClassrooms } from "./seeds/classroom.seed";
+import { seedAssessment } from "./seeds/assessment.seed";
+import { seedNotifications } from "./seeds/notification.seed";
+
+async function clearDatabase() {
+  console.log("Clearing database...");
+
+  await prisma.notification.deleteMany();
+
+  await prisma.examAnswerOption.deleteMany();
+  await prisma.examAnswer.deleteMany();
+  await prisma.examAttempt.deleteMany();
+  await prisma.examQuestion.deleteMany();
+  await prisma.questionOption.deleteMany();
+  await prisma.question.deleteMany();
+
+  await prisma.assignmentSubmission.deleteMany();
+  await prisma.assignment.deleteMany();
+
+  await prisma.exam.deleteMany();
+
+  await prisma.lessonProgress.deleteMany();
+  await prisma.lessonAttachment.deleteMany();
+  await prisma.lesson.deleteMany();
+  await prisma.chapter.deleteMany();
+
+  await prisma.enrollment.deleteMany();
+  await prisma.classTeacher.deleteMany();
+  await prisma.class.deleteMany();
+
+  await prisma.course.deleteMany();
+  await prisma.subjectGrade.deleteMany();
+  await prisma.subject.deleteMany();
+
+  await prisma.studentProfile.deleteMany();
+  await prisma.user.deleteMany();
+
+  console.log("✓ Database cleared");
 }
 
-const adapter = new PrismaPg({ connectionString });
-const prisma = new PrismaClient({ adapter });
-
-const defaultUsers = [
-  {
-    email: "admin@gmail.com",
-    password: "123456",
-    name: "System Administrator",
-    role: "ADMIN" as const,
-  },
-  {
-    email: "teacher@gmail.com",
-    password: "123456",
-    name: "Default Teacher",
-    role: "TEACHER" as const,
-  },
-  {
-    email: "student@gmail.com",
-    password: "123456",
-    name: "Default Student",
-    role: "STUDENT" as const,
-  },
-];
-
 async function main() {
-  for (const user of defaultUsers) {
-    const passwordHash = await bcrypt.hash(user.password, 12);
+  faker.seed(20261111);
 
-    await prisma.user.upsert({
-      where: { email: user.email },
-      update: {
-        passwordHash,
-        name: user.name,
-        role: user.role,
-        status: "ACTIVE",
-        emailVerifiedAt: new Date(),
-        activationTokenHash: null,
-        activationTokenExpiresAt: null,
-      },
-      create: {
-        email: user.email,
-        passwordHash,
-        name: user.name,
-        role: user.role,
-        status: "ACTIVE",
-        emailVerifiedAt: new Date(),
-        activationTokenHash: null,
-        activationTokenExpiresAt: null,
-      },
-    });
+  console.log("==================================");
+  console.log("       EDULEARNING SEED");
+  console.log("==================================");
 
-    console.log(`Seeded ${user.role}: ${user.email}`);
-  }
+  await clearDatabase();
 
-  console.log("\nDefault accounts:");
-  console.table(
-    defaultUsers.map(({ email, password, role }) => ({
-      email,
-      password,
-      role,
-      status: "ACTIVE",
-      emailVerified: true,
-    })),
-  );
+  const users = await seedUsers();
+
+  const catalog = await seedCatalogLearning(users.admin.id);
+
+  const classrooms = await seedClassrooms(users, catalog);
+
+  await seedAssessment(users, catalog, classrooms);
+
+  await seedNotifications();
+
+  console.log("==================================");
+  console.log("       SEED COMPLETED");
+  console.log("==================================");
 }
 
 main()
-  .catch((error) => {
-    console.error("Failed to seed default accounts:", error);
+  .catch((error: unknown) => {
+    console.error("Seed failed:", error);
     process.exitCode = 1;
   })
   .finally(async () => {

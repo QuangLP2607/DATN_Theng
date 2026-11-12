@@ -24,6 +24,7 @@ export interface SelectProps<T extends string | number> {
   labelId?: string;
   leadingIcon?: string;
   className?: string;
+  menuClassName?: string;
 }
 
 export default function Select<T extends string | number>({
@@ -38,10 +39,15 @@ export default function Select<T extends string | number>({
   labelId,
   leadingIcon,
   className,
+  menuClassName,
 }: SelectProps<T>) {
   const selectedOption = options.find((option) => option.value === value);
 
   const containerClassName = [cx("container", { fullWidth }), className]
+    .filter(Boolean)
+    .join(" ");
+
+  const dropdownMenuClassName = [cx("menu"), menuClassName]
     .filter(Boolean)
     .join(" ");
 
@@ -88,7 +94,7 @@ export default function Select<T extends string | number>({
       >
         {({ close }) => (
           <div
-            className={cx("menu")}
+            className={dropdownMenuClassName}
             role="listbox"
             aria-label={ariaLabel}
             aria-labelledby={labelId}

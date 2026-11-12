@@ -1,7 +1,9 @@
 import classNames from "classnames/bind";
 import { Icon } from "@iconify/react";
 
-import type { SubjectListItem } from "@/services/subject";
+import type { Subject } from "@/interfaces/subject";
+import type { GradeLevel } from "@/interfaces/subjectGrade";
+
 import CardGrid from "@/components/CardGrid";
 import Dropdown from "@/components/Dropdown";
 
@@ -11,18 +13,28 @@ const cx = classNames.bind(styles);
 
 const DEFAULT_ICON = "solar:book-2-linear";
 
+const GRADE_LABELS: Record<GradeLevel, string> = {
+  GRADE_10: "Khối 10",
+  GRADE_11: "Khối 11",
+  GRADE_12: "Khối 12",
+};
+
+const GRADE_ORDER: GradeLevel[] = ["GRADE_10", "GRADE_11", "GRADE_12"];
+
 interface SubjectCardGridProps {
-  subjects: SubjectListItem[];
+  subjects: Subject[];
   loading: boolean;
-  onEdit: (subject: SubjectListItem) => void;
+  onEdit: (subject: Subject) => void;
+  onSelectGrade: (subjectGradeId: string) => void;
 }
 
 interface SubjectCardProps {
-  subject: SubjectListItem;
-  onEdit: (subject: SubjectListItem) => void;
+  subject: Subject;
+  onEdit: (subject: Subject) => void;
+  onSelectGrade: (subjectGradeId: string) => void;
 }
 
-function SubjectCard({ subject, onEdit }: SubjectCardProps) {
+function SubjectCard({ subject, onEdit, onSelectGrade }: SubjectCardProps) {
   return (
     <article className={cx("subject-card")}>
       <div className={cx("subject-card__header")}>
@@ -36,22 +48,6 @@ function SubjectCard({ subject, onEdit }: SubjectCardProps) {
           </h3>
 
           <span className={cx("subject-card__code")}>{subject.code}</span>
-        </div>
-      </div>
-
-      <p className={cx("subject-card__description")}>
-        {subject.description || "Chưa có mô tả"}
-      </p>
-
-      <div className={cx("subject-card__stats")}>
-        <div className={cx("stat", "stat--chapters")}>
-          <Icon icon="solar:library-linear" />
-          <span>{subject._count.chapters} chương</span>
-        </div>
-
-        <div className={cx("stat", "stat--classes")}>
-          <Icon icon="solar:buildings-2-linear" />
-          <span>{subject._count.classes} lớp</span>
         </div>
 
         <div className={cx("subject-card__actions")}>
@@ -88,6 +84,51 @@ function SubjectCard({ subject, onEdit }: SubjectCardProps) {
           </Dropdown>
         </div>
       </div>
+
+      <p className={cx("subject-card__description")}>
+        {subject.description || "Chưa có mô tả"}
+      </p>
+
+      <div className={cx("subject-card__grades")}>
+        <span className={cx("subject-card__grades-label")}>Khối lớp</span>
+
+        <div className={cx("subject-card__grade-list")}>
+          {GRADE_ORDER.map((grade) => {
+            const subjectGrade = subject.subjectGrades.find(
+              (item) => item.grade === grade,
+            );
+
+            if (!subjectGrade) {
+              return (
+                <div
+                  key={grade}
+                  className={cx(
+                    "subject-card__grade",
+                    "subject-card__grade--missing",
+                  )}
+                  aria-disabled="true"
+                >
+                  <span>{GRADE_LABELS[grade]}</span>
+                  <Icon icon="solar:lock-keyhole-linear" />
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={subjectGrade.id}
+                type="button"
+                className={cx("subject-card__grade")}
+                onClick={() => onSelectGrade(subjectGrade.id)}
+                title={`Quản lý ${GRADE_LABELS[grade]}`}
+              >
+                <span>{GRADE_LABELS[grade]}</span>
+                <Icon icon="solar:arrow-right-up-linear" />
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </article>
   );
 }
@@ -102,13 +143,24 @@ function SkeletonCard() {
           <div className={cx("skeleton-line", "skeleton-line--title")} />
           <div className={cx("skeleton-line", "skeleton-line--code")} />
         </div>
+
+        <div className={cx("subject-card__actions")}>
+          <div className={cx("subject-card__menu-trigger")}>
+            <Icon icon="solar:menu-dots-bold" />
+          </div>
+        </div>
       </div>
 
       <div className={cx("skeleton-line", "skeleton-line--description")} />
 
-      <div className={cx("subject-card__stats")}>
-        <div className={cx("skeleton-badge")} />
-        <div className={cx("skeleton-badge", "skeleton-badge--short")} />
+      <div className={cx("skeleton-grades")}>
+        <div className={cx("skeleton-line", "skeleton-line--grade-label")} />
+
+        <div className={cx("skeleton-grade-list")}>
+          {GRADE_ORDER.map((grade) => (
+            <div key={grade} className={cx("skeleton-grade")} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -128,6 +180,7 @@ export default function SubjectCardGrid({
   subjects,
   loading,
   onEdit,
+  onSelectGrade,
 }: SubjectCardGridProps) {
   if (loading) {
     return (
@@ -146,7 +199,12 @@ export default function SubjectCardGrid({
   return (
     <CardGrid>
       {subjects.map((subject) => (
-        <SubjectCard key={subject.id} subject={subject} onEdit={onEdit} />
+        <SubjectCard
+          key={subject.id}
+          subject={subject}
+          onEdit={onEdit}
+          onSelectGrade={onSelectGrade}
+        />
       ))}
     </CardGrid>
   );

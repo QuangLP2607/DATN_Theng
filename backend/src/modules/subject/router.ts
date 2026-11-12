@@ -5,11 +5,10 @@ import {
   getSubjectById,
   createSubject,
   updateSubject,
-  deleteSubject,
 } from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
-import { requireAdmin } from "../../middlewares/requireAdmin";
+import { loadAbility } from "../access/middlewares/ability.middleware";
 import { validateZod } from "../../middlewares/validateZod";
 
 import { uuidParamSchema } from "../../shared/validation/uuidParam";
@@ -20,70 +19,25 @@ import { updateSubjectSchema } from "./dto/updateSubject";
 
 const router = Router();
 
-router.use(authMiddleware);
+router.use(authMiddleware, loadAbility);
 
-/*
- * -------------------- SUBJECT LIST --------------------
- */
+// List subjects
+router.get("/", validateZod({ query: listSubjectsQuerySchema }), getSubjects);
 
-router.get(
-  "/",
-  validateZod({
-    query: listSubjectsQuerySchema,
-  }),
-  getSubjects,
-);
+// Get subject detail
+router.get("/:id", validateZod({ params: uuidParamSchema }), getSubjectById);
 
-/*
- * -------------------- SUBJECT DETAIL --------------------
- */
+// Create subject
+router.post("/", validateZod({ body: createSubjectSchema }), createSubject);
 
-router.get(
-  "/:id",
-  validateZod({
-    params: uuidParamSchema,
-  }),
-  getSubjectById,
-);
-
-/*
- * -------------------- ADMIN: CREATE SUBJECT --------------------
- */
-
-router.post(
-  "/",
-  requireAdmin,
-  validateZod({
-    body: createSubjectSchema,
-  }),
-  createSubject,
-);
-
-/*
- * -------------------- ADMIN: UPDATE SUBJECT --------------------
- */
-
+// Update subject
 router.patch(
   "/:id",
-  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: updateSubjectSchema,
   }),
   updateSubject,
-);
-
-/*
- * -------------------- ADMIN: DELETE SUBJECT --------------------
- */
-
-router.delete(
-  "/:id",
-  requireAdmin,
-  validateZod({
-    params: uuidParamSchema,
-  }),
-  deleteSubject,
 );
 
 export default router;

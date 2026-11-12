@@ -6,6 +6,14 @@ export interface ApiResponse<T> {
   data?: T;
 }
 
+export interface ApiErrorResponse {
+  code: number;
+  success: false;
+  message: string;
+  time: string;
+  details?: unknown;
+}
+
 export interface PaginationParams {
   page?: number;
   limit?: number;

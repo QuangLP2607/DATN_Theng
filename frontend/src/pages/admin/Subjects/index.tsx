@@ -1,18 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import Pagination from "@/components/Pagination";
 import Loading from "@/components/Loading";
 import ErrorState from "@/components/ErrorState";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
 
 import subjectApi, {
-  type SubjectListItem,
   type GetSubjectsResponse,
+  type SubjectSortBy,
 } from "@/services/subject";
+
+import type { Subject } from "@/interfaces/subject";
+import type { SortOrder } from "@/interfaces/common";
 
 import useDebouncedSearch from "@/hooks/useDebouncedSearch";
 
-import Toolbar from "./components/Toolbar";
+import Toolbar, { type SubjectSortOption } from "./components/Toolbar";
 import CardGrid from "./components/CardGrid";
 import AddModal from "./components/AddModal";
 
@@ -22,19 +27,55 @@ const cx = classNames.bind(styles);
 
 const PAGE_SIZE = 6;
 
+const INITIAL_SORT: SubjectSortOption = "newest";
+
+function getSortParams(sort: SubjectSortOption): {
+  sortBy: SubjectSortBy;
+  sortOrder: SortOrder;
+} {
+  switch (sort) {
+    case "oldest":
+      return {
+        sortBy: "createdAt",
+        sortOrder: "asc",
+      };
+
+    case "nameAsc":
+      return {
+        sortBy: "title",
+        sortOrder: "asc",
+      };
+
+    case "nameDesc":
+      return {
+        sortBy: "title",
+        sortOrder: "desc",
+      };
+
+    case "newest":
+    default:
+      return {
+        sortBy: "createdAt",
+        sortOrder: "desc",
+      };
+  }
+}
+
 export default function Subjects() {
-  const [subjects, setSubjects] = useState<SubjectListItem[]>([]);
+  const navigate = useNavigate();
+
+  const [subjects, setSubjects] = useState<Subject[]>([]);
   const [result, setResult] = useState<GetSubjectsResponse | null>(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [showAddModal, setShowAddModal] = useState(false);
-  const [selectedSubject, setSelectedSubject] =
-    useState<SubjectListItem | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<SubjectSortOption>(INITIAL_SORT);
 
   const requestIdRef = useRef(0);
 
@@ -42,43 +83,48 @@ export default function Subjects() {
    * ==================== FETCH SUBJECTS ====================
    */
 
-  const fetchSubjects = useCallback(async (page: number, keyword: string) => {
-    const requestId = ++requestIdRef.current;
+  const fetchSubjects = useCallback(
+    async (page: number, keyword: string, sortOption: SubjectSortOption) => {
+      const requestId = ++requestIdRef.current;
 
-    setLoading(true);
-
-    try {
-      const response = await subjectApi.getSubjects({
-        page,
-        limit: PAGE_SIZE,
-        search: keyword.trim() || undefined,
-        sortBy: "createdAt",
-        sortOrder: "desc",
-      });
-
-      if (requestId !== requestIdRef.current) return;
-
-      setSubjects(response.subjects);
-      setResult(response);
-      setCurrentPage(response.pagination.page);
+      setLoading(true);
       setError("");
-    } catch {
-      if (requestId === requestIdRef.current) {
-        setError("Không thể tải danh sách môn học.");
+
+      try {
+        const { sortBy, sortOrder } = getSortParams(sortOption);
+
+        const response = await subjectApi.getSubjects({
+          page,
+          limit: PAGE_SIZE,
+          search: keyword.trim() || undefined,
+          sortBy,
+          sortOrder,
+        });
+
+        if (requestId !== requestIdRef.current) return;
+
+        setSubjects(response.subjects);
+        setResult(response);
+        setCurrentPage(response.pagination.page);
+      } catch {
+        if (requestId === requestIdRef.current) {
+          setError("Không thể tải danh sách môn học.");
+        }
+      } finally {
+        if (requestId === requestIdRef.current) {
+          setLoading(false);
+        }
       }
-    } finally {
-      if (requestId === requestIdRef.current) {
-        setLoading(false);
-      }
-    }
-  }, []);
+    },
+    [],
+  );
 
   /*
    * ==================== DEBOUNCED SEARCH ====================
    */
 
   const debouncedSearch = useDebouncedSearch((keyword: string) => {
-    void fetchSubjects(1, keyword);
+    void fetchSubjects(1, keyword, sort);
   }, 400);
 
   /*
@@ -87,10 +133,9 @@ export default function Subjects() {
 
   useEffect(() => {
     let cancelled = false;
-
     const requestId = ++requestIdRef.current;
 
-    const loadSubjects = async () => {
+    const loadInitialSubjects = async () => {
       try {
         const response = await subjectApi.getSubjects({
           page: 1,
@@ -104,7 +149,6 @@ export default function Subjects() {
         setSubjects(response.subjects);
         setResult(response);
         setCurrentPage(response.pagination.page);
-        setError("");
       } catch {
         if (!cancelled && requestId === requestIdRef.current) {
           setError("Không thể tải danh sách môn học.");
@@ -116,7 +160,7 @@ export default function Subjects() {
       }
     };
 
-    void loadSubjects();
+    void loadInitialSubjects();
 
     return () => {
       cancelled = true;
@@ -137,6 +181,19 @@ export default function Subjects() {
   };
 
   /*
+   * ==================== SORT ====================
+   */
+
+  const handleSortChange = (value: SubjectSortOption) => {
+    debouncedSearch.cancel();
+
+    setSort(value);
+    setCurrentPage(1);
+
+    void fetchSubjects(1, search, value);
+  };
+
+  /*
    * ==================== PAGINATION ====================
    */
 
@@ -152,7 +209,7 @@ export default function Subjects() {
 
       setCurrentPage(page);
 
-      void fetchSubjects(page, search);
+      void fetchSubjects(page, search, sort);
     },
     [
       result?.pagination.totalPages,
@@ -160,6 +217,7 @@ export default function Subjects() {
       debouncedSearch,
       fetchSubjects,
       search,
+      sort,
     ],
   );
 
@@ -168,7 +226,7 @@ export default function Subjects() {
    */
 
   const handleRetry = () => {
-    void fetchSubjects(currentPage, search);
+    void fetchSubjects(currentPage, search, sort);
   };
 
   /*
@@ -180,7 +238,7 @@ export default function Subjects() {
     setShowAddModal(true);
   };
 
-  const handleEditSubject = (subject: SubjectListItem) => {
+  const handleEditSubject = (subject: Subject) => {
     setSelectedSubject(subject);
     setShowAddModal(true);
   };
@@ -191,7 +249,15 @@ export default function Subjects() {
   };
 
   const handleSubjectSuccess = () => {
-    void fetchSubjects(currentPage, search);
+    void fetchSubjects(currentPage, search, sort);
+  };
+
+  /*
+   * ==================== SUBJECT GRADE NAVIGATION ====================
+   */
+
+  const handleSelectGrade = (subjectGradeId: string) => {
+    navigate(`/admin/subject-grades/${subjectGradeId}`);
   };
 
   /*
@@ -200,9 +266,22 @@ export default function Subjects() {
 
   return (
     <main className={cx("wrapper")}>
+      <PageBreadcrumb
+        items={[
+          {
+            label: "Quản lý",
+          },
+          {
+            label: "Môn học",
+          },
+        ]}
+      />
+
       <Toolbar
         search={search}
+        sort={sort}
         onSearchChange={handleSearchChange}
+        onSortChange={handleSortChange}
         onAddSubject={handleOpenCreateModal}
       />
 
@@ -214,6 +293,7 @@ export default function Subjects() {
             subjects={subjects}
             loading={loading}
             onEdit={handleEditSubject}
+            onSelectGrade={handleSelectGrade}
           />
         )}
 

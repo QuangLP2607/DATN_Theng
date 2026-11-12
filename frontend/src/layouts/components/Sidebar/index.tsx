@@ -120,6 +120,11 @@ const MENUS: Record<Role, MenuItem[]> = {
       icon: "lucide:book-open",
     },
     {
+      path: "/admin/courses",
+      label: "Khóa học",
+      icon: "lucide:book-copy",
+    },
+    {
       path: "/admin/classes",
       label: "Lớp học",
       icon: "lucide:users",

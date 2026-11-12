@@ -16,7 +16,7 @@
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 12px 40px rgb(15 23 42 / 6%);
+  box-shadow: var(--shadow-lg);
   box-sizing: border-box;
 
   h1 {
@@ -102,8 +102,8 @@
     font-size: 14px;
     box-sizing: border-box;
     transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
+      border-color var(--transition-normal),
+      box-shadow var(--transition-normal);
 
     &::placeholder {
       color: var(--color-subtle);
@@ -111,7 +111,7 @@
 
     &:focus {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgb(99 102 241 / 12%);
+      box-shadow: var(--shadow-focus);
     }
 
     &:disabled {
@@ -139,11 +139,19 @@
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
+  transition: color var(--transition-fast);
 
   &:hover {
     color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
   }
 }
 
@@ -183,11 +191,17 @@
   text-decoration: none;
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    background var(--transition-normal),
+    transform var(--transition-fast),
+    box-shadow var(--transition-normal);
 
   &:hover:not(:disabled) {
     background: var(--color-primary-dark);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
   }
 
   &:active:not(:disabled) {
@@ -224,9 +238,16 @@
     color: var(--color-primary-dark);
     font-weight: 600;
     text-decoration: none;
+    transition: color var(--transition-fast);
 
     &:hover {
       text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
   }
 }
@@ -236,4 +257,14 @@
   color: var(--color-subtle);
   font-size: 12px;
   text-align: center;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 22px;
+  }
+
+  .card h1 {
+    font-size: 23px;
+  }
 }

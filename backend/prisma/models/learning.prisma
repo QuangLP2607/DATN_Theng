@@ -1,0 +1,89 @@
+model Chapter {
+  id          String        @id @default(uuid()) @db.Uuid
+  courseId    String        @map("course_id") @db.Uuid
+  title       String        @db.VarChar(255)
+  description String?       @db.Text
+  position    Int
+  status      ContentStatus @default(DRAFT)
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+  questions Question[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([courseId, position])
+  @@index([courseId, status])
+  @@map("chapters")
+}
+
+model Lesson {
+  id        String        @id @default(uuid()) @db.Uuid
+  chapterId String        @map("chapter_id") @db.Uuid
+  title     String        @db.VarChar(255)
+  type      LessonType
+  content   String?       @db.Text
+  duration  Int?
+  position  Int
+  status    ContentStatus @default(DRAFT)
+
+  chapter     Chapter            @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  attachments LessonAttachment[]
+  progress    LessonProgress[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([chapterId, position])
+  @@index([chapterId, status])
+  @@map("lessons")
+}
+
+model LessonAttachment {
+  id       String               @id @default(uuid()) @db.Uuid
+  lessonId String               @map("lesson_id") @db.Uuid
+  title    String               @db.VarChar(255)
+  type     LessonAttachmentType
+
+  // Chỉ lưu S3 object key, không lưu presigned URL.
+  storageKey String? @map("storage_key") @db.VarChar(1000)
+
+  fileName String? @map("file_name") @db.VarChar(255)
+  mimeType String? @map("mime_type") @db.VarChar(100)
+  size     Int?
+
+  // Chỉ sử dụng cho đường dẫn ngoài S3, ví dụ YouTube hoặc website.
+  externalUrl String? @map("external_url") @db.VarChar(1000)
+
+  position Int
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([lessonId, position])
+  @@index([lessonId])
+  @@map("lesson_attachments")
+}
+
+model LessonProgress {
+  id        String  @id @default(uuid()) @db.Uuid
+  lessonId  String  @map("lesson_id") @db.Uuid
+  studentId String  @map("student_id") @db.Uuid
+  progress  Int     @default(0)
+  completed Boolean @default(false)
+
+  completedAt DateTime? @map("completed_at") @db.Timestamp(6)
+
+  lesson  Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([lessonId, studentId])
+  @@index([studentId])
+  @@map("lesson_progress")
+}

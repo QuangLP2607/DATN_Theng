@@ -77,7 +77,6 @@
     line-height: 1.5;
   }
 
-  // Bộ đếm ký tự
   > .hint {
     position: absolute;
     right: 12px;
@@ -180,6 +179,35 @@
     width: 16px;
     height: 16px;
     margin-top: 1px;
+  }
+}
+
+// Error animation
+.error-slot {
+  display: grid;
+  grid-template-rows: 0fr;
+
+  opacity: 0;
+
+  transition:
+    grid-template-rows 0.22s ease,
+    opacity 0.18s ease;
+
+  &--visible {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .error {
+    min-height: 0;
+    overflow: hidden;
+    transform: translateY(-4px);
+
+    transition: transform 0.22s ease;
+  }
+
+  &--visible .error {
+    transform: translateY(0);
   }
 }
 
@@ -349,5 +377,10 @@
 @media (prefers-reduced-motion: reduce) {
   .loading-icon {
     animation: none;
+  }
+
+  .error-slot,
+  .error-slot .error {
+    transition: none;
   }
 }

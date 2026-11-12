@@ -26,8 +26,11 @@ export type AggregateQuestion = {
 
 export type QuestionMinAggregateOutputType = {
   id: string | null
+  subjectGradeId: string | null
+  chapterId: string | null
   content: string | null
   type: $Enums.QuestionType | null
+  difficulty: $Enums.QuestionDifficulty | null
   explanation: string | null
   createdBy: string | null
   createdAt: Date | null
@@ -36,8 +39,11 @@ export type QuestionMinAggregateOutputType = {
 
 export type QuestionMaxAggregateOutputType = {
   id: string | null
+  subjectGradeId: string | null
+  chapterId: string | null
   content: string | null
   type: $Enums.QuestionType | null
+  difficulty: $Enums.QuestionDifficulty | null
   explanation: string | null
   createdBy: string | null
   createdAt: Date | null
@@ -46,8 +52,11 @@ export type QuestionMaxAggregateOutputType = {
 
 export type QuestionCountAggregateOutputType = {
   id: number
+  subjectGradeId: number
+  chapterId: number
   content: number
   type: number
+  difficulty: number
   explanation: number
   createdBy: number
   createdAt: number
@@ -58,8 +67,11 @@ export type QuestionCountAggregateOutputType = {
 
 export type QuestionMinAggregateInputType = {
   id?: true
+  subjectGradeId?: true
+  chapterId?: true
   content?: true
   type?: true
+  difficulty?: true
   explanation?: true
   createdBy?: true
   createdAt?: true
@@ -68,8 +80,11 @@ export type QuestionMinAggregateInputType = {
 
 export type QuestionMaxAggregateInputType = {
   id?: true
+  subjectGradeId?: true
+  chapterId?: true
   content?: true
   type?: true
+  difficulty?: true
   explanation?: true
   createdBy?: true
   createdAt?: true
@@ -78,8 +93,11 @@ export type QuestionMaxAggregateInputType = {
 
 export type QuestionCountAggregateInputType = {
   id?: true
+  subjectGradeId?: true
+  chapterId?: true
   content?: true
   type?: true
+  difficulty?: true
   explanation?: true
   createdBy?: true
   createdAt?: true
@@ -161,8 +179,11 @@ export type QuestionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type QuestionGroupByOutputType = {
   id: string
+  subjectGradeId: string
+  chapterId: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty: $Enums.QuestionDifficulty
   explanation: string | null
   createdBy: string
   createdAt: Date
@@ -192,12 +213,17 @@ export type QuestionWhereInput = {
   OR?: Prisma.QuestionWhereInput[]
   NOT?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
   id?: Prisma.UuidFilter<"Question"> | string
+  subjectGradeId?: Prisma.UuidFilter<"Question"> | string
+  chapterId?: Prisma.UuidNullableFilter<"Question"> | string | null
   content?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFilter<"Question"> | $Enums.QuestionDifficulty
   explanation?: Prisma.StringNullableFilter<"Question"> | string | null
   createdBy?: Prisma.UuidFilter<"Question"> | string
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  subjectGrade?: Prisma.XOR<Prisma.SubjectGradeScalarRelationFilter, Prisma.SubjectGradeWhereInput>
+  chapter?: Prisma.XOR<Prisma.ChapterNullableScalarRelationFilter, Prisma.ChapterWhereInput> | null
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   options?: Prisma.QuestionOptionListRelationFilter
   exams?: Prisma.ExamQuestionListRelationFilter
@@ -206,12 +232,17 @@ export type QuestionWhereInput = {
 
 export type QuestionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  subjectGradeId?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  subjectGrade?: Prisma.SubjectGradeOrderByWithRelationInput
+  chapter?: Prisma.ChapterOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
   options?: Prisma.QuestionOptionOrderByRelationAggregateInput
   exams?: Prisma.ExamQuestionOrderByRelationAggregateInput
@@ -223,12 +254,17 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
   OR?: Prisma.QuestionWhereInput[]
   NOT?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
+  subjectGradeId?: Prisma.UuidFilter<"Question"> | string
+  chapterId?: Prisma.UuidNullableFilter<"Question"> | string | null
   content?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFilter<"Question"> | $Enums.QuestionDifficulty
   explanation?: Prisma.StringNullableFilter<"Question"> | string | null
   createdBy?: Prisma.UuidFilter<"Question"> | string
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  subjectGrade?: Prisma.XOR<Prisma.SubjectGradeScalarRelationFilter, Prisma.SubjectGradeWhereInput>
+  chapter?: Prisma.XOR<Prisma.ChapterNullableScalarRelationFilter, Prisma.ChapterWhereInput> | null
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   options?: Prisma.QuestionOptionListRelationFilter
   exams?: Prisma.ExamQuestionListRelationFilter
@@ -237,8 +273,11 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
 
 export type QuestionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  subjectGradeId?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -253,8 +292,11 @@ export type QuestionScalarWhereWithAggregatesInput = {
   OR?: Prisma.QuestionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.QuestionScalarWhereWithAggregatesInput | Prisma.QuestionScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Question"> | string
+  subjectGradeId?: Prisma.UuidWithAggregatesFilter<"Question"> | string
+  chapterId?: Prisma.UuidNullableWithAggregatesFilter<"Question"> | string | null
   content?: Prisma.StringWithAggregatesFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Question"> | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyWithAggregatesFilter<"Question"> | $Enums.QuestionDifficulty
   explanation?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
   createdBy?: Prisma.UuidWithAggregatesFilter<"Question"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
@@ -265,9 +307,12 @@ export type QuestionCreateInput = {
   id?: string
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
   creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
@@ -276,8 +321,11 @@ export type QuestionCreateInput = {
 
 export type QuestionUncheckedCreateInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdBy: string
   createdAt?: Date | string
@@ -291,9 +339,12 @@ export type QuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
@@ -302,8 +353,11 @@ export type QuestionUpdateInput = {
 
 export type QuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -315,8 +369,11 @@ export type QuestionUncheckedUpdateInput = {
 
 export type QuestionCreateManyInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdBy: string
   createdAt?: Date | string
@@ -327,6 +384,7 @@ export type QuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -334,8 +392,11 @@ export type QuestionUpdateManyMutationInput = {
 
 export type QuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -344,8 +405,11 @@ export type QuestionUncheckedUpdateManyInput = {
 
 export type QuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  subjectGradeId?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -354,8 +418,11 @@ export type QuestionCountOrderByAggregateInput = {
 
 export type QuestionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  subjectGradeId?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -364,8 +431,11 @@ export type QuestionMaxOrderByAggregateInput = {
 
 export type QuestionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  subjectGradeId?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -389,6 +459,10 @@ export type QuestionOrderByRelationAggregateInput = {
 
 export type EnumQuestionTypeFieldUpdateOperationsInput = {
   set?: $Enums.QuestionType
+}
+
+export type EnumQuestionDifficultyFieldUpdateOperationsInput = {
+  set?: $Enums.QuestionDifficulty
 }
 
 export type QuestionCreateNestedOneWithoutOptionsInput = {
@@ -433,6 +507,48 @@ export type QuestionUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutAnswersInput, Prisma.QuestionUpdateWithoutAnswersInput>, Prisma.QuestionUncheckedUpdateWithoutAnswersInput>
 }
 
+export type QuestionCreateNestedManyWithoutSubjectGradeInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput> | Prisma.QuestionCreateWithoutSubjectGradeInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput | Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput[]
+  createMany?: Prisma.QuestionCreateManySubjectGradeInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUncheckedCreateNestedManyWithoutSubjectGradeInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput> | Prisma.QuestionCreateWithoutSubjectGradeInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput | Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput[]
+  createMany?: Prisma.QuestionCreateManySubjectGradeInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUpdateManyWithoutSubjectGradeNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput> | Prisma.QuestionCreateWithoutSubjectGradeInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput | Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectGradeInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectGradeInput[]
+  createMany?: Prisma.QuestionCreateManySubjectGradeInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectGradeInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectGradeInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectGradeInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectGradeInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
+export type QuestionUncheckedUpdateManyWithoutSubjectGradeNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput> | Prisma.QuestionCreateWithoutSubjectGradeInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput | Prisma.QuestionCreateOrConnectWithoutSubjectGradeInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectGradeInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectGradeInput[]
+  createMany?: Prisma.QuestionCreateManySubjectGradeInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectGradeInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectGradeInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectGradeInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectGradeInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
 export type QuestionCreateNestedManyWithoutCreatorInput = {
   create?: Prisma.XOR<Prisma.QuestionCreateWithoutCreatorInput, Prisma.QuestionUncheckedCreateWithoutCreatorInput> | Prisma.QuestionCreateWithoutCreatorInput[] | Prisma.QuestionUncheckedCreateWithoutCreatorInput[]
   connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutCreatorInput | Prisma.QuestionCreateOrConnectWithoutCreatorInput[]
@@ -475,13 +591,58 @@ export type QuestionUncheckedUpdateManyWithoutCreatorNestedInput = {
   deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
+export type QuestionCreateNestedManyWithoutChapterInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput> | Prisma.QuestionCreateWithoutChapterInput[] | Prisma.QuestionUncheckedCreateWithoutChapterInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutChapterInput | Prisma.QuestionCreateOrConnectWithoutChapterInput[]
+  createMany?: Prisma.QuestionCreateManyChapterInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUncheckedCreateNestedManyWithoutChapterInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput> | Prisma.QuestionCreateWithoutChapterInput[] | Prisma.QuestionUncheckedCreateWithoutChapterInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutChapterInput | Prisma.QuestionCreateOrConnectWithoutChapterInput[]
+  createMany?: Prisma.QuestionCreateManyChapterInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUpdateManyWithoutChapterNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput> | Prisma.QuestionCreateWithoutChapterInput[] | Prisma.QuestionUncheckedCreateWithoutChapterInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutChapterInput | Prisma.QuestionCreateOrConnectWithoutChapterInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutChapterInput | Prisma.QuestionUpsertWithWhereUniqueWithoutChapterInput[]
+  createMany?: Prisma.QuestionCreateManyChapterInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutChapterInput | Prisma.QuestionUpdateWithWhereUniqueWithoutChapterInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutChapterInput | Prisma.QuestionUpdateManyWithWhereWithoutChapterInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
+export type QuestionUncheckedUpdateManyWithoutChapterNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput> | Prisma.QuestionCreateWithoutChapterInput[] | Prisma.QuestionUncheckedCreateWithoutChapterInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutChapterInput | Prisma.QuestionCreateOrConnectWithoutChapterInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutChapterInput | Prisma.QuestionUpsertWithWhereUniqueWithoutChapterInput[]
+  createMany?: Prisma.QuestionCreateManyChapterInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutChapterInput | Prisma.QuestionUpdateWithWhereUniqueWithoutChapterInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutChapterInput | Prisma.QuestionUpdateManyWithWhereWithoutChapterInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
 export type QuestionCreateWithoutOptionsInput = {
   id?: string
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
   creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
   exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
   answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
@@ -489,8 +650,11 @@ export type QuestionCreateWithoutOptionsInput = {
 
 export type QuestionUncheckedCreateWithoutOptionsInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdBy: string
   createdAt?: Date | string
@@ -519,9 +683,12 @@ export type QuestionUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
   exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.ExamAnswerUpdateManyWithoutQuestionNestedInput
@@ -529,8 +696,11 @@ export type QuestionUpdateWithoutOptionsInput = {
 
 export type QuestionUncheckedUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -543,9 +713,12 @@ export type QuestionCreateWithoutExamsInput = {
   id?: string
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
   creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
@@ -553,8 +726,11 @@ export type QuestionCreateWithoutExamsInput = {
 
 export type QuestionUncheckedCreateWithoutExamsInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdBy: string
   createdAt?: Date | string
@@ -583,9 +759,12 @@ export type QuestionUpdateWithoutExamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.ExamAnswerUpdateManyWithoutQuestionNestedInput
@@ -593,8 +772,11 @@ export type QuestionUpdateWithoutExamsInput = {
 
 export type QuestionUncheckedUpdateWithoutExamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -607,9 +789,12 @@ export type QuestionCreateWithoutAnswersInput = {
   id?: string
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
   creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
@@ -617,8 +802,11 @@ export type QuestionCreateWithoutAnswersInput = {
 
 export type QuestionUncheckedCreateWithoutAnswersInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdBy: string
   createdAt?: Date | string
@@ -647,9 +835,12 @@ export type QuestionUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
@@ -657,8 +848,11 @@ export type QuestionUpdateWithoutAnswersInput = {
 
 export type QuestionUncheckedUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -667,13 +861,88 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   exams?: Prisma.ExamQuestionUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
+export type QuestionCreateWithoutSubjectGradeInput = {
+  id?: string
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
+  options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutSubjectGradeInput = {
+  id?: string
+  chapterId?: string | null
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionUncheckedCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutSubjectGradeInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput>
+}
+
+export type QuestionCreateManySubjectGradeInputEnvelope = {
+  data: Prisma.QuestionCreateManySubjectGradeInput | Prisma.QuestionCreateManySubjectGradeInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuestionUpsertWithWhereUniqueWithoutSubjectGradeInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutSubjectGradeInput, Prisma.QuestionUncheckedUpdateWithoutSubjectGradeInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectGradeInput, Prisma.QuestionUncheckedCreateWithoutSubjectGradeInput>
+}
+
+export type QuestionUpdateWithWhereUniqueWithoutSubjectGradeInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutSubjectGradeInput, Prisma.QuestionUncheckedUpdateWithoutSubjectGradeInput>
+}
+
+export type QuestionUpdateManyWithWhereWithoutSubjectGradeInput = {
+  where: Prisma.QuestionScalarWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutSubjectGradeInput>
+}
+
+export type QuestionScalarWhereInput = {
+  AND?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+  OR?: Prisma.QuestionScalarWhereInput[]
+  NOT?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Question"> | string
+  subjectGradeId?: Prisma.UuidFilter<"Question"> | string
+  chapterId?: Prisma.UuidNullableFilter<"Question"> | string | null
+  content?: Prisma.StringFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFilter<"Question"> | $Enums.QuestionDifficulty
+  explanation?: Prisma.StringNullableFilter<"Question"> | string | null
+  createdBy?: Prisma.UuidFilter<"Question"> | string
+  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+}
+
 export type QuestionCreateWithoutCreatorInput = {
   id?: string
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
   answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
@@ -681,8 +950,11 @@ export type QuestionCreateWithoutCreatorInput = {
 
 export type QuestionUncheckedCreateWithoutCreatorInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -717,23 +989,123 @@ export type QuestionUpdateManyWithWhereWithoutCreatorInput = {
   data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutCreatorInput>
 }
 
-export type QuestionScalarWhereInput = {
-  AND?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-  OR?: Prisma.QuestionScalarWhereInput[]
-  NOT?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Question"> | string
-  content?: Prisma.StringFilter<"Question"> | string
-  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
-  explanation?: Prisma.StringNullableFilter<"Question"> | string | null
-  createdBy?: Prisma.UuidFilter<"Question"> | string
-  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+export type QuestionCreateWithoutChapterInput = {
+  id?: string
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subjectGrade: Prisma.SubjectGradeCreateNestedOneWithoutQuestionsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreatedQuestionsInput
+  options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutChapterInput = {
+  id?: string
+  subjectGradeId: string
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
+  exams?: Prisma.ExamQuestionUncheckedCreateNestedManyWithoutQuestionInput
+  answers?: Prisma.ExamAnswerUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutChapterInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput>
+}
+
+export type QuestionCreateManyChapterInputEnvelope = {
+  data: Prisma.QuestionCreateManyChapterInput | Prisma.QuestionCreateManyChapterInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuestionUpsertWithWhereUniqueWithoutChapterInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutChapterInput, Prisma.QuestionUncheckedUpdateWithoutChapterInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutChapterInput, Prisma.QuestionUncheckedCreateWithoutChapterInput>
+}
+
+export type QuestionUpdateWithWhereUniqueWithoutChapterInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutChapterInput, Prisma.QuestionUncheckedUpdateWithoutChapterInput>
+}
+
+export type QuestionUpdateManyWithWhereWithoutChapterInput = {
+  where: Prisma.QuestionScalarWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutChapterInput>
+}
+
+export type QuestionCreateManySubjectGradeInput = {
+  id?: string
+  chapterId?: string | null
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionUpdateWithoutSubjectGradeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
+  options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
+  exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
+  answers?: Prisma.ExamAnswerUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutSubjectGradeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
+  exams?: Prisma.ExamQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+  answers?: Prisma.ExamAnswerUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateManyWithoutSubjectGradeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionCreateManyCreatorInput = {
   id?: string
+  subjectGradeId: string
+  chapterId?: string | null
   content: string
   type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
   explanation?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -743,9 +1115,12 @@ export type QuestionUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.ExamAnswerUpdateManyWithoutQuestionNestedInput
@@ -753,8 +1128,11 @@ export type QuestionUpdateWithoutCreatorInput = {
 
 export type QuestionUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -765,9 +1143,66 @@ export type QuestionUncheckedUpdateWithoutCreatorInput = {
 
 export type QuestionUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuestionCreateManyChapterInput = {
+  id?: string
+  subjectGradeId: string
+  content: string
+  type: $Enums.QuestionType
+  difficulty?: $Enums.QuestionDifficulty
+  explanation?: string | null
+  createdBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionUpdateWithoutChapterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectGrade?: Prisma.SubjectGradeUpdateOneRequiredWithoutQuestionsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedQuestionsNestedInput
+  options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
+  exams?: Prisma.ExamQuestionUpdateManyWithoutQuestionNestedInput
+  answers?: Prisma.ExamAnswerUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutChapterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
+  exams?: Prisma.ExamQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+  answers?: Prisma.ExamAnswerUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateManyWithoutChapterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectGradeId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.EnumQuestionDifficultyFieldUpdateOperationsInput | $Enums.QuestionDifficulty
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -823,12 +1258,17 @@ export type QuestionCountOutputTypeCountAnswersArgs<ExtArgs extends runtime.Type
 
 export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  subjectGradeId?: boolean
+  chapterId?: boolean
   content?: boolean
   type?: boolean
+  difficulty?: boolean
   explanation?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Question$optionsArgs<ExtArgs>
   exams?: boolean | Prisma.Question$examsArgs<ExtArgs>
@@ -838,38 +1278,53 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  subjectGradeId?: boolean
+  chapterId?: boolean
   content?: boolean
   type?: boolean
+  difficulty?: boolean
   explanation?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
 export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  subjectGradeId?: boolean
+  chapterId?: boolean
   content?: boolean
   type?: boolean
+  difficulty?: boolean
   explanation?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
 export type QuestionSelectScalar = {
   id?: boolean
+  subjectGradeId?: boolean
+  chapterId?: boolean
   content?: boolean
   type?: boolean
+  difficulty?: boolean
   explanation?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "type" | "explanation" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectGradeId" | "chapterId" | "content" | "type" | "difficulty" | "explanation" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Question$optionsArgs<ExtArgs>
   exams?: boolean | Prisma.Question$examsArgs<ExtArgs>
@@ -877,15 +1332,21 @@ export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  subjectGrade?: boolean | Prisma.SubjectGradeDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Question$chapterArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Question"
   objects: {
+    subjectGrade: Prisma.$SubjectGradePayload<ExtArgs>
+    chapter: Prisma.$ChapterPayload<ExtArgs> | null
     creator: Prisma.$UserPayload<ExtArgs>
     options: Prisma.$QuestionOptionPayload<ExtArgs>[]
     exams: Prisma.$ExamQuestionPayload<ExtArgs>[]
@@ -893,8 +1354,11 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    subjectGradeId: string
+    chapterId: string | null
     content: string
     type: $Enums.QuestionType
+    difficulty: $Enums.QuestionDifficulty
     explanation: string | null
     createdBy: string
     createdAt: Date
@@ -1293,6 +1757,8 @@ readonly fields: QuestionFieldRefs;
  */
 export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  subjectGrade<T extends Prisma.SubjectGradeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubjectGradeDefaultArgs<ExtArgs>>): Prisma.Prisma__SubjectGradeClient<runtime.Types.Result.GetResult<Prisma.$SubjectGradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chapter<T extends Prisma.Question$chapterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$chapterArgs<ExtArgs>>): Prisma.Prisma__ChapterClient<runtime.Types.Result.GetResult<Prisma.$ChapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   options<T extends Prisma.Question$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exams<T extends Prisma.Question$examsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$examsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1327,8 +1793,11 @@ export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends runtime
  */
 export interface QuestionFieldRefs {
   readonly id: Prisma.FieldRef<"Question", 'String'>
+  readonly subjectGradeId: Prisma.FieldRef<"Question", 'String'>
+  readonly chapterId: Prisma.FieldRef<"Question", 'String'>
   readonly content: Prisma.FieldRef<"Question", 'String'>
   readonly type: Prisma.FieldRef<"Question", 'QuestionType'>
+  readonly difficulty: Prisma.FieldRef<"Question", 'QuestionDifficulty'>
   readonly explanation: Prisma.FieldRef<"Question", 'String'>
   readonly createdBy: Prisma.FieldRef<"Question", 'String'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
@@ -1731,6 +2200,25 @@ export type QuestionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Questions to delete.
    */
   limit?: number
+}
+
+/**
+ * Question.chapter
+ */
+export type Question$chapterArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Chapter
+   */
+  select?: Prisma.ChapterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Chapter
+   */
+  omit?: Prisma.ChapterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapterInclude<ExtArgs> | null
+  where?: Prisma.ChapterWhereInput
 }
 
 /**

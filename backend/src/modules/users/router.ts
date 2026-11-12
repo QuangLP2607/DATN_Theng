@@ -9,7 +9,7 @@ import {
 } from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
-import { requireAdmin } from "../../middlewares/requireAdmin";
+import { loadAbility } from "../access/middlewares/ability.middleware";
 import { validateZod } from "../../middlewares/validateZod";
 
 import { uuidParamSchema } from "../../shared/validation/uuidParam";
@@ -20,31 +20,20 @@ import { updateUserSchema } from "./dto/updateUser";
 
 const router = Router();
 
-router.use(authMiddleware);
+router.use(authMiddleware, loadAbility);
 
 // Current user
 router.get("/me", getMe);
 
 router.patch("/me", validateZod({ body: updateProfileSchema }), updateMe);
 
-// Admin: User management
-router.get(
-  "/",
-  requireAdmin,
-  validateZod({ query: listUsersQuerySchema }),
-  getUsers,
-);
+// User management
+router.get("/", validateZod({ query: listUsersQuerySchema }), getUsers);
 
-router.get(
-  "/:id",
-  requireAdmin,
-  validateZod({ params: uuidParamSchema }),
-  getUserById,
-);
+router.get("/:id", validateZod({ params: uuidParamSchema }), getUserById);
 
 router.patch(
   "/:id",
-  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: updateUserSchema,

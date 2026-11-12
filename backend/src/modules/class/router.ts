@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { z } from "zod";
 
 import {
   getClasses,
@@ -6,23 +7,17 @@ import {
   createClass,
   updateClass,
   deleteClass,
-} from "./class.controller";
-
-import {
   getClassTeachers,
   assignTeacher,
   removeTeacher,
-} from "./teacher.controller";
-
-import {
   getClassStudents,
   enrollStudent,
+  updateEnrollment,
   removeStudent,
-} from "./student.controller";
+} from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
-import { requireAdmin } from "../../middlewares/requireAdmin";
-import { requireClassAccess } from "../../middlewares/requireClassAccess";
+import { loadAbility } from "../access/middlewares/ability.middleware";
 import { validateZod } from "../../middlewares/validateZod";
 
 import { uuidParamSchema } from "../../shared/validation/uuidParam";
@@ -32,33 +27,56 @@ import { createClassSchema } from "./dto/createClass";
 import { updateClassSchema } from "./dto/updateClass";
 import { assignTeacherSchema } from "./dto/assignTeacher";
 import { enrollStudentSchema } from "./dto/enrollStudent";
-import { teacherParamsSchema } from "./dto/teacherParams";
-import { studentParamsSchema } from "./dto/studentParams";
+import { updateEnrollmentSchema } from "./dto/updateEnrollment";
 
 const router = Router();
 
-router.use(authMiddleware);
+const classTeacherParamsSchema = z.object({
+  id: z.string().uuid(),
+  teacherId: z.string().uuid(),
+});
 
-// Class CRUD
-router.get("/", validateZod({ query: listClassesQuerySchema }), getClasses);
+const classStudentParamsSchema = z.object({
+  id: z.string().uuid(),
+  studentId: z.string().uuid(),
+});
 
+router.use(authMiddleware, loadAbility);
+
+// ========================================
+// CLASS
+// ========================================
+
+// List classes
 router.get(
-  "/:id",
-  validateZod({ params: uuidParamSchema }),
-  requireClassAccess(),
-  getClassById,
+  "/",
+  validateZod({
+    query: listClassesQuerySchema,
+  }),
+  getClasses,
 );
 
+// Create class
 router.post(
   "/",
-  requireAdmin,
-  validateZod({ body: createClassSchema }),
+  validateZod({
+    body: createClassSchema,
+  }),
   createClass,
 );
 
+// Get class detail
+router.get(
+  "/:id",
+  validateZod({
+    params: uuidParamSchema,
+  }),
+  getClassById,
+);
+
+// Update class
 router.patch(
   "/:id",
-  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: updateClassSchema,
@@ -66,24 +84,31 @@ router.patch(
   updateClass,
 );
 
+// Delete class
 router.delete(
   "/:id",
-  requireAdmin,
-  validateZod({ params: uuidParamSchema }),
+  validateZod({
+    params: uuidParamSchema,
+  }),
   deleteClass,
 );
 
-// Class teachers
+// ========================================
+// CLASS TEACHERS
+// ========================================
+
+// Get teachers
 router.get(
   "/:id/teachers",
-  validateZod({ params: uuidParamSchema }),
-  requireClassAccess(),
+  validateZod({
+    params: uuidParamSchema,
+  }),
   getClassTeachers,
 );
 
+// Assign teacher
 router.post(
   "/:id/teachers",
-  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: assignTeacherSchema,
@@ -91,24 +116,31 @@ router.post(
   assignTeacher,
 );
 
+// Remove teacher
 router.delete(
   "/:id/teachers/:teacherId",
-  requireAdmin,
-  validateZod({ params: teacherParamsSchema }),
+  validateZod({
+    params: classTeacherParamsSchema,
+  }),
   removeTeacher,
 );
 
-// Class students
+// ========================================
+// CLASS STUDENTS
+// ========================================
+
+// Get students
 router.get(
   "/:id/students",
-  validateZod({ params: uuidParamSchema }),
-  requireClassAccess(),
+  validateZod({
+    params: uuidParamSchema,
+  }),
   getClassStudents,
 );
 
+// Enroll student
 router.post(
   "/:id/students",
-  requireAdmin,
   validateZod({
     params: uuidParamSchema,
     body: enrollStudentSchema,
@@ -116,10 +148,22 @@ router.post(
   enrollStudent,
 );
 
+// Update enrollment status
+router.patch(
+  "/:id/students/:studentId",
+  validateZod({
+    params: classStudentParamsSchema,
+    body: updateEnrollmentSchema,
+  }),
+  updateEnrollment,
+);
+
+// Remove student
 router.delete(
   "/:id/students/:studentId",
-  requireAdmin,
-  validateZod({ params: studentParamsSchema }),
+  validateZod({
+    params: classStudentParamsSchema,
+  }),
   removeStudent,
 );
 

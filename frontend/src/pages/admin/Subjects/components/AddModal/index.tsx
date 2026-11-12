@@ -1,9 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { Icon } from "@iconify/react";
 import classNames from "classnames/bind";
 
 import Modal from "@/components/Modal";
-import subjectApi, { type SubjectListItem } from "@/services/subject";
+import subjectApi from "@/services/subject";
+import type { Subject } from "@/interfaces/subject";
+import { getApiErrorMessage } from "@/utils/getApiErrorMessage";
 
 import styles from "./AddModal.module.scss";
 
@@ -12,7 +14,7 @@ const cx = classNames.bind(styles);
 const DEFAULT_ICON = "solar:book-2-linear";
 
 interface AddModalProps {
-  subject: SubjectListItem | null;
+  subject: Subject | null;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -38,6 +40,8 @@ export default function AddModal({
 }: AddModalProps) {
   const isEditing = subject !== null;
 
+  const submittingRef = useRef(false);
+
   const [form, setForm] = useState<SubjectFormData>(() =>
     subject
       ? {
@@ -53,6 +57,10 @@ export default function AddModal({
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
+  // ========================================
+  // FORM CHANGE
+  // ========================================
+
   const handleChange = (field: keyof SubjectFormData, value: string) => {
     setForm((prev) => ({
       ...prev,
@@ -64,8 +72,16 @@ export default function AddModal({
     }
   };
 
+  // ========================================
+  // FORM SUBMIT
+  // ========================================
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (submittingRef.current) {
+      return;
+    }
 
     const code = form.code.trim().toUpperCase();
     const title = form.title.trim();
@@ -81,15 +97,15 @@ export default function AddModal({
       return;
     }
 
-    setLoading(true);
-    setError("");
-
     const payload = {
       code,
       title,
-      description: form.description.trim() || undefined,
+      description: form.description.trim() || null,
       icon,
     };
+
+    submittingRef.current = true;
+    setLoading(true);
 
     try {
       if (isEditing) {
@@ -98,20 +114,27 @@ export default function AddModal({
         await subjectApi.createSubject(payload);
       }
 
+      setError("");
       setSuccess(true);
+
       onSuccess();
     } catch (err) {
       setError(
-        err instanceof Error
-          ? err.message
-          : isEditing
+        getApiErrorMessage(err, {
+          fallback: isEditing
             ? "Không thể cập nhật môn học. Vui lòng thử lại."
             : "Không thể tạo môn học. Vui lòng thử lại.",
+        }),
       );
     } finally {
+      submittingRef.current = false;
       setLoading(false);
     }
   };
+
+  // ========================================
+  // MODAL CONTENT
+  // ========================================
 
   const modalTitle = isEditing ? "Chỉnh sửa môn học" : "Thêm môn học";
 
@@ -158,6 +181,7 @@ export default function AddModal({
       }
     >
       <form className={cx("form")} onSubmit={handleSubmit}>
+        {/* Mã môn học */}
         <div className={cx("field")}>
           <label htmlFor="subject-code">
             Mã môn học <span>*</span>
@@ -178,6 +202,7 @@ export default function AddModal({
           <span className={cx("hint")}>{form.code.length}/20 ký tự</span>
         </div>
 
+        {/* Tên môn học */}
         <div className={cx("field")}>
           <label htmlFor="subject-title">
             Tên môn học <span>*</span>
@@ -197,6 +222,7 @@ export default function AddModal({
           <span className={cx("hint")}>{form.title.length}/100 ký tự</span>
         </div>
 
+        {/* Icon */}
         <div className={cx("field")}>
           <label htmlFor="subject-icon">Biểu tượng</label>
 
@@ -221,6 +247,7 @@ export default function AddModal({
 
           <div className={cx("icon-hint")}>
             <span>Nhập tên icon từ Iconify.</span>
+
             <a
               href="https://yesicon.app/"
               target="_blank"
@@ -232,6 +259,7 @@ export default function AddModal({
           </div>
         </div>
 
+        {/* Mô tả */}
         <div className={cx("field")}>
           <label htmlFor="subject-description">Mô tả</label>
 
@@ -252,13 +280,23 @@ export default function AddModal({
           </span>
         </div>
 
-        {error && (
-          <div className={cx("error")} role="alert">
-            <Icon icon="lucide:alert-circle" />
-            <span>{error}</span>
-          </div>
-        )}
+        {/* Error */}
+        <div
+          className={cx("error-slot", {
+            "error-slot--visible": Boolean(error),
+          })}
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {error && (
+            <div className={cx("error")} role="alert">
+              <Icon icon="lucide:alert-circle" />
+              <span>{error}</span>
+            </div>
+          )}
+        </div>
 
+        {/* Actions */}
         <div className={cx("actions")}>
           <button
             type="button"

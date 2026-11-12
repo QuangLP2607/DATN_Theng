@@ -1,0 +1,204 @@
+model Assignment {
+  id          String           @id @default(uuid()) @db.Uuid
+  classId     String           @map("class_id") @db.Uuid
+  title       String           @db.VarChar(255)
+  description String?          @db.Text
+  dueAt       DateTime?        @map("due_at") @db.Timestamp(6)
+  maxScore    Decimal          @default(10) @map("max_score") @db.Decimal(5, 2)
+  status      AssignmentStatus @default(DRAFT)
+
+  createdBy String @map("created_by") @db.Uuid
+
+  class       Class                  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  creator     User                   @relation("AssignmentCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  submissions AssignmentSubmission[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([classId])
+  @@index([createdBy])
+  @@index([status])
+  @@map("assignments")
+}
+
+model AssignmentSubmission {
+  id           String  @id @default(uuid()) @db.Uuid
+  assignmentId String  @map("assignment_id") @db.Uuid
+  studentId    String  @map("student_id") @db.Uuid
+  content      String? @db.Text
+
+  // S3 object key, không lưu URL.
+  fileKey String? @map("file_key") @db.VarChar(1000)
+
+  submittedAt DateTime?        @map("submitted_at") @db.Timestamp(6)
+  status      SubmissionStatus @default(DRAFT)
+  score       Decimal?         @db.Decimal(5, 2)
+  feedback    String?          @db.Text
+
+  gradedBy String?   @map("graded_by") @db.Uuid
+  gradedAt DateTime? @map("graded_at") @db.Timestamp(6)
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student    User       @relation("SubmissionStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  grader     User?      @relation("SubmissionGrader", fields: [gradedBy], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([assignmentId, studentId])
+  @@index([studentId])
+  @@index([gradedBy])
+  @@index([status])
+  @@map("assignment_submissions")
+}
+
+model Exam {
+  id              String     @id @default(uuid()) @db.Uuid
+  classId         String     @map("class_id") @db.Uuid
+  title           String     @db.VarChar(255)
+  description     String?    @db.Text
+  durationMinutes Int        @map("duration_minutes")
+  scheduledAt     DateTime?  @map("scheduled_at") @db.Timestamp(6)
+  maxAttempts     Int        @default(1) @map("max_attempts")
+  status          ExamStatus @default(DRAFT)
+
+  createdBy String @map("created_by") @db.Uuid
+
+  class     Class          @relation(fields: [classId], references: [id], onDelete: Cascade)
+  creator   User           @relation("ExamCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  questions ExamQuestion[]
+  attempts  ExamAttempt[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([classId])
+  @@index([createdBy])
+  @@index([status])
+  @@map("exams")
+}
+
+model Question {
+  id             String       @id @default(uuid()) @db.Uuid
+  subjectGradeId String       @map("subject_grade_id") @db.Uuid
+  chapterId      String?      @map("chapter_id") @db.Uuid
+
+  content     String       @db.Text
+  type        QuestionType
+  difficulty  QuestionDifficulty @default(MEDIUM)
+  explanation String?      @db.Text
+
+  createdBy String @map("created_by") @db.Uuid
+
+  subjectGrade SubjectGrade @relation(fields: [subjectGradeId], references: [id], onDelete: Restrict)
+  chapter      Chapter?     @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+  creator      User         @relation("QuestionCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+
+  options QuestionOption[]
+  exams   ExamQuestion[]
+  answers ExamAnswer[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([subjectGradeId])
+  @@index([chapterId])
+  @@index([createdBy])
+  @@index([type])
+  @@index([difficulty])
+  @@map("questions")
+}
+model QuestionOption {
+  id         String  @id @default(uuid()) @db.Uuid
+  questionId String  @map("question_id") @db.Uuid
+  content    String  @db.Text
+  isCorrect  Boolean @default(false) @map("is_correct")
+  position   Int
+
+  question      Question           @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answerOptions ExamAnswerOption[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([questionId, position])
+  @@index([questionId])
+  @@map("question_options")
+}
+
+model ExamQuestion {
+  examId     String  @map("exam_id") @db.Uuid
+  questionId String  @map("question_id") @db.Uuid
+  points     Decimal @db.Decimal(5, 2)
+  position   Int
+
+  exam     Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@id([examId, questionId])
+  @@unique([examId, position])
+  @@index([questionId])
+  @@map("exam_questions")
+}
+
+model ExamAttempt {
+  id            String            @id @default(uuid()) @db.Uuid
+  examId        String            @map("exam_id") @db.Uuid
+  studentId     String            @map("student_id") @db.Uuid
+  attemptNumber Int               @map("attempt_number")
+  startedAt     DateTime          @default(now()) @map("started_at") @db.Timestamp(6)
+  submittedAt   DateTime?         @map("submitted_at") @db.Timestamp(6)
+  score         Decimal?          @db.Decimal(5, 2)
+  status        ExamAttemptStatus @default(IN_PROGRESS)
+
+  exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+  student User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  answers ExamAnswer[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([examId, studentId, attemptNumber])
+  @@index([studentId])
+  @@index([examId, status])
+  @@map("exam_attempts")
+}
+
+model ExamAnswer {
+  id         String   @id @default(uuid()) @db.Uuid
+  attemptId  String   @map("attempt_id") @db.Uuid
+  questionId String   @map("question_id") @db.Uuid
+  answerText String?  @map("answer_text") @db.Text
+  isCorrect  Boolean? @map("is_correct")
+  score      Decimal? @db.Decimal(5, 2)
+
+  attempt         ExamAttempt        @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question        Question           @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  selectedOptions ExamAnswerOption[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@unique([attemptId, questionId])
+  @@index([questionId])
+  @@map("exam_answers")
+}
+
+model ExamAnswerOption {
+  answerId String @map("answer_id") @db.Uuid
+  optionId String @map("option_id") @db.Uuid
+
+  answer ExamAnswer     @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  option QuestionOption @relation(fields: [optionId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@id([answerId, optionId])
+  @@index([optionId])
+  @@map("exam_answer_options")
+}

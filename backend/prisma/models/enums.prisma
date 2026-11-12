@@ -9,6 +9,18 @@ enum UserStatus {
   INACTIVE
 }
 
+enum GradeLevel {
+  GRADE_10
+  GRADE_11
+  GRADE_12
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 enum ClassStatus {
   ACTIVE
   INACTIVE
@@ -24,6 +36,17 @@ enum LessonType {
   PDF
   SLIDE
   TEXT
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum LessonAttachmentType {
+  FILE
+  LINK
 }
 
 enum AssignmentStatus {
@@ -46,6 +69,12 @@ enum QuestionType {
   ESSAY
 }
 
+enum QuestionDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
 enum ExamStatus {
   DRAFT
   PUBLISHED
@@ -64,15 +93,4 @@ enum NotificationType {
   DEADLINE
   LESSON
   SYSTEM
-}
-
-enum ContentStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-enum LessonAttachmentType {
-  FILE
-  LINK
 }

@@ -6,13 +6,18 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:s3": "tsx src/scripts/test-s3.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
+    "@aws-sdk/s3-request-presigner": "^3.1164.0",
+    "@casl/ability": "^7.1.1",
+    "@casl/prisma": "^2.2.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "bcrypt": "^6.0.0",
@@ -20,7 +25,9 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
+    "multer": "^2.5.0",
     "nodemailer": "^10.2.1",
     "pg": "^8.23.0",
     "socket.io": "^4.8.3",
@@ -28,11 +35,13 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.3.0",
     "@types/node": "^26.1.1",
     "@types/nodemailer": "^8.0.2",
     "prisma": "^7.10.0",

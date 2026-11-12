@@ -10,8 +10,9 @@ import {
 } from "./controller";
 
 import { authMiddleware } from "../../middlewares/auth";
-import { requireAdmin } from "../../middlewares/requireAdmin";
 import { validateZod } from "../../middlewares/validateZod";
+
+import { loadAbility } from "../access/middlewares/ability.middleware";
 
 import { signInSchema } from "./dto/signIn";
 import { signUpSchema } from "./dto/signUp";
@@ -20,36 +21,58 @@ import { resendActivationSchema } from "./dto/resendActivation";
 
 const router = Router();
 
-// Sign up - Admin only
+/*
+ * -------------------- SIGN UP --------------------
+ * ADMIN only
+ */
+
 router.post(
   "/sign-up",
   authMiddleware,
-  requireAdmin,
+  loadAbility,
   validateZod({ body: signUpSchema }),
   signUp,
 );
 
-// Sign in - Public
+/*
+ * -------------------- SIGN IN --------------------
+ * Public
+ */
+
 router.post("/sign-in", validateZod({ body: signInSchema }), signIn);
 
-// Activate account - Public
+/*
+ * -------------------- ACTIVATE ACCOUNT --------------------
+ * Public
+ */
+
 router.post(
   "/activate-account",
   validateZod({ body: activateAccountSchema }),
   activateAccount,
 );
 
-// Resend activation email - Public
+/*
+ * -------------------- RESEND ACTIVATION --------------------
+ * Public
+ */
+
 router.post(
   "/resend-activation",
   validateZod({ body: resendActivationSchema }),
   resendActivation,
 );
 
-// Logout
+/*
+ * -------------------- LOGOUT --------------------
+ */
+
 router.post("/logout", logout);
 
-// Refresh token
+/*
+ * -------------------- REFRESH TOKEN --------------------
+ */
+
 router.post("/refresh-token", refreshToken);
 
 export default router;

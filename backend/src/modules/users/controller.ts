@@ -1,6 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 
+import { AppError } from "../../core/error";
 import { sendResponse } from "../../core/response";
+
 import * as userService from "./service";
 
 import type { ListUsersQueryDto } from "./dto/listUsers";
@@ -19,14 +21,11 @@ export const getMe = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    if (!req.user) {
-      sendResponse(res, 401, {
-        message: "Authentication required",
-      });
-      return;
+    if (!req.user || !req.ability) {
+      throw AppError.unauthorized("Authentication required");
     }
 
-    const user = await userService.getMe(req.user.id);
+    const user = await userService.getMe(req.ability, req.user.id);
 
     sendResponse(res, 200, {
       message: "Get profile successfully",
@@ -47,16 +46,17 @@ export const updateMe = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    if (!req.user) {
-      sendResponse(res, 401, {
-        message: "Authentication required",
-      });
-      return;
+    if (!req.user || !req.ability) {
+      throw AppError.unauthorized("Authentication required");
     }
 
     const body = res.locals.validated.body as UpdateProfileDto;
 
-    const user = await userService.updateProfile(req.user.id, body);
+    const user = await userService.updateProfile(
+      req.ability,
+      req.user.id,
+      body,
+    );
 
     sendResponse(res, 200, {
       message: "Update profile successfully",
@@ -72,14 +72,18 @@ export const updateMe = async (
  */
 
 export const getUsers = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authentication required");
+    }
+
     const query = res.locals.validated.query as ListUsersQueryDto;
 
-    const result = await userService.getUsers(query);
+    const result = await userService.getUsers(req.ability, query);
 
     sendResponse(res, 200, {
       message: "Get users successfully",
@@ -95,14 +99,18 @@ export const getUsers = async (
  */
 
 export const getUserById = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authentication required");
+    }
+
     const params = res.locals.validated.params as UuidParam;
 
-    const user = await userService.getUserById(params.id);
+    const user = await userService.getUserById(req.ability, params.id);
 
     sendResponse(res, 200, {
       message: "Get user successfully",
@@ -118,15 +126,19 @@ export const getUserById = async (
  */
 
 export const updateUser = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    if (!req.ability) {
+      throw AppError.unauthorized("Authentication required");
+    }
+
     const params = res.locals.validated.params as UuidParam;
     const body = res.locals.validated.body as UpdateUserDto;
 
-    const user = await userService.updateUser(params.id, body);
+    const user = await userService.updateUser(req.ability, params.id, body);
 
     sendResponse(res, 200, {
       message: "Update user successfully",
